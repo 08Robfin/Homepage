@@ -1,0 +1,31 @@
+name: Deploy to www.robfin.no
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
+
+      - name: Sync files to server
+        run: |
+          SERVER_USER="robfin"
+          SERVER_HOST="www.robfin.no"
+          TARGET_DIR="/var/www/html"    # <— this is the folder Nginx serves
+
+          SRC_DIR="."  # assuming your index.html (etc.) is at the root of the repo
+
+          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" \
+            "$SRC_DIR/" \
+            "$SERVER_USER@$SERVER_HOST:$TARGET_DIR/"
