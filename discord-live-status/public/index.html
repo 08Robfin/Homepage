@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Robfin's Homepage</title>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #d4e0f7 0%, #c2d5f5 40%, #b0c9f2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      overflow-x: hidden;
+      color: #334155;
+      position: relative;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.34);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(7.3px);
+      -webkit-backdrop-filter: blur(7.3px);
+      border: none;
+    }
+
+    .profile-pic-placeholder,
+    .glass-card h1,
+    .glass-card p.text-lg,
+    .glass-card .bg-black\/5,
+    .skill-item {
+      transition: none;
+    }
+
+    .profile-pic-placeholder {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem auto;
+      border: 2px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .profile-pic-placeholder svg {
+      color: #475569;
+      opacity: 0.7;
+    }
+
+    .skills-list .skill-item {
+      background-color: rgba(0, 0, 0, 0.03);
+      padding: 0.85rem 1.25rem;
+      border-radius: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .skills-list .skill-item:hover {
+      background-color: rgba(0, 0, 0, 0.06);
+    }
+    .skill-name {
+      flex-grow: 1;
+      margin-right: 1rem;
+      font-size: 0.95em;
+    }
+    .progress-bar-wrapper {
+      width: 35%;
+      max-width: 130px;
+      height: 10px;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #60a5fa, #3b82f6);
+      border-radius: 5px;
+      width: 0%;
+      transition: width 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    .background-name {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(10deg);
+      font-size: 20vw;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.5);
+      z-index: -1;
+      white-space: nowrap;
+      pointer-events: none;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.03);
+    }
+    @media (max-width: 768px) {
+      .background-name {
+        font-size: 25vw;
+        top: 25%;
+      }
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.05);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.2);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(0,0,0,0.3);
+    }
+
+    .content-wrapper {
+      width: 100%;
+      max-width: 600px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Status dot on avatar (now nudged inward by 2px so it isn’t cut off) */
+    .status-indicator {
+      position: absolute;
+      bottom: 0px;
+      right: 0px;  
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 4px solid white; /* match Discord app’s white border */
+      background-color: #747f8d; /* default offline gray */
+    }
+    .status-online  { background-color: #43b581; } /* green */
+    .status-idle    { background-color: #faa61a; } /* yellow/orange */
+    .status-dnd     { background-color: #f04747; } /* red */
+    .status-offline { background-color: #747f8d; } /* gray */
+  </style>
+</head>
+
+<body class="text-slate-700">
+  <div class="background-name">ROBFIN</div>
+
+  <div class="content-wrapper p-4 md:p-6">
+    <!-- PROFILE SECTION -->
+    <div id="profile-section" class="glass-card p-6 md:p-8 text-center mb-8">
+      <div class="profile-pic-placeholder">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-2 text-slate-800">Robfin</h1>
+      <p class="text-lg opacity-80 mb-4 text-slate-600">Tech Enthusiast & Politician</p>
+      <p class="text-lg opacity-80 mb-4 text-slate-600">Socialist - Atheist - Feminist</p>
+
+      <!-- LIVE DISCORD STATUS BLOCK -->
+      <div class="mx-auto w-full max-w-sm mb-4 text-center">
+        <!-- “Discord:” label -->
+        <span class="block text-sm font-semibold text-slate-700 mb-2">Discord:</span>
+
+        <!-- Glass‐style container matching Skills card (inline-flex so no extra right padding) -->
+        <div class="glass-card inline-flex items-center p-4 space-x-4">
+          <!-- Avatar with status indicator -->
+          <div class="relative w-16 h-16 flex-shrink-0">
+  <!-- avatar itself is rounded, but the wrapper no longer hides overflow -->
+  <img
+    id="discord-avatar"
+    class="rounded-full w-full h-full object-cover"
+    src=""
+    alt="Discord Avatar"
+  />
+  <span id="discord-status-indicator" class="status-indicator status-offline"></span>
+</div>
+
+
+          <!-- Username + custom status -->
+          <div class="flex flex-col text-left">
+            <span id="discord-username" class="font-medium text-slate-800">robfin</span>
+            <!-- Only show this if there’s a custom status -->
+            <span id="discord-custom-status" class="text-slate-600 text-sm mt-1"></span>
+          </div>
+        </div>
+      </div>
+      <!-- ──────────────────────────────────────────────────────────────── -->
+    </div>
+
+    <!-- SKILLS SECTION (unchanged) -->
+    <div id="skills-section" class="glass-card p-6 md:p-8">
+      <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-800">Skills</h2>
+      <ul id="current-skills-list" class="skills-list space-y-1 text-slate-700">
+        <li class="skill-item" data-progress="10">
+          <span class="skill-name">🖥️ Web Development</span>
+          <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+        </li>
+        <li class="skill-item" data-progress="55">
+          <span class="skill-name">🎮 Game Development Basics (Unity)</span>
+          <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+        </li>
+        <li class="skill-item" data-progress="30">
+          <span class="skill-name">🔧 Server Management & Networking</span>
+          <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+        </li>
+        <li class="skill-item" data-progress="85">
+          <span class="skill-name">🌍 Politics</span>
+          <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+        </li>
+        <li class="skill-item" data-progress="65">
+          <span class="skill-name">💡 Critical Thinking</span>
+          <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- FOOTER (unchanged) -->
+    <footer class="text-center mt-12 opacity-70 text-xs text-slate-600">
+      <p>&copy; <span id="currentYear"></span> Robfin. Site obviously made by ChatGPT</p>
+      <p>Hosted on Robfin's home server.</p>
+    </footer>
+  </div>
+
+  <!-- Set the current year and animate progress bars -->
+  <script>
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+    function updateProgressBars() {
+      document.querySelectorAll("#current-skills-list .skill-item").forEach((item) => {
+        const pct = item.dataset.progress || "0";
+        const fill = item.querySelector(".progress-bar-fill");
+        if (fill) {
+          setTimeout(() => { fill.style.width = pct + "%"; }, 100);
+        }
+      });
+    }
+    document.addEventListener("DOMContentLoaded", updateProgressBars);
+  </script>
+
+  <!-- LOAD SOCKET.IO CLIENT FROM THE DISCORD STATUS SERVER -->
+  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+  <!-- CONNECT TO SOCKET.IO AND UPDATE THE LIVE DISCORD UI -->
+  <script>
+    const socket = io("http://localhost:3000");
+
+    socket.on("update", (data) => {
+      // 1) Avatar
+      document.getElementById("discord-avatar").src = data.avatarURL;
+
+      // 2) Username + discriminator (hide "#0" or "#0000")
+      const nameEl = document.getElementById("discord-username");
+      if (data.discriminator && data.discriminator !== "0" && data.discriminator !== "0000") {
+        nameEl.textContent = `${data.username}#${data.discriminator}`;
+      } else {
+        nameEl.textContent = data.username;
+      }
+
+      // 3) Status‐indicator color (bottom-right of avatar)
+      const statusDot = document.getElementById("discord-status-indicator");
+      statusDot.classList.remove("status-online", "status-idle", "status-dnd", "status-offline");
+      switch (data.status) {
+        case "online":
+          statusDot.classList.add("status-online");
+          break;
+        case "idle":
+          statusDot.classList.add("status-idle");
+          break;
+        case "dnd":
+          statusDot.classList.add("status-dnd");
+          break;
+        default:
+          statusDot.classList.add("status-offline");
+          break;
+      }
+
+      // 4) Custom status (emoji + text). If empty, remove it completely (no ghost space).
+      const customEl = document.getElementById("discord-custom-status");
+      if (data.customEmojiUrl) {
+        customEl.innerHTML = `<img src="${data.customEmojiUrl}" class="inline w-4 h-4 mr-1 align-text-bottom" />${data.customStatusText}`;
+      } else if (data.customEmojiText) {
+        customEl.textContent = data.customEmojiText + (data.customStatusText ? ` ${data.customStatusText}` : "");
+      } else {
+        customEl.textContent = ""; // no empty line
+      }
+    });
+  </script>
+</body>
+</html>
