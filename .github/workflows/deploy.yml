@@ -22,9 +22,10 @@ jobs:
         run: |
           SERVER_USER="robfin"
           SERVER_HOST="www.robfin.no"
-          TARGET_DIR="/var/www/html"    # <— this is the folder Nginx serves
+          TARGET_DIR="/home/robfin/Homepage/discord-live-status/public"
 
-          SRC_DIR="."  # assuming your index.html (etc.) is at the root of the repo
+          # Only copy from the built 'public' folder inside your repo:
+          SRC_DIR="discord-live-status/public"
 
           rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" \
             "$SRC_DIR/" \
