@@ -68,6 +68,20 @@
     .skills-list .skill-item:hover {
       background-color: rgba(0, 0, 0, 0.06);
     }
+
+    @media (max-width: 640px) {
+  .skills-list .skill-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .progress-bar-wrapper {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+
     .skill-name {
       flex-grow: 1;
       margin-right: 1rem;
@@ -93,7 +107,7 @@
       position: fixed;
       top: 30%;
       left: 50%;
-      transform: translate(-50%, -50%) rotate(10deg);
+      transform: translate(-50%, -50%) rotate(7deg);
       font-size: 20vw;
       font-weight: 800;
       color: rgba(255, 255, 255, 0.5);
@@ -155,16 +169,16 @@
   <div class="content-wrapper p-4 md:p-6">
     <!-- PROFILE SECTION -->
     <div id="profile-section" class="glass-card p-6 md:p-8 text-center mb-8">
-      <div class="profile-pic-placeholder">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
-             fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-      </div>
+      <div class="w-full flex justify-center mb-4">
+  <div class="relative w-28 h-28">
+    <img
+      src="/images/robfin-pfp.png"
+      alt="Robfin"
+      class="rounded-full w-full h-full object-cover border-4 border-white shadow-lg"/>
+  </div>
+</div>
       <h1 class="text-4xl md:text-5xl font-bold mb-2 text-slate-800">Robfin</h1>
       <p class="text-lg opacity-80 mb-4 text-slate-600">Tech Enthusiast & Politician</p>
-      <p class="text-lg opacity-80 mb-4 text-slate-600">Socialist - Atheist - Feminist</p>
 
       <!-- LIVE DISCORD STATUS BLOCK -->
       <div class="mx-auto w-full max-w-sm mb-4 text-center">
@@ -197,6 +211,16 @@
       <!-- ──────────────────────────────────────────────────────────────── -->
     </div>
 
+<!-- POSITIONS SECTION -->
+<div id="positions-section" class="glass-card p-6 md:p-8 mb-8">
+  <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-800">Positions</h2>
+  <ul id="positions-list" class="space-y-4 text-slate-700">
+    <!-- JavaScript will fill this in -->
+  </ul>
+</div>
+
+
+    
     <!-- SKILLS SECTION (unchanged) -->
     <div id="skills-section" class="glass-card p-6 md:p-8">
       <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-800">Skills</h2>
@@ -224,6 +248,30 @@
       </ul>
     </div>
 
+    <!-- LANGUAGES SECTION -->
+<div id="languages-section" class="glass-card p-6 md:p-8 mt-8">
+  <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-800">Languages</h2>
+  <ul class="skills-list space-y-1 text-slate-700">
+    <li class="skill-item" data-progress="100">
+      <span class="skill-name">Norwegian (Native)</span>
+      <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+    </li>
+    <li class="skill-item" data-progress="90">
+      <span class="skill-name">English</span>
+      <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+    </li>
+    <li class="skill-item" data-progress="60">
+      <span class="skill-name">Swedish</span>
+      <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+    </li>
+    <li class="skill-item" data-progress="5">
+      <span class="skill-name">German</span>
+      <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+    </li>
+  </ul>
+</div>
+
+    
     <!-- FOOTER (unchanged) -->
     <footer class="text-center mt-12 opacity-70 text-xs text-slate-600">
       <p>&copy; <span id="currentYear"></span> Robfin. Site obviously made by ChatGPT</p>
@@ -236,7 +284,7 @@
     document.getElementById("currentYear").textContent = new Date().getFullYear();
 
     function updateProgressBars() {
-      document.querySelectorAll("#current-skills-list .skill-item").forEach((item) => {
+      document.querySelectorAll(".skills-list .skill-item").forEach((item) => {
         const pct = item.dataset.progress || "0";
         const fill = item.querySelector(".progress-bar-fill");
         if (fill) {
@@ -295,5 +343,59 @@
       }
     });
   </script>
+  <script>
+  const positions = [
+    {
+      title: "🌹 Leader, Vennesla Socialist Youth",
+      start: "2024-09-01",
+      color: "blue"
+    },
+    {
+      title: "🌍 Financial Manager, Norwegian People's Aid Solidarity Youth Kristiansand",
+      start: "2025-02-01",
+      color: "purple"
+    },
+  ];
+
+  function calculateDuration(startDate) {
+    const start = new Date(startDate);
+    const now = new Date();
+    const diffMonths = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
+    const years = Math.floor(diffMonths / 12);
+    const months = diffMonths % 12;
+
+    if (years === 0 && months === 0) return "Just started";
+    if (years === 0) return `${months} mo`;
+    if (months === 0) return `${years} yr${years > 1 ? "s" : ""}`;
+    return `${years} yr${years > 1 ? "s" : ""} ${months} mo`;
+  }
+
+  function renderPositions() {
+    const container = document.getElementById("positions-list");
+    positions.forEach(pos => {
+      const duration = calculateDuration(pos.start);
+      const tagColor = {
+        blue: "bg-blue-100 text-blue-800",
+        purple: "bg-purple-100 text-purple-800",
+        green: "bg-green-100 text-green-800",
+        red: "bg-red-100 text-red-800"
+      }[pos.color] || "bg-gray-100 text-gray-800";
+
+      const li = document.createElement("li");
+      li.className = "flex flex-col md:flex-row justify-between items-start md:items-center border-b border-black/10 pb-2";
+      li.innerHTML = `
+        <div class="max-w-full md:max-w-[70%]">
+          <p class="font-semibold text-lg">${pos.title}</p>
+          <p class="text-sm opacity-70">Since ${new Date(pos.start).toLocaleString('en-US', { month: 'long', year: 'numeric' })}</p>
+        </div>
+        <span class="text-sm mt-2 md:mt-0 ${tagColor} px-3 py-1 rounded-full whitespace-nowrap">${duration}</span>
+      `;
+      container.appendChild(li);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", renderPositions);
+</script>
+
 </body>
 </html>
