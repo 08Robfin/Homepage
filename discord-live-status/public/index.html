@@ -247,12 +247,12 @@
     document.addEventListener("DOMContentLoaded", updateProgressBars);
   </script>
 
-  <!-- LOAD SOCKET.IO CLIENT FROM THE DISCORD STATUS SERVER -->
-  <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<!-- LOAD SOCKET.IO CLIENT FROM THE DISCORD STATUS SERVER -->
+<script src="/socket.io/socket.io.js"></script>
 
-  <!-- CONNECT TO SOCKET.IO AND UPDATE THE LIVE DISCORD UI -->
-  <script>
-    const socket = io("http://localhost:3000");
+<!-- CONNECT TO SOCKET.IO AND UPDATE THE LIVE DISCORD UI -->
+<script>
+  const socket = io();
 
     socket.on("update", (data) => {
       // 1) Avatar
