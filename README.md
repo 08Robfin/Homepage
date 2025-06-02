@@ -1,6 +1,6 @@
 # robfin.no
 
-A personal website I made (mostly out of boredom) that shows a live status of my Discord account + some info about me. 99% of the code came from ChatGPT.
+A personal website I made (mostly out of boredom) that shows a live status of my Discord account + some info about me. 99% of the code came from ChatGPT. Reminder before you read this Readme and get a stroke, i have no idea what im doing and i have never done this before!
 
 ## 🔥 Features
 
@@ -15,7 +15,6 @@ A personal website I made (mostly out of boredom) that shows a live status of my
 - GitHub Actions for auto-deploy over SSH
 - Custom NGINX config for domain and SSL
 - Node.js backend for fetching Discord data
-- Frontend made with HTML, Tailwind, and vibes
 
 ## 🧠 Why I Made This
 
