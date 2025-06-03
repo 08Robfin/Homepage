@@ -11,7 +11,7 @@ A personal website I made (mostly out of boredom) that shows a live status of my
 - **Auto Deployment**  
   Any push I make from VS Code to GitHub gets deployed to my server *within seconds*. All automatic. No dragging files around.
 
-  - **Auto Updating "months" counter**  
+- **Auto Updating "months" counter**  
   Under the "positions" tab, there’s a live counter showing how long I’ve held each position. This counter updates automatically, so the site always stays current.
 
 ## ⚙️ Tech Stuff
@@ -31,7 +31,7 @@ I’d never set up anything like this before, so I figured, why not?
 - Set up auto-deploy and SSL
 - Not break everything 12 times in the process
 
-## 🧠 How can you use it?
+## 🧠 How can you use this?
 If you want to you are free to use this project to figure out, learn or have fun with stuff too!
 if you want to use this, most things shoulw work straight out of the box, but if you want certian features you need more setup.
 
@@ -45,12 +45,12 @@ DISCORD_USER_ID=<THE_USER_ID_TO_TRACK>
 
 - **Live Website Updater:**  
   This part is a bit more complex and depends on your specific setup. First, you’ll need server access and an OpenSSH deployment key (search online for easy setup guides). Then, add that as a secret (action) to your GitHub repository where you have uploaded your files. In the repository, update the configuration in `/.github/deploy.yml/` to match your environment. Here’s what you’ll need to set:
-
-  ```
-  SERVER_USER="<Your server username>"
-  SERVER_HOST="<Your server IP>"
-  TARGET_DIR="<The directory you want GitHub to update when you push a new release>"
-  ```
+  
+```
+SERVER_USER="<Your server username>"
+SERVER_HOST="<Your server IP>"
+TARGET_DIR="<The directory you want GitHub to update when you push a new release>"
+```
 
 
 
