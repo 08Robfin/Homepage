@@ -10,7 +10,7 @@ A personal website I made (mostly out of boredom) that shows a live status of my
 - **Auto Deployment**  
   Any push I make from VS Code to GitHub gets deployed to my server *within seconds*. All automatic. No dragging files around.
 
-  - **Auto Updating "months" counter**  
+- **Auto Updating "months" counter**  
   Under the "positions" tab, there’s a live counter showing how long I’ve held each position. This counter updates automatically, so the site always stays current.
 
 ## ⚙️ Tech Stuff
