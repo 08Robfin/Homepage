@@ -44,12 +44,12 @@ DISCORD_USER_ID=<THE_USER_ID_TO_TRACK>
 
 - **Live Website Updater:**  
   This part is a bit more complex and depends on your specific setup. First, you’ll need server access and an OpenSSH deployment key (search online for easy setup guides). Then, add that as a secret (action) to your GitHub repository where you have uploaded your files. In the repository, update the configuration in `/.github/deploy.yml/` to match your environment. Here’s what you’ll need to set:
-
-  ```
-  SERVER_USER="<Your server username>"
-  SERVER_HOST="<Your server IP>"
-  TARGET_DIR="<The directory you want GitHub to update when you push a new release>"
-  ```
+  
+```
+SERVER_USER="<Your server username>"
+SERVER_HOST="<Your server IP>"
+TARGET_DIR="<The directory you want GitHub to update when you push a new release>"
+```
 
 
 
