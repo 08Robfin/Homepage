@@ -30,7 +30,7 @@ I’d never set up anything like this before, so I figured, why not?
 - Set up auto-deploy and SSL
 - Not break everything 12 times in the process
 
-## 🧠 How can you use it?
+## 🧠 How can you use this?
 If you want to you are free to use this project to figure out, learn or have fun with stuff too!
 if you want to use this, most things shoulw work straight out of the box, but if you want certian features you need more setup.
 
