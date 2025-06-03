@@ -1,3 +1,4 @@
+This is a test
 # robfin.no
 
 A personal website I made (mostly out of boredom) that shows a live status of my Discord account + some info about me. 99% of the code came from ChatGPT. Reminder before you read this Readme and get a stroke, i have no idea what im doing and i have never done this before!
