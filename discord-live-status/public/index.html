@@ -30,14 +30,15 @@ body::before {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  right: 0;
+  bottom: 0; /* stretch to full page */
   background: url('background.jpg') no-repeat center center;
   background-size: cover;
   z-index: -1;
   pointer-events: none;
   transform: translateZ(0); /* Mobile Safari fix */
 }
+
 
 
 .glass-card {
