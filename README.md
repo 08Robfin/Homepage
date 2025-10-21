@@ -1,6 +1,6 @@
 # robfin.no
 
-A personal website I made (mostly out of boredom) that shows a live status of my Discord account + some info about me. 99% of the code came from ChatGPT. Reminder before you read this Readme and get a stroke, i have no idea what im doing and i have never done this before!
+A personal website I made (mostly out of boredom) that shows a live status of my Discord account + some info about me. Reminder before you read this Readme and get a stroke, i have no idea what im doing and i have never done this before!
 
 ## 🔥 Features
 
@@ -23,7 +23,7 @@ A personal website I made (mostly out of boredom) that shows a live status of my
 
 Honestly? I was bored.  
 I’d never set up anything like this before, so I figured, why not?  
-99% of the code came from ChatGPT, but it still took a lot of figuring out on my part to:
+Some of the code came from ChatGPT, but it still took a lot of figuring out on my part to:
 
 - Make the bot work with Discord
 - Connect everything to upodate live and work
