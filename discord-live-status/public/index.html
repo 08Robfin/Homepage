@@ -7,70 +7,51 @@
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<meta name="trustpilot-one-time-domain-verification-id" content="933b3c12-41eb-4877-a55c-e43a75e99fc6"/>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta name="trustpilot-one-time-domain-verification-id" content="933b3c12-41eb-4877-a55c-e43a75e99fc6"/>
 
   <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      overflow-x: hidden;
+      color: #ffffff;
+      position: relative;
+      z-index: 0;
+      background-color: black; /* Fallback */
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('background.jpg') no-repeat center center;
+      background-size: cover;
+      z-index: -1;
+      pointer-events: none;
+    }
 
-body {
-  font-family: 'Inter', sans-serif;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  overflow-x: hidden;
-  color: #ffffff;
-  position: relative;
-  z-index: 0;
-  background-color: black; /* Fallback for browsers that don't support the background image */
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('background.jpg') no-repeat center center;
-  background-size: cover;
-  z-index: -1;
-  pointer-events: none;
-}
-
-
-
-
-.glass-card {
-  /* Background: Make it a bit lighter and more transparent */
-  background: rgba(255, 255, 255, 0.15); /* Less opaque for a more transparent feel */
-
-  /* Blur: Crank it up! This is key for that frosted glass look. */
-  backdrop-filter: blur(40px) saturate(180%); /* Higher blur, more saturation */
-  -webkit-backdrop-filter: blur(40px) saturate(180%); /* For webkit browsers */
-
-  /* Border: More subtle, almost invisible, just a slight hint of definition */
-  border: 1px solid rgba(255, 255, 255, 0.1); /* Thinner and more transparent */
-
-  /* Box Shadow: Soft and diffused for depth, less harsh */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), /* Softer main shadow */
-              0 1px 3px rgba(0, 0, 0, 0.05); /* Lighter secondary shadow */
-
-  /* Border-radius: Keep it smooth and rounded, or slightly more depending on taste */
-  border-radius: 20px; /* Looks good already */
-
-  padding: 2rem 2rem;
-  position: relative;
-  z-index: 1;
-}
-
-.glass-card * {
-  /* Text: Keep it readable! Maybe slightly softer than pure black. */
-  color: #f0f0f0 !important; /* Lighter text for contrast on darker backgrounds */
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Slight shadow for readability */
-}
+    /* ---- Glass card ---- */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.05);
+      border-radius: 20px;
+      padding: 2rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    .glass-card * {
+      color: #f0f0f0 !important;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
 
     .profile-pic-placeholder,
     .glass-card h1,
@@ -79,477 +60,295 @@ body::before {
     .skill-item {
       transition: none;
     }
-
     .profile-pic-placeholder {
-      width: 100px;
-      height: 100px;
+      width: 100px; height: 100px;
       border-radius: 50%;
-      background-color: rgba(0, 0, 0, 0.05);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background-color: rgba(0,0,0,0.05);
+      display: flex; align-items: center; justify-content: center;
       margin: 0 auto 1rem auto;
-      border: 2px solid rgba(0, 0, 0, 0.08);
+      border: 2px solid rgba(0,0,0,0.08);
     }
 
+    /* ---- Skills bars ---- */
     .skills-list .skill-item {
-      background: none;
-      border: none;
-      box-shadow: none;
+      background: none; border: none; box-shadow: none;
       border-radius: 0.85rem;
       padding: 0.85rem 1.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
       transition: background 0.2s, box-shadow 0.2s;
     }
-    .skills-list .skill-item:hover {
-      background: none;
-      box-shadow: none;
-    }
+    .skills-list .skill-item:hover { background: none; box-shadow: none; }
 
     .progress-bar-wrapper {
       position: relative;
-      width: 80px;
-      min-width: 60px;
-      max-width: 110px;
+      width: 80px; min-width: 60px; max-width: 110px;
       height: 28px;
       background: rgba(255,255,255,0.13);
       border-radius: 999px;
       border: 1.5px solid rgba(255,255,255,0.28);
       box-shadow: 0 2px 8px 0 rgba(30,41,59,0.08);
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       margin-left: 1rem;
       font-size: 1em;
     }
     .progress-bar-fill {
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
+      position: absolute; left: 0; top: 0; bottom: 0;
       height: 100%;
       background: linear-gradient(90deg, #60a5fa, #3b82f6);
       border-radius: 999px;
       width: 0%;
       transition: width 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
-      z-index: 1;
-      opacity: 0.7;
+      z-index: 1; opacity: 0.7;
     }
 
     @media (max-width: 640px) {
-  .skills-list .skill-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .progress-bar-wrapper {
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-}
-
-
-    .skill-name {
-      flex-grow: 1;
-      margin-right: 1rem;
-      font-size: 0.95em;
+      .skills-list .skill-item { flex-direction: column; align-items: flex-start; }
+      .progress-bar-wrapper { width: 100%; margin-top: 0.5rem; }
     }
-    .progress-bar-wrapper {
-      width: 35%;
-      max-width: 130px;
-      height: 10px;
-      background-color: rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
-      overflow: hidden;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #60a5fa, #3b82f6);
-      border-radius: 5px;
-      width: 0%;
-      transition: width 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
-    }
+
+    .skill-name { flex-grow: 1; margin-right: 1rem; font-size: 0.95em; }
+    .progress-bar-wrapper { width: 35%; max-width: 130px; height: 10px; background-color: rgba(0,0,0,0.1); border-radius: 5px; }
+    .progress-bar-fill { height: 100%; border-radius: 5px; }
 
     @media (max-width: 768px) {
-      .background-name {
-        font-size: 25vw;
-        top: 25%;
-      }
+      .background-name { font-size: 25vw; top: 25%; }
     }
 
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: rgba(0,0,0,0.05);
-      border-radius: 10px;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(0,0,0,0.2);
-      border-radius: 10px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(0,0,0,0.3);
-    }
+    /* ---- Scrollbar ---- */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.3); }
 
+    /* ---- Wrapper width (narrow on mobile, wider on desktop) ---- */
     .content-wrapper {
       width: 100%;
-      max-width: 600px;
+      max-width: 600px;   /* phones = one narrow column */
       position: relative;
       z-index: 1;
     }
-
-    /* Status dot on avatar (now nudged inward by 2px so it isn’t cut off) */
-    .status-indicator {
-      position: absolute;
-      bottom: 0px;
-      right: 0px;  
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      border: 4px solid white; /* match Discord app’s white border */
-      background-color: #747f8d; /* default offline gray */
+    @media (min-width: 1024px) {
+      .content-wrapper { max-width: 1200px; } /* desktop width so 3 columns look good */
     }
-    .status-online  { background-color: #43b581; } /* green */
-    .status-idle    { background-color: #faa61a; } /* yellow/orange */
-    .status-dnd     { background-color: #f04747; } /* red */
-    .status-offline { background-color: #747f8d; } /* gray */
+
+    /* ---- Discord status dot ---- */
+    .status-indicator {
+      position: absolute; bottom: 0px; right: 0px;
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 4px solid white;
+      background-color: #747f8d;
+    }
+    .status-online  { background-color: #43b581; }
+    .status-idle    { background-color: #faa61a; }
+    .status-dnd     { background-color: #f04747; }
+    .status-offline { background-color: #747f8d; }
+
+    /* ==== Masonry layout for everything except the profile ==== */
+    .masonry {
+      column-gap: 1.25rem;          /* space between columns */
+      column-count: 1;              /* mobile: one column */
+    }
+    /* Optional: 2 cols on medium, 3 on large */
+    @media (min-width: 768px) { .masonry { column-count: 2; } }
+    @media (min-width: 1024px) { .masonry { column-count: 3; } }
+
+    .masonry-item {
+      break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+      page-break-inside: avoid;
+      display: inline-block;
+      width: 100%;
+      margin: 0 0 1.25rem;          /* vertical spacing between items */
+    }
   </style>
 </head>
-
+<body>
   <div class="content-wrapper p-4 md:p-6">
-    <!-- PROFILE SECTION -->
+    <!-- ================= PROFILE (full width, not in masonry) ================= -->
     <div id="profile-section" class="glass-card p-6 md:p-8 text-center mb-8">
       <div class="w-full flex justify-center mb-4">
-  <div class="relative w-28 h-28">
-    <img
-      src="https://github.com/08Robfin/Homepage/blob/main/images/robfin-pfp.png?raw=true"
-      alt="Robfin"
-      class="rounded-full w-full h-full object-cover border-4 border-white shadow-lg"/>
-  </div>
-</div>
+        <div class="relative w-28 h-28">
+          <img
+            src="https://github.com/08Robfin/Homepage/blob/main/images/robfin-pfp.png?raw=true"
+            alt="Robfin"
+            class="rounded-full w-full h-full object-cover border-4 border-white shadow-lg"/>
+        </div>
+      </div>
       <h1 class="text-4xl md:text-5xl font-bold mb-2 text-slate-900">Robin Finnestad</h1>
       <p class="text-lg opacity-90 mb-4 text-slate-800">IT Student & Political Activist</p>
 
       <!-- LIVE DISCORD STATUS BLOCK -->
       <div class="mx-auto w-full max-w-sm mb-4 text-center">
         <span class="block text-sm font-semibold text-slate-900 mb-2">Live Discord status:</span>
-
-        <!-- Glass‐style container matching Skills card (inline-flex so no extra right padding) -->
         <div class="glass-card inline-flex items-center p-4 space-x-4">
-          <!-- Avatar with status indicator -->
           <div class="relative w-16 h-16 flex-shrink-0">
-  <!-- avatar itself is rounded, but the wrapper no longer hides overflow -->
-  <img
-    id="discord-avatar"
-    class="rounded-full w-full h-full object-cover"
-    src=""
-    alt="Discord Avatar"
-  />
-  <span id="discord-status-indicator" class="status-indicator status-offline"></span>
-</div>
-
-
-          <!-- Username + custom status -->
+            <img id="discord-avatar" class="rounded-full w-full h-full object-cover" src="" alt="Discord Avatar"/>
+            <span id="discord-status-indicator" class="status-indicator status-offline"></span>
+          </div>
           <div class="flex flex-col text-left">
             <span id="discord-username" class="font-medium text-slate-900">robfin</span>
-            <!-- Only show this if there’s a custom status -->
             <span id="discord-custom-status" class="text-slate-800 text-sm mt-1"></span>
           </div>
         </div>
       </div>
-      <!-- ──────────────────────────────────────────────────────────────── -->
     </div>
 
+    <!-- ================= EVERYTHING ELSE IN A MASONRY GRID ================= -->
+    <div class="masonry">
+      <!-- REFERRALS -->
+      <div id="referrals-section" class="masonry-item glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center text-slate-900">Refferal links</h2>
+        <p class="text-sm opacity-75 text-center mb-6 text-slate-800">If you wanna support me for free, use these links 💗</p>
+        <ul class="space-y-4 text-slate-800">
+          <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
+            <div class="max-w-full md:max-w-[70%]">
+              <p class="font-semibold text-lg">🐝 Honeygain</p>
+              <p class="text-sm opacity-70 break-words">Earn free money, and support me! Using my link you get a free $3 welcome gift.🍯 </p>
+            </div>
+            <a href="https://join.honeygain.com/FINNE5EBF2" target="_blank" rel="noopener noreferrer"
+               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">Join →</a>
+          </li>
+          <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
+            <div class="max-w-full md:max-w-[70%]">
+              <p class="font-semibold text-lg">💸 PayPal</p>
+              <p class="text-sm opacity-70 break-words">If you download paypal with my link and use 50nok both me and you will get 100nok.💵</p>
+            </div>
+            <a href="https://py.pl/1tAdQt" target="_blank" rel="noopener noreferrer"
+               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">Join →</a>
+          </li>
+        </ul>
+      </div>
 
+      <!-- POSITIONS -->
+      <div id="positions-section" class="masonry-item glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Positions</h2>
+        <ul id="positions-list" class="space-y-4 text-slate-800"></ul>
+      </div>
 
-<!-- REFERRALS SECTION -->
-<div id="referrals-section" class="glass-card p-6 md:p-8 mb-8">
-    <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center text-slate-900">Refferal links</h2>
-  <p class="text-sm opacity-75 text-center mb-6 text-slate-800">
-    If you wanna support me for free, use these links 💗
-  </p>
+      <!-- SKILLS -->
+      <div id="skills-section" class="masonry-item glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Skills</h2>
+        <ul id="current-skills-list" class="skills-list space-y-1 text-slate-800">
+          <li class="skill-item" data-progress="100">
+            <span class="skill-name">💅 Being THE DIVA</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="80">
+            <span class="skill-name">📣 Activism & Youth Leadership</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="70">
+            <span class="skill-name">🌍 Politics</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="50">
+            <span class="skill-name">🌐 Server Hosting & Nginx</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="40">
+            <span class="skill-name">🔧 Server Management & Networking</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="25">
+            <span class="skill-name">🖥️ Web Development</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+        </ul>
+      </div>
 
-  <ul class="space-y-4 text-slate-800">
+      <!-- LANGUAGES -->
+      <div id="languages-section" class="masonry-item glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Languages</h2>
+        <ul class="skills-list space-y-1 text-slate-800">
+          <li class="skill-item" data-progress="100">
+            <span class="skill-name">🏔️ Norwegian (Native)</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="90">
+            <span class="skill-name">👑 English</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="50">
+            <span class="skill-name">🌲 Swedish</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+        </ul>
+      </div>
 
-    <!-- Honeygain -->
-    <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
-      <div class="max-w-full md:max-w-[70%]">
-        <p class="font-semibold text-lg">🐝 Honeygain</p>
-        <p class="text-sm opacity-70 break-words">Earn free money, and support me! Using my link you get a free $3 welcome gift.🍯 </p>
+      <!-- IDEOLOGIES -->
+      <div id="ideology-section" class="masonry-item glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center text-slate-900">Ideologies</h2>
+        <p class="text-sm opacity-75 text-center mb-6 text-slate-800">How much i agree with ideologies, on a scale!</p>
+        <ul class="skills-list space-y-1 text-slate-800">
+          <li class="skill-item" data-progress="100"><span class="skill-name">✊ Democratic Socialism</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">🌍 Climate Justice</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">♀️ Radical Feminism</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="60"><span class="skill-name">🌹 Social Democracy</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="50"><span class="skill-name">🧰 Marxism</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="10"><span class="skill-name">🤑 Capitalism</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="0"><span class="skill-name">👨‍👩‍👧‍👦 Conservatism</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+        </ul>
       </div>
-      <a href="https://join.honeygain.com/FINNE5EBF2" target="_blank" rel="noopener noreferrer"
-        class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">
-        Join →
-      </a>
-    </li>
 
-    <!-- PayPal -->
-    <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
-      <div class="max-w-full md:max-w-[70%]">
-        <p class="font-semibold text-lg">💸 PayPal</p>
-        <p class="text-sm opacity-70 break-words">If you download paypal with my link and use 50nok both me and you will get 100nok.💵</p>
+      <!-- BELIEFS -->
+      <div id="beliefs-section" class="masonry-item glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold text-center text-slate-900">What I Stand For</h2>
+        <p class="text-sm opacity-75 text-center mb-6 text-slate-800">Specific values I strongly support</p>
+        <ul class="skills-list space-y-1 text-slate-800">
+          <li class="skill-item" data-progress="100"><span class="skill-name">🧑‍⚕️ Free Healthcare for All</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">👩‍⚖️ Abortion Rights</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">📚 Free Education</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">🏳️‍🌈 LGBTQ+ Rights</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">🏦 Public Ownership of Key Sectors</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">🌱 Green Transition</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">👨‍👩‍👧 Housing as a Human Right</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">🚫 No Billionaires</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">🌐 Digital Rights & Privacy</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+        </ul>
       </div>
-      <a href="https://py.pl/1tAdQt" target="_blank" rel="noopener noreferrer"
-        class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">
-        Join →
-      </a>
-    </li>
 
-  </ul>
-</div>
+      <!-- LINKS -->
+      <div id="links-section" class="masonry-item glass-card p-6 md:p-8 mb-0">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Links</h2>
+        <ul class="space-y-4 text-slate-800">
+          <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
+            <div class="max-w-full md:max-w-[70%]">
+              <p class="font-semibold text-lg">🔗 GitHub</p>
+              <p class="text-sm opacity-70 break-words">https://github.com/08Robfin</p>
+            </div>
+            <a href="https://github.com/08Robfin" target="_blank" rel="noopener noreferrer"
+               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">Visit →</a>
+          </li>
+          <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
+            <div class="max-w-full md:max-w-[70%]">
+              <p class="font-semibold text-lg">🎮 Twitch</p>
+              <p class="text-sm opacity-70 break-words">https://www.twitch.tv/robfinttv</p>
+            </div>
+            <a href="https://www.twitch.tv/robfinttv" target="_blank" rel="noopener noreferrer"
+               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">Visit →</a>
+          </li>
+          <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
+            <div class="max-w-full md:max-w-[70%]">
+              <p class="font-semibold text-lg">💬 Discord Server</p>
+              <p class="text-sm opacity-70 break-words">https://discord.gg/7XVMssR9Be</p>
+            </div>
+            <a href="https://discord.gg/7XVMssR9Be" target="_blank" rel="noopener noreferrer"
+               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">Visit →</a>
+          </li>
+          <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
+            <div class="max-w-full md:max-w-[70%]">
+              <p class="font-semibold text-lg">🧑‍💻 Follow me on X!</p>
+              <p class="text-sm opacity-70 break-words">https://x.com/robin_finnestad?s=21</p>
+            </div>
+            <a href="https://x.com/robin_finnestad?s=21" target="_blank" rel="noopener noreferrer"
+               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">Visit →</a>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-    
-<!-- POSITIONS SECTION -->
-<div id="positions-section" class="glass-card p-6 md:p-8 mb-8">
-  <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Positions</h2>
-  <ul id="positions-list" class="space-y-4 text-slate-800">
-    <!-- JavaScript will fill this in -->
-  </ul>
-</div>
-
-
-    
-<!-- SKILLS SECTION (unchanged) -->
-<div id="skills-section" class="glass-card p-6 md:p-8">
-  <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Skills</h2>
-  <ul id="current-skills-list" class="skills-list space-y-1 text-slate-800">
-    <li class="skill-item" data-progress="100">
-      <span class="skill-name">💅 Being THE DIVA</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-    <li class="skill-item" data-progress="80">
-      <span class="skill-name">📣 Activism & Youth Leadership</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-    <li class="skill-item" data-progress="70">
-      <span class="skill-name">🌍 Politics</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-    <li class="skill-item" data-progress="50">
-      <span class="skill-name">🌐 Server Hosting & Nginx</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-    <li class="skill-item" data-progress="40">
-      <span class="skill-name">🔧 Server Management & Networking</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-    <li class="skill-item" data-progress="25">
-      <span class="skill-name">🖥️ Web Development</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-  </ul>
-</div>
-
-
-    <!-- LANGUAGES SECTION -->
-<div id="languages-section" class="glass-card p-6 md:p-8 mt-8">
-  <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Languages</h2>
-  <ul class="skills-list space-y-1 text-slate-800">
-    <li class="skill-item" data-progress="100">
-      <span class="skill-name">🏔️ Norwegian (Native)</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-    <li class="skill-item" data-progress="90">
-      <span class="skill-name">👑 English</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-    <li class="skill-item" data-progress="50">
-      <span class="skill-name">🌲 Swedish</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-  </ul>
-</div>
-
-<!-- IDEOLOGY SECTION -->
-<div id="ideology-section" class="glass-card p-6 md:p-8 mt-8">
-  <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center text-slate-900">Ideologies</h2>
-  <p class="text-sm opacity-75 text-center mb-6 text-slate-800">
-    How much i agree with ideologies, on a scale!
-  </p>
-  <ul class="skills-list space-y-1 text-slate-800">
-    <li class="skill-item" data-progress="100">
-      <span class="skill-name">✊ Democratic Socialism</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-    <li class="skill-item" data-progress="100">
-      <span class="skill-name">🌍 Climate Justice</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-    <li class="skill-item" data-progress="100">
-      <span class="skill-name">♀️ Radical Feminism</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-    <li class="skill-item" data-progress="60">
-      <span class="skill-name">🌹 Social Democracy</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-    <li class="skill-item" data-progress="50">
-      <span class="skill-name">🧰 Marxism</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-    <li class="skill-item" data-progress="10">
-      <span class="skill-name">🤑 Capitalism</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-    <li class="skill-item" data-progress="0">
-      <span class="skill-name">👨‍👩‍👧‍👦 Conservatism</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-  </ul>
-</div>
-
-<!-- BELIEFS SECTION -->
-<div id="beliefs-section" class="glass-card p-6 md:p-8 mt-8">
-  <h2 class="text-2xl md:text-3xl font-semibold text-center text-slate-900">What I Stand For</h2>
-  <p class="text-sm opacity-75 text-center mb-6 text-slate-800">
-    Specific values I strongly support
-  </p>
-  <ul class="skills-list space-y-1 text-slate-800">
-    <li class="skill-item" data-progress="100">
-      <span class="skill-name">🧑‍⚕️ Free Healthcare for All</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-    <li class="skill-item" data-progress="100">
-      <span class="skill-name">👩‍⚖️ Abortion Rights</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-        <li class="skill-item" data-progress="100">
-      <span class="skill-name">📚 Free Education</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-        <li class="skill-item" data-progress="100">
-      <span class="skill-name">🏳️‍🌈 LGBTQ+ Rights</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-        <li class="skill-item" data-progress="100">
-      <span class="skill-name">🏦 Public Ownership of Key Sectors</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-        <li class="skill-item" data-progress="100">
-      <span class="skill-name">🌱 Green Transition</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-            <li class="skill-item" data-progress="100">
-      <span class="skill-name">👨‍👩‍👧 Housing as a Human Right</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-    <li class="skill-item" data-progress="100">
-      <span class="skill-name">🚫 No Billionaires</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-        <li class="skill-item" data-progress="100">
-      <span class="skill-name">🌐 Digital Rights & Privacy</span>
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill"></div>
-      </div>
-    </li>
-  </ul>
-</div>
-
-
-    <!-- LINKS SECTION -->
-<div id="links-section" class="glass-card p-6 md:p-8 mt-8 mb-8">
-  <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Links</h2>
-  <ul class="space-y-4 text-slate-800">
-    
-    <li class="flex flex-col md:flex-row justify-between items-start md:items-center  pb-2">
-      <div class="max-w-full md:max-w-[70%]">
-        <p class="font-semibold text-lg">🔗 GitHub</p>
-        <p class="text-sm opacity-70 break-words">https://github.com/08Robfin</p>
-      </div>
-      <a href="https://github.com/08Robfin" target="_blank" rel="noopener noreferrer"
-         class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">
-        Visit →
-      </a>
-    </li>
-
-    <li class="flex flex-col md:flex-row justify-between items-start md:items-center  pb-2">
-      <div class="max-w-full md:max-w-[70%]">
-        <p class="font-semibold text-lg">🎮 Twitch</p>
-        <p class="text-sm opacity-70 break-words">https://www.twitch.tv/robfinttv</p>
-      </div>
-      <a href="https://www.twitch.tv/robfinttv" target="_blank" rel="noopener noreferrer"
-         class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">
-        Visit →
-      </a>
-    </li>
-
-    <li class="flex flex-col md:flex-row justify-between items-start md:items-center  pb-2">
-      <div class="max-w-full md:max-w-[70%]">
-        <p class="font-semibold text-lg">💬 Discord Server</p>
-        <p class="text-sm opacity-70 break-words">https://discord.gg/7XVMssR9Be</p>
-      </div>
-      <a href="https://discord.gg/7XVMssR9Be" target="_blank" rel="noopener noreferrer"
-         class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">
-        Visit →
-      </a>
-    </li>
-
-        <li class="flex flex-col md:flex-row justify-between items-start md:items-center  pb-2">
-      <div class="max-w-full md:max-w-[70%]">
-        <p class="font-semibold text-lg">🧑‍💻 Follow me on X!</p>
-        <p class="text-sm opacity-70 break-words">https://x.com/robin_finnestad?s=21</p>
-      </div>
-      <a href="https://x.com/robin_finnestad?s=21" target="_blank" rel="noopener noreferrer"
-         class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">
-        Visit →
-      </a>
-    </li>
-
-  </ul>
-</div>
-
-    <!-- FOOTER (unchanged) -->
+    <!-- FOOTER -->
     <footer class="text-center mt-12 opacity-80 text-xs text-slate-800">
       <p>&copy; <span id="currentYear"></span> Robfin.</p>
       <p>Hosted on Robfin's homeserver.</p>
@@ -559,120 +358,88 @@ body::before {
   <!-- Set the current year and animate progress bars -->
   <script>
     document.getElementById("currentYear").textContent = new Date().getFullYear();
-
     function updateProgressBars() {
       document.querySelectorAll(".skills-list .skill-item").forEach((item) => {
         const pct = item.dataset.progress || "0";
         const fill = item.querySelector(".progress-bar-fill");
-        if (fill) {
-          setTimeout(() => { fill.style.width = pct + "%"; }, 100);
-        }
+        if (fill) { setTimeout(() => { fill.style.width = pct + "%"; }, 100); }
       });
     }
     document.addEventListener("DOMContentLoaded", updateProgressBars);
   </script>
 
-<!-- LOAD SOCKET.IO CLIENT FROM THE DISCORD STATUS SERVER -->
-<script src="/socket.io/socket.io.js"></script>
+  <!-- LOAD SOCKET.IO CLIENT FROM THE DISCORD STATUS SERVER -->
+  <script src="/socket.io/socket.io.js"></script>
 
-<!-- CONNECT TO SOCKET.IO AND UPDATE THE LIVE DISCORD UI -->
-<script>
-  const socket = io();
-
+  <!-- CONNECT TO SOCKET.IO AND UPDATE THE LIVE DISCORD UI -->
+  <script>
+    const socket = io();
     socket.on("update", (data) => {
-      // 1) Avatar
       document.getElementById("discord-avatar").src = data.avatarURL;
 
-      // 2) Username + discriminator (hide "#0" or "#0000")
       const nameEl = document.getElementById("discord-username");
       if (data.discriminator && data.discriminator !== "0" && data.discriminator !== "0000") {
         nameEl.textContent = `${data.username}#${data.discriminator}`;
-      } else {
-        nameEl.textContent = data.username;
-      }
+      } else { nameEl.textContent = data.username; }
 
-      // 3) Status‐indicator color (bottom-right of avatar)
       const statusDot = document.getElementById("discord-status-indicator");
       statusDot.classList.remove("status-online", "status-idle", "status-dnd", "status-offline");
       switch (data.status) {
-        case "online":
-          statusDot.classList.add("status-online");
-          break;
-        case "idle":
-          statusDot.classList.add("status-idle");
-          break;
-        case "dnd":
-          statusDot.classList.add("status-dnd");
-          break;
-        default:
-          statusDot.classList.add("status-offline");
-          break;
+        case "online": statusDot.classList.add("status-online"); break;
+        case "idle":   statusDot.classList.add("status-idle"); break;
+        case "dnd":    statusDot.classList.add("status-dnd"); break;
+        default:       statusDot.classList.add("status-offline"); break;
       }
 
-      // 4) Custom status (emoji + text). If empty, remove it completely (no ghost space).
       const customEl = document.getElementById("discord-custom-status");
       if (data.customEmojiUrl) {
         customEl.innerHTML = `<img src="${data.customEmojiUrl}" class="inline w-4 h-4 mr-1 align-text-bottom" />${data.customStatusText}`;
       } else if (data.customEmojiText) {
         customEl.textContent = data.customEmojiText + (data.customStatusText ? ` ${data.customStatusText}` : "");
       } else {
-        customEl.textContent = ""; // no empty line
+        customEl.textContent = "";
       }
     });
   </script>
+
+  <!-- Positions data + renderer -->
   <script>
-  const positions = [
-    {
-      title: "🌹 Leader, Vennesla Socialist Youth",
-      start: "2024-09-01",
-      color: "glass"
-    },
-    {
-      title: "🌍 Financial Manager, Norwegian People's Aid Solidarity Youth Kristiansand",
-      start: "2025-02-01",
-      color: "glass"
-    },
-  ];
+    const positions = [
+      { title: "🌹 Leader, Vennesla Socialist Youth", start: "2024-09-01", color: "glass" },
+      { title: "🌍 Financial Manager, Norwegian People's Aid Solidarity Youth Kristiansand", start: "2025-02-01", color: "glass" },
+    ];
 
-  function calculateDuration(startDate) {
-    const start = new Date(startDate);
-    const now = new Date();
-    const diffMonths = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
-    const years = Math.floor(diffMonths / 12);
-    const months = diffMonths % 12;
+    function calculateDuration(startDate) {
+      const start = new Date(startDate);
+      const now = new Date();
+      const diffMonths = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
+      const years = Math.floor(diffMonths / 12);
+      const months = diffMonths % 12;
 
-    if (years === 0 && months === 0) return "Just started";
-    if (years === 0) return `${months} month(s)`;
-    if (months === 0) return `${years} year(s)${years > 1 ? "s" : ""}`;
-    return `${years} yr${years > 1 ? "s" : ""} ${months} mo`;
-  }
+      if (years === 0 && months === 0) return "Just started";
+      if (years === 0) return `${months} month(s)`;
+      if (months === 0) return `${years} year(s)${years > 1 ? "s" : ""}`;
+      return `${years} yr${years > 1 ? "s" : ""} ${months} mo`;
+    }
 
-  function renderPositions() {
-    const container = document.getElementById("positions-list");
-    positions.forEach(pos => {
-      const duration = calculateDuration(pos.start);
-      const tagColor = {
-        glass: "glass-card",
-        purple: "bg-purple-100 text-purple-800",
-        green: "bg-green-100 text-green-800",
-        red: "bg-red-100 text-red-800"
-      }[pos.color] || "bg-gray-100 text-gray-800";
-
-      const li = document.createElement("li");
-      li.className = "flex flex-col md:flex-row justify-between items-start md:items-center pb-2";
-      li.innerHTML = `
-        <div class="max-w-full md:max-w-[70%]">
-          <p class="font-semibold text-lg">${pos.title}</p>
-          <p class="text-sm opacity-70">Since ${new Date(pos.start).toLocaleString('en-US', { month: 'long', year: 'numeric' })}</p>
-        </div>
-        <span class="text-sm mt-2 md:mt-0 ${tagColor} px-3 py-1 rounded-full whitespace-nowrap">${duration}</span>
-      `;
-      container.appendChild(li);
-    });
-  }
-
-  document.addEventListener("DOMContentLoaded", renderPositions);
-</script>
-
+    function renderPositions() {
+      const container = document.getElementById("positions-list");
+      positions.forEach(pos => {
+        const duration = calculateDuration(pos.start);
+        const tagColor = { glass: "glass-card", purple: "bg-purple-100 text-purple-800", green: "bg-green-100 text-green-800", red: "bg-red-100 text-red-800" }[pos.color] || "bg-gray-100 text-gray-800";
+        const li = document.createElement("li");
+        li.className = "flex flex-col md:flex-row justify-between items-start md:items-center pb-2";
+        li.innerHTML = `
+          <div class="max-w-full md:max-w-[70%]">
+            <p class="font-semibold text-lg">${pos.title}</p>
+            <p class="text-sm opacity-70">Since ${new Date(pos.start).toLocaleString('en-US', { month: 'long', year: 'numeric' })}</p>
+          </div>
+          <span class="text-sm mt-2 md:mt-0 ${tagColor} px-3 py-1 rounded-full whitespace-nowrap">${duration}</span>
+        `;
+        container.appendChild(li);
+      });
+    }
+    document.addEventListener("DOMContentLoaded", renderPositions);
+  </script>
 </body>
 </html>
