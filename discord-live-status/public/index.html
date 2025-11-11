@@ -107,9 +107,36 @@
       .progress-bar-wrapper { width: 100%; margin-top: 0.5rem; }
     }
 
-    .skill-name { flex-grow: 1; margin-right: 1rem; font-size: 0.95em; }
-    .progress-bar-wrapper { width: 35%; max-width: 130px; height: 10px; background-color: rgba(0,0,0,0.1); border-radius: 5px; }
-    .progress-bar-fill { height: 100%; border-radius: 5px; }
+.skill-name {
+  flex-grow: 1;
+  margin-right: 1rem;
+  font-size: 0.95em;
+}
+
+/* Keep bars from shrinking when the label wraps */
+.progress-bar-wrapper {
+  flex: 0 0 150px;            /* no shrink, fixed 150px on desktop */
+  width: 150px;
+  min-width: 50px;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #60a5fa, #3b82f6);
+  border-radius: 5px;
+  width: 0%;
+  transition: width 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Mobile still full-width stacked */
+@media (max-width: 640px) {
+  .skills-list .skill-item { flex-direction: column; align-items: flex-start; }
+  .progress-bar-wrapper { width: 100%; min-width: 0; flex: 0 0 auto; margin-top: 0.5rem; }
+}
 
     @media (max-width: 768px) {
       .background-name { font-size: 25vw; top: 25%; }
@@ -129,7 +156,7 @@
       z-index: 1;
     }
     @media (min-width: 1024px) {
-      .content-wrapper { max-width: 1200px; } /* desktop width so 3 columns look good */
+      .content-wrapper { max-width: 1300px; } /* desktop width so 3 columns look good */
     }
 
     /* ---- Discord status dot ---- */
@@ -149,8 +176,8 @@
       column-gap: 1.25rem;          /* space between columns */
       column-count: 1;              /* mobile: one column */
     }
-    /* Optional: 2 cols on medium, 3 on large */
-    @media (min-width: 768px) { .masonry { column-count: 2; } }
+
+    @media (min-width: 768px) { .masonry { column-count: 1; } }
     @media (min-width: 1024px) { .masonry { column-count: 3; } }
 
     .masonry-item {
@@ -262,7 +289,7 @@
         <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Languages</h2>
         <ul class="skills-list space-y-1 text-slate-800">
           <li class="skill-item" data-progress="100">
-            <span class="skill-name">🏔️ Norwegian (Native)</span>
+            <span class="skill-name">🏔️ Norwegian</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
           <li class="skill-item" data-progress="90">
