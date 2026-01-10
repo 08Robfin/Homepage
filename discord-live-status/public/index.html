@@ -485,14 +485,14 @@
   <script>
 async function askTheVoid() {
   const box = document.getElementById("void-answer");
-  box.textContent = "consulting the demons…";
+  box.textContent = "Waiting for the AI to respond...";
 
   try {
     const res = await fetch("https://naas.isalman.dev/no");
     const data = await res.json();
     box.textContent = data.reason;
   } catch (e) {
-    box.textContent = "The universe ghosted us 💀";
+    box.textContent = "The AI ghosted us 💀 (AKA, the api is down.)";
   }
 }
 </script>
