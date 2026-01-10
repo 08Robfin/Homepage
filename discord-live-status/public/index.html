@@ -193,7 +193,7 @@
 <body>
   <div class="content-wrapper p-4 md:p-6">
     <!-- ================= PROFILE (full width, not in masonry) ================= -->
-    <div id="profile-section" class="glass-card p-6 md:p-8 text-center mb-8">
+    <div id="profile-section" class="glass-card p-6 md:p-8 text-center mb-5">
       <div class="w-full flex justify-center mb-4">
         <div class="relative w-28 h-28">
           <img
@@ -220,6 +220,22 @@
         </div>
       </div>
     </div>
+
+     <!-- THE LAZY AI -->
+      <div class="masonry-item glass-card p-6 md:p-8 text-center">
+        <h2 class="text-2xl font-semibold mb-2">The Lazy AI</h2>
+        <p class="text-sm opacity-75 mb-4">Ask it anything! But it probably wont do it.</p>
+
+        <button onclick="askTheVoid()" class="glass-card px-6 py-2 rounded-full mb-2 hover:scale-105 transition">
+          Ask ✨
+        </button>
+
+        <div id="void-answer" class="text-xl font-semibold mt-2">…</div>
+
+        <p class="mt-4 text-xs opacity-50 italic">
+          powered by no-as-a-service
+        </p>
+      </div>
 
     <!-- ================= EVERYTHING ELSE IN A MASONRY GRID ================= -->
     <div class="masonry">
@@ -367,6 +383,10 @@
       </div>
     </div>
 
+
+
+
+    
     <!-- FOOTER -->
     <footer class="text-center mt-12 opacity-80 text-xs text-slate-800">
       <p>&copy; <span id="currentYear"></span> Robfin.</p>
@@ -460,5 +480,22 @@
     }
     document.addEventListener("DOMContentLoaded", renderPositions);
   </script>
+
+  <!-- Ask the Universe feature -->
+  <script>
+async function askTheVoid() {
+  const box = document.getElementById("void-answer");
+  box.textContent = "consulting the demons…";
+
+  try {
+    const res = await fetch("https://naas.isalman.dev/no");
+    const data = await res.json();
+    box.textContent = data.reason;
+  } catch (e) {
+    box.textContent = "The universe ghosted us 💀";
+  }
+}
+</script>
+
 </body>
 </html>
