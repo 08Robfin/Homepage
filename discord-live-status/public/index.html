@@ -444,7 +444,8 @@
   <!-- Positions data + renderer -->
   <script>
     const positions = [
-      { title: "🌹 Leader, Vennesla Socialist Youth", start: "2024-09-01", color: "glass" },
+      { title: "⚒️ County Leader, Agder Socialist Youth", start: "2026-01-24", color: "glass" },
+      { title: "🌹 Local Leader, Vennesla Socialist Youth", start: "2024-09-01", color: "glass" },
       { title: "🌍 Financial Manager, Norwegian People's Aid Solidarity Youth Kristiansand", start: "2025-02-01", color: "glass" },
     ];
 
@@ -455,7 +456,7 @@
       const years = Math.floor(diffMonths / 12);
       const months = diffMonths % 12;
 
-      if (years === 0 && months === 0) return "Just started";
+      if (years === 0 && months === 0) return "Just started!";
       if (years === 0) return `${months} month(s)`;
       if (months === 0) return `${years} year(s)${years > 1 ? "s" : ""}`;
       return `${years} yr${years > 1 ? "s" : ""} ${months} mo`;
