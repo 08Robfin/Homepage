@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Robfin's Homepage!</title>
-  <!-- Tailwind CDN -->
+  <title>Robin Finnestad | Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -107,36 +106,36 @@
       .progress-bar-wrapper { width: 100%; margin-top: 0.5rem; }
     }
 
-.skill-name {
-  flex-grow: 1;
-  margin-right: 1rem;
-  font-size: 0.95em;
-}
+    .skill-name {
+      flex-grow: 1;
+      margin-right: 1rem;
+      font-size: 0.95em;
+    }
 
-/* Keep bars from shrinking when the label wraps */
-.progress-bar-wrapper {
-  flex: 0 0 150px;            /* no shrink, fixed 150px on desktop */
-  width: 150px;
-  min-width: 50px;
-  height: 10px;
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  overflow: hidden;
-}
+    /* Keep bars from shrinking when the label wraps */
+    .progress-bar-wrapper {
+      flex: 0 0 150px;            /* no shrink, fixed 150px on desktop */
+      width: 150px;
+      min-width: 50px;
+      height: 10px;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      overflow: hidden;
+    }
 
-.progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #60a5fa, #3b82f6);
-  border-radius: 5px;
-  width: 0%;
-  transition: width 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #60a5fa, #3b82f6);
+      border-radius: 5px;
+      width: 0%;
+      transition: width 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
 
-/* Mobile still full-width stacked */
-@media (max-width: 640px) {
-  .skills-list .skill-item { flex-direction: column; align-items: flex-start; }
-  .progress-bar-wrapper { width: 100%; min-width: 0; flex: 0 0 auto; margin-top: 0.5rem; }
-}
+    /* Mobile still full-width stacked */
+    @media (max-width: 640px) {
+      .skills-list .skill-item { flex-direction: column; align-items: flex-start; }
+      .progress-bar-wrapper { width: 100%; min-width: 0; flex: 0 0 auto; margin-top: 0.5rem; }
+    }
 
     @media (max-width: 768px) {
       .background-name { font-size: 25vw; top: 25%; }
@@ -192,7 +191,6 @@
 </head>
 <body>
   <div class="content-wrapper p-4 md:p-6">
-    <!-- ================= PROFILE (full width, not in masonry) ================= -->
     <div id="profile-section" class="glass-card p-6 md:p-8 text-center mb-5">
       <div class="w-full flex justify-center mb-4">
         <div class="relative w-28 h-28">
@@ -205,9 +203,8 @@
       <h1 class="text-4xl md:text-5xl font-bold mb-2 text-slate-900">Robin Finnestad</h1>
       <p class="text-lg opacity-90 mb-4 text-slate-800">IT Student & Political Activist</p>
 
-      <!-- LIVE DISCORD STATUS BLOCK -->
       <div class="mx-auto w-full max-w-sm mb-4 text-center">
-        <span class="block text-sm font-semibold text-slate-900 mb-2">Live Discord status:</span>
+        <span class="block text-sm font-semibold text-slate-900 mb-2">Live Status:</span>
         <div class="glass-card inline-flex items-center p-4 space-x-4">
           <div class="relative w-16 h-16 flex-shrink-0">
             <img id="discord-avatar" class="rounded-full w-full h-full object-cover" src="" alt="Discord Avatar"/>
@@ -221,13 +218,12 @@
       </div>
     </div>
 
-     <!-- THE LAZY AI -->
-      <div class="masonry-item glass-card p-6 md:p-8 text-center">
-        <h2 class="text-2xl font-semibold mb-2">The Lazy AI</h2>
-        <p class="text-sm opacity-75 mb-4">Ask it anything! But it probably wont do it.</p>
+     <div class="masonry-item glass-card p-6 md:p-8 text-center">
+        <h2 class="text-2xl font-semibold mb-2">AI Experiment</h2>
+        <p class="text-sm opacity-75 mb-4">Experimental API connection.</p>
 
         <button onclick="askTheVoid()" class="glass-card px-6 py-2 rounded-full mb-2 hover:scale-105 transition">
-          Ask ✨
+          Query AI ✨
         </button>
 
         <div id="void-answer" class="text-xl font-semibold mt-2">…</div>
@@ -237,164 +233,142 @@
         </p>
       </div>
 
-    <!-- ================= EVERYTHING ELSE IN A MASONRY GRID ================= -->
     <div class="masonry">
-      <!-- REFERRALS -->
       <div id="referrals-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center text-slate-900">Refferal links</h2>
-        <p class="text-sm opacity-75 text-center mb-6 text-slate-800">If you wanna support me for free, use these links 💗</p>
+        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center text-slate-900">Support</h2>
+        <p class="text-sm opacity-75 text-center mb-6 text-slate-800">Referral links and support.</p>
         <ul class="space-y-4 text-slate-800">
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
             <div class="max-w-full md:max-w-[70%]">
               <p class="font-semibold text-lg">🐝 Honeygain</p>
-              <p class="text-sm opacity-70 break-words">Earn free money, and support me! Using my link you get a free $3 welcome gift.🍯 </p>
+              <p class="text-sm opacity-70 break-words">Passive income sharing. Includes $3 welcome gift.</p>
             </div>
             <a href="https://join.honeygain.com/FINNE5EBF2" target="_blank" rel="noopener noreferrer"
-               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">Join →</a>
+               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">View →</a>
           </li>
         </ul>
       </div>
 
-      <!-- POSITIONS -->
       <div id="positions-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Positions</h2>
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Experience</h2>
         <ul id="positions-list" class="space-y-4 text-slate-800"></ul>
       </div>
 
-      <!-- SKILLS -->
       <div id="skills-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Skills</h2>
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Core Skills</h2>
         <ul id="current-skills-list" class="skills-list space-y-1 text-slate-800">
-          <li class="skill-item" data-progress="100">
-            <span class="skill-name">💅 Being THE DIVA</span>
+          <li class="skill-item" data-progress="85">
+            <span class="skill-name">📣 Leadership & Advocacy</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
           <li class="skill-item" data-progress="80">
-            <span class="skill-name">📣 Activism & Youth Leadership</span>
+            <span class="skill-name">🌍 Political Science</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="60">
+            <span class="skill-name">🌐 System Admin (Nginx/Linux)</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
           <li class="skill-item" data-progress="70">
-            <span class="skill-name">🌍 Politics</span>
+            <span class="skill-name">🔧 Networking</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
-          <li class="skill-item" data-progress="50">
-            <span class="skill-name">🌐 Server Hosting & Nginx</span>
-            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
-          </li>
-          <li class="skill-item" data-progress="40">
-            <span class="skill-name">🔧 Server Management & Networking</span>
-            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
-          </li>
-          <li class="skill-item" data-progress="25">
+          <li class="skill-item" data-progress="30">
             <span class="skill-name">🖥️ Web Development</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
         </ul>
       </div>
 
-      <!-- LANGUAGES -->
       <div id="languages-section" class="masonry-item glass-card p-6 md:p-8">
         <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Languages</h2>
         <ul class="skills-list space-y-1 text-slate-800">
           <li class="skill-item" data-progress="100">
-            <span class="skill-name">🏔️ Norwegian</span>
+            <span class="skill-name">Norwegian (Native)</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
-          <li class="skill-item" data-progress="90">
-            <span class="skill-name">👑 English</span>
+          <li class="skill-item" data-progress="95">
+            <span class="skill-name">English (Fluent)</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
           <li class="skill-item" data-progress="50">
-            <span class="skill-name">🌲 Swedish</span>
+            <span class="skill-name">Swedish (Proficient)</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
         </ul>
       </div>
 
-      <!-- IDEOLOGIES -->
       <div id="ideology-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center text-slate-900">Ideologies</h2>
-        <p class="text-sm opacity-75 text-center mb-6 text-slate-800">How much i agree with ideologies, on a scale!</p>
+        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center text-slate-900">Values</h2>
+        <p class="text-sm opacity-75 text-center mb-6 text-slate-800">Core political alignment</p>
         <ul class="skills-list space-y-1 text-slate-800">
           <li class="skill-item" data-progress="100"><span class="skill-name">✊ Democratic Socialism</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
           <li class="skill-item" data-progress="100"><span class="skill-name">🌍 Climate Justice</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="100"><span class="skill-name">♀️ Radical Feminism</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="60"><span class="skill-name">🌹 Social Democracy</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="50"><span class="skill-name">🧰 Marxism</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="10"><span class="skill-name">🤑 Capitalism</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="0"><span class="skill-name">👨‍👩‍👧‍👦 Conservatism</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">♀️ Feminism</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="65"><span class="skill-name">🌹 Social Democracy</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
         </ul>
       </div>
 
-      <!-- BELIEFS -->
       <div id="beliefs-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold text-center text-slate-900">What I Stand For</h2>
-        <p class="text-sm opacity-75 text-center mb-6 text-slate-800">Specific values I strongly support</p>
+        <h2 class="text-2xl md:text-3xl font-semibold text-center text-slate-900">Key Issues</h2>
+        <p class="text-sm opacity-75 text-center mb-6 text-slate-800">Policy priorities</p>
         <ul class="skills-list space-y-1 text-slate-800">
-          <li class="skill-item" data-progress="100"><span class="skill-name">🧑‍⚕️ Free Healthcare for All</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="100"><span class="skill-name">👩‍⚖️ Abortion Rights</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="100"><span class="skill-name">📚 Free Education</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">🧑‍⚕️ Universal Healthcare</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">👩‍⚖️ Reproductive Rights</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">📚 Public Education</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
           <li class="skill-item" data-progress="100"><span class="skill-name">🏳️‍🌈 LGBTQ+ Rights</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="100"><span class="skill-name">🏦 Public Ownership of Key Sectors</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">🏦 Public Sector Strenghtening</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
           <li class="skill-item" data-progress="100"><span class="skill-name">🌱 Green Transition</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="100"><span class="skill-name">👨‍👩‍👧 Housing as a Human Right</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="100"><span class="skill-name">🚫 No Billionaires</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
+          <li class="skill-item" data-progress="100"><span class="skill-name">⚖️ Economic Justice</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
           <li class="skill-item" data-progress="100"><span class="skill-name">🌐 Digital Rights & Privacy</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
         </ul>
       </div>
 
-      <!-- LINKS -->
       <div id="links-section" class="masonry-item glass-card p-6 md:p-8 mb-0">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Links</h2>
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Connect</h2>
         <ul class="space-y-4 text-slate-800">
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
             <div class="max-w-full md:max-w-[70%]">
               <p class="font-semibold text-lg">🔗 GitHub</p>
-              <p class="text-sm opacity-70 break-words">https://github.com/08Robfin</p>
+              <p class="text-sm opacity-70 break-words">Code repositories & Projects.</p>
             </div>
             <a href="https://github.com/08Robfin" target="_blank" rel="noopener noreferrer"
-               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">Visit →</a>
+               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">View →</a>
           </li>
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
             <div class="max-w-full md:max-w-[70%]">
               <p class="font-semibold text-lg">🎮 Twitch</p>
-              <p class="text-sm opacity-70 break-words">https://www.twitch.tv/robfinttv</p>
+              <p class="text-sm opacity-70 break-words">Live streaming.</p>
             </div>
             <a href="https://www.twitch.tv/robfinttv" target="_blank" rel="noopener noreferrer"
-               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">Visit →</a>
+               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">View →</a>
           </li>
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
             <div class="max-w-full md:max-w-[70%]">
-              <p class="font-semibold text-lg">💬 Discord Server</p>
-              <p class="text-sm opacity-70 break-words">https://discord.gg/7XVMssR9Be</p>
+              <p class="font-semibold text-lg">💬 Discord Community</p>
+              <p class="text-sm opacity-70 break-words">Join the server.</p>
             </div>
             <a href="https://discord.gg/7XVMssR9Be" target="_blank" rel="noopener noreferrer"
-               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">Visit →</a>
+               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">Join →</a>
           </li>
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
             <div class="max-w-full md:max-w-[70%]">
-              <p class="font-semibold text-lg">🧑‍💻 Follow me on X!</p>
-              <p class="text-sm opacity-70 break-words">https://x.com/robin_finnestad?s=21</p>
+              <p class="font-semibold text-lg">🧑‍💻 X (Twitter)</p>
+              <p class="text-sm opacity-70 break-words">Follow for updates.</p>
             </div>
             <a href="https://x.com/robin_finnestad?s=21" target="_blank" rel="noopener noreferrer"
-               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">Visit →</a>
+               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">View →</a>
           </li>
         </ul>
       </div>
     </div>
-
-
-
-
     
-    <!-- FOOTER -->
     <footer class="text-center mt-12 opacity-80 text-xs text-slate-800">
-      <p>&copy; <span id="currentYear"></span> Robfin.</p>
-      <p>Hosted on Robfin's homeserver.</p>
+      <p>&copy; <span id="currentYear"></span> Robin Finnestad.</p>
+      <p>Self-hosted on private infrastructure.</p>
     </footer>
   </div>
 
-  <!-- Set the current year and animate progress bars -->
   <script>
     document.getElementById("currentYear").textContent = new Date().getFullYear();
     function updateProgressBars() {
@@ -407,10 +381,8 @@
     document.addEventListener("DOMContentLoaded", updateProgressBars);
   </script>
 
-  <!-- LOAD SOCKET.IO CLIENT FROM THE DISCORD STATUS SERVER -->
   <script src="/socket.io/socket.io.js"></script>
 
-  <!-- CONNECT TO SOCKET.IO AND UPDATE THE LIVE DISCORD UI -->
   <script>
     const socket = io();
     socket.on("update", (data) => {
@@ -441,22 +413,23 @@
     });
   </script>
 
-  <!-- Positions data + renderer -->
   <script>
     const positions = [
       { title: "⚒️ County Leader, Agder Socialist Youth", start: "2026-01-24", color: "glass" },
-      { title: "🌹 Local Leader, Vennesla Socialist Youth", start: "2024-09-01", color: "glass" },
-      { title: "🌍 Financial Manager, Norwegian People's Aid Solidarity Youth Kristiansand", start: "2025-02-01", color: "glass" },
+      { title: "🌹 Local Leader, Vennesla Socialist Youth", start: "2024-09-01", end: "2026-02-01", color: "glass" },
+      { title: "🌍 Financial Manager, Norwegian People's Aid Solidarity Youth Kristiansand", start: "2025-02-01", end: "2026-02-01", color: "glass" },
     ];
 
-    function calculateDuration(startDate) {
+    // UPDATED: Now accepts an optional endDate
+    function calculateDuration(startDate, endDate) {
       const start = new Date(startDate);
-      const now = new Date();
-      const diffMonths = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
+      const end = endDate ? new Date(endDate) : new Date(); // Use specific end date OR "today"
+      
+      const diffMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
       const years = Math.floor(diffMonths / 12);
       const months = diffMonths % 12;
 
-      if (years === 0 && months === 0) return "Just started!";
+      if (years === 0 && months === 0) return "Just started";
       if (years === 0) return `${months} month(s)`;
       if (months === 0) return `${years} year(s)${years > 1 ? "s" : ""}`;
       return `${years} yr${years > 1 ? "s" : ""} ${months} mo`;
@@ -465,14 +438,21 @@
     function renderPositions() {
       const container = document.getElementById("positions-list");
       positions.forEach(pos => {
-        const duration = calculateDuration(pos.start);
+        const duration = calculateDuration(pos.start, pos.end);
         const tagColor = { glass: "glass-card", purple: "bg-purple-100 text-purple-800", green: "bg-green-100 text-green-800", red: "bg-red-100 text-red-800" }[pos.color] || "bg-gray-100 text-gray-800";
+        
+        // Formatting: "Sep 2024 - Feb 2026" or "Jan 2026 - Present"
+        const startStr = new Date(pos.start).toLocaleString('en-US', { month: 'short', year: 'numeric' });
+        const endStr = pos.end 
+          ? new Date(pos.end).toLocaleString('en-US', { month: 'short', year: 'numeric' }) 
+          : "Present";
+
         const li = document.createElement("li");
         li.className = "flex flex-col md:flex-row justify-between items-start md:items-center pb-2";
         li.innerHTML = `
           <div class="max-w-full md:max-w-[70%]">
             <p class="font-semibold text-lg">${pos.title}</p>
-            <p class="text-sm opacity-70">Since ${new Date(pos.start).toLocaleString('en-US', { month: 'long', year: 'numeric' })}</p>
+            <p class="text-sm opacity-70">${startStr} – ${endStr}</p>
           </div>
           <span class="text-sm mt-2 md:mt-0 ${tagColor} px-3 py-1 rounded-full whitespace-nowrap">${duration}</span>
         `;
@@ -482,18 +462,17 @@
     document.addEventListener("DOMContentLoaded", renderPositions);
   </script>
 
-  <!-- Ask the Universe feature -->
   <script>
 async function askTheVoid() {
   const box = document.getElementById("void-answer");
-  box.textContent = "Waiting for the AI to respond...";
+  box.textContent = "Waiting for response...";
 
   try {
     const res = await fetch("https://naas.isalman.dev/no");
     const data = await res.json();
     box.textContent = data.reason;
   } catch (e) {
-    box.textContent = "The AI ghosted us 💀 (AKA, the api is down.)";
+    box.textContent = "Connection failed (API unavailable).";
   }
 }
 </script>
