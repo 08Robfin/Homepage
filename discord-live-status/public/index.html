@@ -204,7 +204,7 @@
       <p class="text-lg opacity-90 mb-4 text-slate-800">IT Student & Political Activist</p>
 
       <div class="mx-auto w-full max-w-sm mb-4 text-center">
-        <span class="block text-sm font-semibold text-slate-900 mb-2">Live Status:</span>
+        <span class="block text-sm font-semibold text-slate-900 mb-2">Discord status:</span>
         <div class="glass-card inline-flex items-center p-4 space-x-4">
           <div class="relative w-16 h-16 flex-shrink-0">
             <img id="discord-avatar" class="rounded-full w-full h-full object-cover" src="" alt="Discord Avatar"/>
@@ -217,21 +217,6 @@
         </div>
       </div>
     </div>
-
-     <div class="masonry-item glass-card p-6 md:p-8 text-center">
-        <h2 class="text-2xl font-semibold mb-2">AI Experiment</h2>
-        <p class="text-sm opacity-75 mb-4">Experimental API connection.</p>
-
-        <button onclick="askTheVoid()" class="glass-card px-6 py-2 rounded-full mb-2 hover:scale-105 transition">
-          Query AI ✨
-        </button>
-
-        <div id="void-answer" class="text-xl font-semibold mt-2">…</div>
-
-        <p class="mt-4 text-xs opacity-50 italic">
-          powered by no-as-a-service
-        </p>
-      </div>
 
     <div class="masonry">
       <div id="referrals-section" class="masonry-item glass-card p-6 md:p-8">
@@ -461,21 +446,6 @@
     }
     document.addEventListener("DOMContentLoaded", renderPositions);
   </script>
-
-  <script>
-async function askTheVoid() {
-  const box = document.getElementById("void-answer");
-  box.textContent = "Waiting for response...";
-
-  try {
-    const res = await fetch("https://naas.isalman.dev/no");
-    const data = await res.json();
-    box.textContent = data.reason;
-  } catch (e) {
-    box.textContent = "Connection failed (API unavailable).";
-  }
-}
-</script>
 
 </body>
 </html>
