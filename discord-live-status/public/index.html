@@ -19,229 +19,270 @@
       justify-content: center;
       padding: 1rem;
       overflow-x: hidden;
-      color: #ffffff;
+      color: #fff;
       position: relative;
       z-index: 0;
-      background-color: black; /* Fallback */
+      background: #000;
     }
+
+    /* Background photo */
     body::before {
       content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url('background.jpg') no-repeat center center;
-      background-size: cover;
-      z-index: -1;
-      pointer-events: none;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: url('background.jpg') no-repeat center center / cover;
+      z-index: -2; pointer-events: none;
     }
 
-    /* ---- Glass card ---- */
+    /* Very light scrim — just enough to help legibility without killing the photo */
+    body::after {
+      content: "";
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.18);
+      z-index: -1; pointer-events: none;
+    }
+
+    /* ---- Entrance animation ---- */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    #profile-section { animation: fadeInUp 0.45s ease both; }
+    .masonry-item:nth-child(1) { animation: fadeInUp 0.45s ease both; animation-delay: 0.08s; }
+    .masonry-item:nth-child(2) { animation: fadeInUp 0.45s ease both; animation-delay: 0.14s; }
+    .masonry-item:nth-child(3) { animation: fadeInUp 0.45s ease both; animation-delay: 0.20s; }
+    .masonry-item:nth-child(4) { animation: fadeInUp 0.45s ease both; animation-delay: 0.26s; }
+    .masonry-item:nth-child(5) { animation: fadeInUp 0.45s ease both; animation-delay: 0.32s; }
+    .masonry-item:nth-child(6) { animation: fadeInUp 0.45s ease both; animation-delay: 0.38s; }
+    .masonry-item:nth-child(7) { animation: fadeInUp 0.45s ease both; animation-delay: 0.44s; }
+
+    /* ====  LIQUID GLASS  ================================================== */
     .glass-card {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255,255,255,0.15);
       backdrop-filter: blur(40px) saturate(180%);
       -webkit-backdrop-filter: blur(40px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid rgba(255,255,255,0.18);
+      /* Specular top-edge highlight */
+      border-top: 1px solid rgba(255,255,255,0.45);
+      box-shadow:
+        0 4px 16px rgba(0,0,0,0.15),
+        0 1px 3px  rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.3);
       border-radius: 20px;
-      padding: 2rem 2rem;
-      position: relative;
-      z-index: 1;
+      padding: 2rem;
+      position: relative; z-index: 1;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
     }
-    .glass-card * {
-      color: #f0f0f0 !important;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    .glass-card:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 10px 30px rgba(0,0,0,0.22),
+        0 2px 6px   rgba(0,0,0,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+    .glass-card * { color: #f0f0f0 !important; text-shadow: 0 1px 2px rgba(0,0,0,0.15); }
+
+    /* ---- Avatar ---- */
+    .avatar-ring {
+      padding: 0; border-radius: 50%; display: inline-block;
+    }
+    .avatar-ring img {
+      display: block; border-radius: 50%;
+      border: none;
+      width: 112px; height: 112px; object-fit: cover;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
 
-    .profile-pic-placeholder,
-    .glass-card h1,
-    .glass-card p.text-lg,
-    .glass-card .bg-black\/5,
-    .skill-item {
-      transition: none;
+    /* ---- Discord status pill — liquid glass too ---- */
+    .discord-status-bar {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+      backdrop-filter: blur(32px) saturate(160%);
+      -webkit-backdrop-filter: blur(32px) saturate(160%);
+      border-top: 1px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      padding: 0.45rem 1rem 0.45rem 0.45rem;
+      margin-top: 0.75rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.35);
     }
-    .profile-pic-placeholder {
-      width: 100px; height: 100px;
-      border-radius: 50%;
-      background-color: rgba(0,0,0,0.05);
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 1rem auto;
-      border: 2px solid rgba(0,0,0,0.08);
+    .discord-avatar-small { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+    .discord-info { display: flex; flex-direction: column; text-align: left; }
+
+    /* ---- Status dot ---- */
+    @keyframes onlinePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(67,181,129,0.7); }
+      60%       { box-shadow: 0 0 0 5px rgba(67,181,129,0); }
     }
+    .status-indicator {
+      position: absolute; bottom: 0; right: 0;
+      width: 13px; height: 13px; border-radius: 50%;
+      border: 2.5px solid rgba(255,255,255,0.6);
+      background-color: #747f8d;
+    }
+    .status-online  { background-color: #3ba55d; animation: onlinePulse 2.2s infinite; }
+    .status-idle    { background-color: #faa61a; }
+    .status-dnd     { background-color: #ed4245; }
+    .status-offline { background-color: #747f8d; }
 
     /* ---- Skills bars ---- */
     .skills-list .skill-item {
       background: none; border: none; box-shadow: none;
-      border-radius: 0.85rem;
-      padding: 0.85rem 1.25rem;
+      padding: 0.6rem 0.25rem;
       display: flex; justify-content: space-between; align-items: center;
-      transition: background 0.2s, box-shadow 0.2s;
     }
-    .skills-list .skill-item:hover { background: none; box-shadow: none; }
-
+    .skill-name { flex-grow: 1; margin-right: 1rem; font-size: 0.95em; }
     .progress-bar-wrapper {
-      position: relative;
-      width: 80px; min-width: 60px; max-width: 110px;
-      height: 28px;
-      background: rgba(255,255,255,0.13);
-      border-radius: 999px;
-      border: 1.5px solid rgba(255,255,255,0.28);
-      box-shadow: 0 2px 8px 0 rgba(30,41,59,0.08);
-      overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-      margin-left: 1rem;
-      font-size: 1em;
+      flex: 0 0 150px; width: 150px; min-width: 50px;
+      height: 7px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 999px; overflow: hidden;
     }
     .progress-bar-fill {
-      position: absolute; left: 0; top: 0; bottom: 0;
       height: 100%;
-      background: linear-gradient(90deg, #60a5fa, #3b82f6);
-      border-radius: 999px;
-      width: 0%;
-      transition: width 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
-      z-index: 1; opacity: 0.7;
+      background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.5));
+      border-radius: 999px; width: 0%;
+      transition: width 0.9s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
-
-    @media (max-width: 640px) {
-      .skills-list .skill-item { flex-direction: column; align-items: flex-start; }
-      .progress-bar-wrapper { width: 100%; margin-top: 0.5rem; }
-    }
-
-    .skill-name {
-      flex-grow: 1;
-      margin-right: 1rem;
-      font-size: 0.95em;
-    }
-
-    /* Keep bars from shrinking when the label wraps */
-    .progress-bar-wrapper {
-      flex: 0 0 150px;            /* no shrink, fixed 150px on desktop */
-      width: 150px;
-      min-width: 50px;
-      height: 10px;
-      background-color: rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #60a5fa, #3b82f6);
-      border-radius: 5px;
-      width: 0%;
-      transition: width 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
-    }
-
-    /* Mobile still full-width stacked */
     @media (max-width: 640px) {
       .skills-list .skill-item { flex-direction: column; align-items: flex-start; }
       .progress-bar-wrapper { width: 100%; min-width: 0; flex: 0 0 auto; margin-top: 0.5rem; }
     }
 
-    @media (max-width: 768px) {
-      .background-name { font-size: 25vw; top: 25%; }
+    /* ---- Badges — liquid glass pills ---- */
+    .badge-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+      backdrop-filter: blur(24px) saturate(160%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      border-top: 1px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.83rem; font-weight: 500;
+      cursor: default;
+      white-space: nowrap; position: relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3);
+      transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+    }
+    .badge:hover {
+      background: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.15) 100%);
+      transform: scale(1.06);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4);
+    }
+
+    /* ---- Tooltip — liquid glass, less transparent ---- */
+    .badge .tooltip {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%; transform: translateX(-50%);
+      background: rgba(20, 20, 28, 0.82);
+      backdrop-filter: blur(40px) saturate(160%);
+      -webkit-backdrop-filter: blur(40px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-top: 1px solid rgba(255,255,255,0.28);
+      border-radius: 16px;
+      padding: 0.65rem 0.95rem;
+      font-size: 0.78rem; font-weight: 400; line-height: 1.5;
+      color: #f5f5f7 !important;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3) !important;
+      width: 210px; white-space: normal; text-align: center;
+      z-index: 100; pointer-events: none;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+    .badge:hover .tooltip { display: block; }
+
+    /* ---- Link / duration buttons — liquid glass ---- */
+    .link-btn {
+      display: inline-block;
+      font-size: 0.8rem; font-weight: 600;
+      padding: 0.35rem 1rem; border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-top: 1px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      color: #fff !important;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3);
+      transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+    }
+    .link-btn:hover {
+      background: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.15) 100%);
+      transform: scale(1.04);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4);
     }
 
     /* ---- Scrollbar ---- */
     ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 10px; }
-    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.3); }
+    ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
 
-    /* ---- Wrapper width (narrow on mobile, wider on desktop) ---- */
-    .content-wrapper {
-      width: 100%;
-      max-width: 600px;   /* phones = one narrow column */
-      position: relative;
-      z-index: 1;
-    }
-    @media (min-width: 1024px) {
-      .content-wrapper { max-width: 1300px; } /* desktop width so 3 columns look good */
-    }
+    /* ---- Wrapper width ---- */
+    .content-wrapper { width: 100%; max-width: 600px; position: relative; z-index: 1; }
+    @media (min-width: 1024px) { .content-wrapper { max-width: 1300px; } }
 
-    /* ---- Discord status dot ---- */
-    .status-indicator {
-      position: absolute; bottom: 0px; right: 0px;
-      width: 20px; height: 20px; border-radius: 50%;
-      border: 4px solid white;
-      background-color: #747f8d;
-    }
-    .status-online  { background-color: #43b581; }
-    .status-idle    { background-color: #faa61a; }
-    .status-dnd     { background-color: #f04747; }
-    .status-offline { background-color: #747f8d; }
-
-    /* ==== Masonry layout for everything except the profile ==== */
-    .masonry {
-      column-gap: 1.25rem;          /* space between columns */
-      column-count: 1;              /* mobile: one column */
-    }
-
+    /* ---- Masonry ---- */
+    .masonry { column-gap: 1.25rem; column-count: 1; }
     @media (min-width: 768px) { .masonry { column-count: 1; } }
     @media (min-width: 1024px) { .masonry { column-count: 3; } }
-
     .masonry-item {
-      break-inside: avoid;
-      -webkit-column-break-inside: avoid;
-      page-break-inside: avoid;
-      display: inline-block;
-      width: 100%;
-      margin: 0 0 1.25rem;          /* vertical spacing between items */
+      break-inside: avoid; -webkit-column-break-inside: avoid;
+      page-break-inside: avoid; display: inline-block;
+      width: 100%; margin: 0 0 1.25rem;
     }
   </style>
 </head>
 <body>
   <div class="content-wrapper p-4 md:p-6">
+
+    <!-- Profile -->
     <div id="profile-section" class="glass-card p-6 md:p-8 text-center mb-5">
       <div class="w-full flex justify-center mb-4">
-        <div class="relative w-28 h-28">
+        <div class="avatar-ring">
           <img
             src="https://github.com/08Robfin/Homepage/blob/main/images/robfin-pfp.png?raw=true"
-            alt="Robfin"
-            class="rounded-full w-full h-full object-cover border-4 border-white shadow-lg"/>
+            alt="Robfin"/>
         </div>
       </div>
-      <h1 class="text-4xl md:text-5xl font-bold mb-2 text-slate-900">Robin Finnestad</h1>
-      <p class="text-lg opacity-90 mb-4 text-slate-800">IT Student & Political Activist</p>
+      <h1 class="text-4xl md:text-5xl font-bold mb-1">Robin Finnestad</h1>
+      <p class="text-base opacity-80 mb-3">IT Student & Political Activist</p>
 
-      <div class="mx-auto w-full max-w-sm mb-4 text-center">
-        <span class="block text-sm font-semibold text-slate-900 mb-2">Discord status:</span>
-        <div class="glass-card inline-flex items-center p-4 space-x-4">
-          <div class="relative w-16 h-16 flex-shrink-0">
-            <img id="discord-avatar" class="rounded-full w-full h-full object-cover" src="" alt="Discord Avatar"/>
+      <div class="flex justify-center">
+        <div class="discord-status-bar">
+          <div class="relative">
+            <img id="discord-avatar" class="discord-avatar-small" src="" alt="Discord Avatar"/>
             <span id="discord-status-indicator" class="status-indicator status-offline"></span>
           </div>
-          <div class="flex flex-col text-left">
-            <span id="discord-username" class="font-medium text-slate-900">robfin</span>
-            <span id="discord-custom-status" class="text-slate-800 text-sm mt-1"></span>
+          <div class="discord-info">
+            <span id="discord-username" class="font-semibold text-sm leading-tight">robfin</span>
+            <span id="discord-custom-status" class="text-xs opacity-70 leading-tight mt-0.5"></span>
           </div>
         </div>
       </div>
     </div>
 
     <div class="masonry">
-      <div id="referrals-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center text-slate-900">Referral links</h2>
-        <p class="text-sm opacity-75 text-center mb-6 text-slate-800">Referral links and support.</p>
-        <ul class="space-y-4 text-slate-800">
-          <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
-            <div class="max-w-full md:max-w-[70%]">
-              <p class="font-semibold text-lg">🐝 Honeygain</p>
-              <p class="text-sm opacity-70 break-words">Passive income sharing. Includes $3 welcome gift.</p>
-            </div>
-            <a href="https://join.honeygain.com/FINNE5EBF2" target="_blank" rel="noopener noreferrer"
-               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">View →</a>
-          </li>
-        </ul>
-      </div>
 
+      <!-- Experience -->
       <div id="positions-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Experience</h2>
-        <ul id="positions-list" class="space-y-4 text-slate-800"></ul>
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center">Experience</h2>
+        <ul id="positions-list" class="space-y-4"></ul>
       </div>
 
+      <!-- Core Skills -->
       <div id="skills-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Core Skills</h2>
-        <ul id="current-skills-list" class="skills-list space-y-1 text-slate-800">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center">Core Skills</h2>
+        <ul id="current-skills-list" class="skills-list space-y-1">
           <li class="skill-item" data-progress="85">
             <span class="skill-name">📣 Leadership & Advocacy</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
@@ -265,102 +306,123 @@
         </ul>
       </div>
 
+      <!-- Languages -->
       <div id="languages-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Languages</h2>
-        <ul class="skills-list space-y-1 text-slate-800">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center">Languages</h2>
+        <ul class="skills-list space-y-1">
           <li class="skill-item" data-progress="100">
-            <span class="skill-name">Norwegian (Native)</span>
+            <span class="skill-name">🇳🇴 Norwegian (Native)</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
           <li class="skill-item" data-progress="95">
-            <span class="skill-name">English (Fluent)</span>
+            <span class="skill-name">🇬🇧 English (Fluent)</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
           <li class="skill-item" data-progress="50">
-            <span class="skill-name">Swedish (Proficient)</span>
+            <span class="skill-name">🇸🇪 Swedish (Proficient)</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
         </ul>
       </div>
 
+      <!-- Values -->
       <div id="ideology-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center text-slate-900">Values</h2>
-        <p class="text-sm opacity-75 text-center mb-6 text-slate-800">Core political alignment</p>
-        <ul class="skills-list space-y-1 text-slate-800">
-          <li class="skill-item" data-progress="100"><span class="skill-name">✊ Democratic Socialism</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="100"><span class="skill-name">🌍 Climate Justice</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="100"><span class="skill-name">♀️ Feminism</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="65"><span class="skill-name">🌹 Social Democracy</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-        </ul>
+        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center">Values</h2>
+        <p class="text-sm opacity-65 text-center mb-5">Core political alignment</p>
+        <div class="badge-grid">
+          <span class="badge">✊ Democratic Socialism<span class="tooltip">People's needs over profit. I believe the economy must serve everyone, not just the wealthy few.</span></span>
+          <span class="badge">🌍 Climate Justice<span class="tooltip">The climate crisis hits the poorest hardest. I push for a fast, fair green transition that doesn't leave workers behind.</span></span>
+          <span class="badge">♀️ Feminism<span class="tooltip">Equal pay, free abortion, safety from violence. I fight for full gender equality in law and in practice.</span></span>
+          <span class="badge">🌹 Social Democracy<span class="tooltip">Strong welfare, free education and healthcare for all. I support broad social-democratic reforms as a step toward deeper change.</span></span>
+        </div>
       </div>
 
+      <!-- Key Issues -->
       <div id="beliefs-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold text-center text-slate-900">Key Issues</h2>
-        <p class="text-sm opacity-75 text-center mb-6 text-slate-800">Policy priorities</p>
-        <ul class="skills-list space-y-1 text-slate-800">
-          <li class="skill-item" data-progress="100"><span class="skill-name">🧑‍⚕️ Universal Healthcare</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="100"><span class="skill-name">👩‍⚖️ Reproductive Rights</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="100"><span class="skill-name">📚 Public Education</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="100"><span class="skill-name">🏳️‍🌈 LGBTQ+ Rights</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="100"><span class="skill-name">🏦 Public Sector Strenghtening</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="100"><span class="skill-name">🌱 Green Transition</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="100"><span class="skill-name">⚖️ Economic Justice</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-          <li class="skill-item" data-progress="100"><span class="skill-name">🌐 Digital Rights & Privacy</span><div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div></li>
-        </ul>
+        <h2 class="text-2xl md:text-3xl font-semibold text-center">Key Issues</h2>
+        <p class="text-sm opacity-65 text-center mb-5">Policy priorities</p>
+        <div class="badge-grid">
+          <span class="badge">🧑‍⚕️ Universal Healthcare<span class="tooltip">I want all healthcare fully public and free at point of use — no private queue-jumping.</span></span>
+          <span class="badge">👩‍⚖️ Reproductive Rights<span class="tooltip">I defend and want to expand the right to abortion, free from shame and barriers.</span></span>
+          <span class="badge">📚 Public Education<span class="tooltip">Free schools and universities for everyone. I oppose private schools that increase inequality.</span></span>
+          <span class="badge">🏳️‍🌈 LGBTQ+ Rights<span class="tooltip">Full legal and social equality for all, regardless of gender identity or sexual orientation.</span></span>
+          <span class="badge">🏦 Public Sector Strengthening<span class="tooltip">I fight privatisation of welfare — care, schools and transport should serve people, not profit.</span></span>
+          <span class="badge">🌱 Green Transition<span class="tooltip">Rapid shift away from fossil fuels with a just transition that protects jobs and communities.</span></span>
+          <span class="badge">⚖️ Economic Justice<span class="tooltip">Tax the wealthy, raise minimum wages, reduce the gap between rich and poor.</span></span>
+          <span class="badge">🔒 Digital Rights & Privacy<span class="tooltip">I oppose mass surveillance and fight for strong data privacy and open digital infrastructure.</span></span>
+        </div>
       </div>
 
-      <div id="links-section" class="masonry-item glass-card p-6 md:p-8 mb-0">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center text-slate-900">Links</h2>
-        <ul class="space-y-4 text-slate-800">
+      <!-- Links -->
+      <div id="links-section" class="masonry-item glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center">Links</h2>
+        <ul class="space-y-4">
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
             <div class="max-w-full md:max-w-[70%]">
               <p class="font-semibold text-lg">🔗 GitHub</p>
-              <p class="text-sm opacity-70 break-words">Code repositories & Projects.</p>
+              <p class="text-sm opacity-65 break-words">Code repositories & projects.</p>
             </div>
             <a href="https://github.com/08Robfin" target="_blank" rel="noopener noreferrer"
-               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">View →</a>
+               class="link-btn mt-2 md:mt-0">View →</a>
           </li>
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
             <div class="max-w-full md:max-w-[70%]">
               <p class="font-semibold text-lg">🎮 Twitch</p>
-              <p class="text-sm opacity-70 break-words">Live streaming.</p>
+              <p class="text-sm opacity-65 break-words">Live streaming.</p>
             </div>
             <a href="https://www.twitch.tv/robfinttv" target="_blank" rel="noopener noreferrer"
-               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">View →</a>
+               class="link-btn mt-2 md:mt-0">View →</a>
           </li>
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
             <div class="max-w-full md:max-w-[70%]">
               <p class="font-semibold text-lg">💬 Discord Community</p>
-              <p class="text-sm opacity-70 break-words">Join the server.</p>
+              <p class="text-sm opacity-65 break-words">Join the server.</p>
             </div>
             <a href="https://discord.gg/7XVMssR9Be" target="_blank" rel="noopener noreferrer"
-               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">Join →</a>
+               class="link-btn mt-2 md:mt-0">Join →</a>
           </li>
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
             <div class="max-w-full md:max-w-[70%]">
-              <p class="font-semibold text-lg">🧑‍💻 X (Twitter)</p>
-              <p class="text-sm opacity-70 break-words">Follow for updates.</p>
+              <p class="font-semibold text-lg">🐦 X (Twitter)</p>
+              <p class="text-sm opacity-65 break-words">Follow for updates.</p>
             </div>
             <a href="https://x.com/robin_finnestad?s=21" target="_blank" rel="noopener noreferrer"
-               class="text-sm mt-2 md:mt-0 glass-card px-3 py-1 rounded-full whitespace-nowrap text-white">View →</a>
+               class="link-btn mt-2 md:mt-0">View →</a>
           </li>
         </ul>
       </div>
+
+      <!-- Referral Links -->
+      <div id="referrals-section" class="masonry-item glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center">Referral Links</h2>
+        <p class="text-sm opacity-65 text-center mb-6">Support links with bonuses.</p>
+        <ul class="space-y-4">
+          <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
+            <div class="max-w-full md:max-w-[70%]">
+              <p class="font-semibold text-lg">🐝 Honeygain</p>
+              <p class="text-sm opacity-65 break-words">Passive income by sharing bandwidth. Includes $3 welcome gift.</p>
+            </div>
+            <a href="https://join.honeygain.com/FINNE5EBF2" target="_blank" rel="noopener noreferrer"
+               class="link-btn mt-2 md:mt-0">View →</a>
+          </li>
+        </ul>
+      </div>
+
     </div>
-    
-    <footer class="text-center mt-12 opacity-80 text-xs text-slate-800">
-      <p>&copy; <span id="currentYear"></span> Robin Finnestad.</p>
-      <p>Self-hosted on private infrastructure.</p>
+
+    <footer class="text-center mt-10 opacity-60 text-xs">
+      <p>&copy; <span id="currentYear"></span> Robin Finnestad &mdash; Self-hosted on private infrastructure.</p>
     </footer>
   </div>
 
   <script>
     document.getElementById("currentYear").textContent = new Date().getFullYear();
+
     function updateProgressBars() {
       document.querySelectorAll(".skills-list .skill-item").forEach((item) => {
         const pct = item.dataset.progress || "0";
         const fill = item.querySelector(".progress-bar-fill");
-        if (fill) { setTimeout(() => { fill.style.width = pct + "%"; }, 100); }
+        if (fill) { setTimeout(() => { fill.style.width = pct + "%"; }, 150); }
       });
     }
     document.addEventListener("DOMContentLoaded", updateProgressBars);
@@ -376,14 +438,16 @@
       const nameEl = document.getElementById("discord-username");
       if (data.discriminator && data.discriminator !== "0" && data.discriminator !== "0000") {
         nameEl.textContent = `${data.username}#${data.discriminator}`;
-      } else { nameEl.textContent = data.username; }
+      } else {
+        nameEl.textContent = data.username;
+      }
 
       const statusDot = document.getElementById("discord-status-indicator");
       statusDot.classList.remove("status-online", "status-idle", "status-dnd", "status-offline");
       switch (data.status) {
         case "online": statusDot.classList.add("status-online"); break;
-        case "idle":   statusDot.classList.add("status-idle"); break;
-        case "dnd":    statusDot.classList.add("status-dnd"); break;
+        case "idle":   statusDot.classList.add("status-idle");   break;
+        case "dnd":    statusDot.classList.add("status-dnd");    break;
         default:       statusDot.classList.add("status-offline"); break;
       }
 
@@ -393,30 +457,27 @@
       } else if (data.customEmojiText) {
         customEl.textContent = data.customEmojiText + (data.customStatusText ? ` ${data.customStatusText}` : "");
       } else {
-        customEl.textContent = "";
+        customEl.textContent = data.customStatusText || "";
       }
     });
   </script>
 
   <script>
     const positions = [
-      { title: "⚒️ County Leader, Agder Socialist Youth", start: "2026-01-24", color: "glass" },
-      { title: "🌹 Local Leader, Vennesla Socialist Youth", start: "2024-09-01", end: "2026-02-01", color: "glass" },
-      { title: "🌍 Financial Manager, Norwegian People's Aid Solidarity Youth Kristiansand", start: "2025-02-01", end: "2026-02-01", color: "glass" },
+      { title: "⚒️ County Leader, Agder Socialist Youth", start: "2026-01-24" },
+      { title: "🌹 Local Leader, Vennesla Socialist Youth", start: "2024-09-01", end: "2026-02-01" },
+      { title: "🌍 Financial Manager, Norwegian People's Aid Solidarity Youth Kristiansand", start: "2025-02-01", end: "2026-02-01" },
     ];
 
-    // UPDATED: Now accepts an optional endDate
     function calculateDuration(startDate, endDate) {
       const start = new Date(startDate);
-      const end = endDate ? new Date(endDate) : new Date(); // Use specific end date OR "today"
-      
+      const end = endDate ? new Date(endDate) : new Date();
       const diffMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
       const years = Math.floor(diffMonths / 12);
       const months = diffMonths % 12;
-
       if (years === 0 && months === 0) return "Just started";
-      if (years === 0) return `${months} month(s)`;
-      if (months === 0) return `${years} year(s)${years > 1 ? "s" : ""}`;
+      if (years === 0) return `${months} mo`;
+      if (months === 0) return `${years} yr${years > 1 ? "s" : ""}`;
       return `${years} yr${years > 1 ? "s" : ""} ${months} mo`;
     }
 
@@ -424,22 +485,19 @@
       const container = document.getElementById("positions-list");
       positions.forEach(pos => {
         const duration = calculateDuration(pos.start, pos.end);
-        const tagColor = { glass: "glass-card", purple: "bg-purple-100 text-purple-800", green: "bg-green-100 text-green-800", red: "bg-red-100 text-red-800" }[pos.color] || "bg-gray-100 text-gray-800";
-        
-        // Formatting: "Sep 2024 - Feb 2026" or "Jan 2026 - Present"
         const startStr = new Date(pos.start).toLocaleString('en-US', { month: 'short', year: 'numeric' });
-        const endStr = pos.end 
-          ? new Date(pos.end).toLocaleString('en-US', { month: 'short', year: 'numeric' }) 
+        const endStr = pos.end
+          ? new Date(pos.end).toLocaleString('en-US', { month: 'short', year: 'numeric' })
           : "Present";
 
         const li = document.createElement("li");
         li.className = "flex flex-col md:flex-row justify-between items-start md:items-center pb-2";
         li.innerHTML = `
           <div class="max-w-full md:max-w-[70%]">
-            <p class="font-semibold text-lg">${pos.title}</p>
-            <p class="text-sm opacity-70">${startStr} – ${endStr}</p>
+            <p class="font-semibold text-base leading-snug">${pos.title}</p>
+            <p class="text-sm opacity-65 mt-0.5">${startStr} – ${endStr}</p>
           </div>
-          <span class="text-sm mt-2 md:mt-0 ${tagColor} px-3 py-1 rounded-full whitespace-nowrap">${duration}</span>
+          <span class="link-btn mt-2 md:mt-0 text-xs cursor-default">${duration}</span>
         `;
         container.appendChild(li);
       });
