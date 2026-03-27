@@ -16,11 +16,11 @@
     body {
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
-      min-height: 100dvh; /* iOS Safari: excludes browser chrome */
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start; /* center cuts off top on short viewports */
+      justify-content: flex-start;
       padding: 1rem;
       padding-top: max(1rem, env(safe-area-inset-top));
       padding-bottom: max(1rem, env(safe-area-inset-bottom));
@@ -39,12 +39,11 @@
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: url('background.jpg') no-repeat center center / cover;
       z-index: -2; pointer-events: none;
-      /* GPU layer — prevents flicker on iOS Safari */
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
     }
 
-    /* Very light scrim — just enough to help legibility without killing the photo */
+    /* Light scrim */
     body::after {
       content: "";
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -68,13 +67,12 @@
     .masonry-item:nth-child(6) { animation: fadeInUp 0.45s ease both; animation-delay: 0.38s; }
     .masonry-item:nth-child(7) { animation: fadeInUp 0.45s ease both; animation-delay: 0.44s; }
 
-    /* ====  LIQUID GLASS  ================================================== */
+    /* ==== LIQUID GLASS ==================================================== */
     .glass-card {
       background: rgba(255,255,255,0.15);
       backdrop-filter: blur(40px) saturate(180%);
       -webkit-backdrop-filter: blur(40px) saturate(180%);
       border: 1px solid rgba(255,255,255,0.18);
-      /* Specular top-edge highlight */
       border-top: 1px solid rgba(255,255,255,0.45);
       box-shadow:
         0 4px 16px rgba(0,0,0,0.15),
@@ -97,9 +95,7 @@
     .glass-card * { color: #f0f0f0 !important; text-shadow: 0 1px 2px rgba(0,0,0,0.15); }
 
     /* ---- Avatar ---- */
-    .avatar-ring {
-      padding: 0; border-radius: 50%; display: inline-block;
-    }
+    .avatar-ring { padding: 0; border-radius: 50%; display: inline-block; }
     .avatar-ring img {
       display: block; border-radius: 50%;
       border: none;
@@ -107,7 +103,7 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
 
-    /* ---- Discord status pill — liquid glass too ---- */
+    /* ---- Discord status pill ---- */
     .discord-status-bar {
       display: inline-flex; align-items: center; gap: 0.75rem;
       background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
@@ -165,7 +161,7 @@
       .progress-bar-wrapper { width: 100%; min-width: 0; flex: 0 0 auto; margin-top: 0.5rem; }
     }
 
-    /* ---- Badges — liquid glass pills ---- */
+    /* ---- Badges ---- */
     .badge-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .badge {
       display: inline-flex; align-items: center; gap: 0.25rem;
@@ -192,7 +188,7 @@
       }
     }
 
-    /* ---- Tooltip — liquid glass, less transparent ---- */
+    /* ---- Tooltip ---- */
     .badge .tooltip {
       display: none;
       position: absolute;
@@ -214,7 +210,7 @@
     }
     @media (hover: hover) { .badge:hover .tooltip { display: block; } }
 
-    /* ---- Link / duration buttons — liquid glass ---- */
+    /* ---- Link / duration buttons ---- */
     .link-btn {
       display: inline-block;
       font-size: 0.8rem; font-weight: 600;
@@ -260,9 +256,79 @@
       page-break-inside: avoid; display: inline-block;
       width: 100%; margin: 0 0 1.25rem;
     }
+
+    /* ---- Language switcher ---- */
+    #lang-switcher {
+      position: fixed;
+      /* Mobile: bottom-center, clear of home indicator */
+      bottom: max(1.25rem, env(safe-area-inset-bottom) + 0.75rem);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+    }
+    @media (min-width: 768px) {
+      /* Desktop: top-right corner */
+      #lang-switcher {
+        top: 1rem;
+        right: 1rem;
+        bottom: auto;
+        left: auto;
+        transform: none;
+      }
+    }
+    #lang-switcher-inner {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.15rem;
+      padding: 0.3rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border-top: 1px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.35);
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      color: rgba(255,255,255,0.5);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.2s, background 0.2s;
+      line-height: 1;
+    }
+    .lang-btn:hover { color: rgba(255,255,255,0.9); }
+    .lang-btn.active-lang {
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.12) 100%);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.4);
+      color: #ffffff;
+    }
+    @media (max-width: 480px) {
+      #lang-switcher { top: 0.6rem; right: 0.6rem; }
+      .lang-btn { font-size: 0.62rem; padding: 0.25rem 0.55rem; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Language switcher -->
+  <div id="lang-switcher">
+    <div id="lang-switcher-inner">
+      <button onclick="setLang('no')" id="btn-no" class="lang-btn" title="Norsk">NO</button>
+      <button onclick="setLang('en')" id="btn-en" class="lang-btn active-lang" title="English">EN</button>
+      <button onclick="setLang('sv')" id="btn-sv" class="lang-btn" title="Svenska">SV</button>
+    </div>
+  </div>
+
   <div class="content-wrapper p-4 md:p-6">
 
     <!-- Profile -->
@@ -275,7 +341,7 @@
         </div>
       </div>
       <h1 class="text-4xl md:text-5xl font-bold mb-1">Robin Finnestad</h1>
-      <p class="text-base opacity-80 mb-3">IT Student & Political Activist</p>
+      <p class="text-base opacity-80 mb-3" data-i18n="subtitle">IT Student &amp; Political Activist</p>
 
       <div class="flex justify-center">
         <div class="discord-status-bar">
@@ -295,32 +361,32 @@
 
       <!-- Experience -->
       <div id="positions-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center">Experience</h2>
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="experience-title">Experience</h2>
         <ul id="positions-list" class="space-y-4"></ul>
       </div>
 
       <!-- Core Skills -->
       <div id="skills-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center">Core Skills</h2>
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="skills-title">Core Skills</h2>
         <ul id="current-skills-list" class="skills-list space-y-1">
           <li class="skill-item" data-progress="85">
-            <span class="skill-name">📣 Leadership & Advocacy</span>
+            <span class="skill-name" data-i18n="skill-leadership">📣 Leadership &amp; Advocacy</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
           <li class="skill-item" data-progress="80">
-            <span class="skill-name">🌍 Political Science</span>
+            <span class="skill-name" data-i18n="skill-polsci">🌍 Political Science</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
           <li class="skill-item" data-progress="60">
-            <span class="skill-name">🌐 System Admin (Nginx/Linux)</span>
+            <span class="skill-name" data-i18n="skill-sysadmin">🌐 System Admin (Nginx/Linux)</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
           <li class="skill-item" data-progress="70">
-            <span class="skill-name">🔧 Networking</span>
+            <span class="skill-name" data-i18n="skill-networking">🔧 Networking</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
           <li class="skill-item" data-progress="30">
-            <span class="skill-name">🖥️ Web Development</span>
+            <span class="skill-name" data-i18n="skill-webdev">🖥️ Web Development</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
         </ul>
@@ -328,18 +394,18 @@
 
       <!-- Languages -->
       <div id="languages-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center">Languages</h2>
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="languages-title">Languages</h2>
         <ul class="skills-list space-y-1">
           <li class="skill-item" data-progress="100">
-            <span class="skill-name">🇳🇴 Norwegian (Native)</span>
+            <span class="skill-name" data-i18n="lang-no">🇳🇴 Norwegian (Native)</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
           <li class="skill-item" data-progress="95">
-            <span class="skill-name">🇬🇧 English (Fluent)</span>
+            <span class="skill-name" data-i18n="lang-en">🇬🇧 English (Fluent)</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
           <li class="skill-item" data-progress="50">
-            <span class="skill-name">🇸🇪 Swedish (Proficient)</span>
+            <span class="skill-name" data-i18n="lang-sv">🇸🇪 Swedish (Proficient)</span>
             <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
           </li>
         </ul>
@@ -347,83 +413,83 @@
 
       <!-- Values -->
       <div id="ideology-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center">Values</h2>
-        <p class="text-sm opacity-65 text-center mb-5">Core political alignment</p>
+        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center" data-i18n="values-title">Values</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="values-subtitle">Core political alignment</p>
         <div class="badge-grid">
-          <span class="badge">✊ Democratic Socialism<span class="tooltip">People's needs over profit. I believe the economy must serve everyone, not just the wealthy few.</span></span>
-          <span class="badge">🌍 Climate Justice<span class="tooltip">The climate crisis hits the poorest hardest. I push for a fast, fair green transition that doesn't leave workers behind.</span></span>
-          <span class="badge">♀️ Feminism<span class="tooltip">Equal pay, free abortion, safety from violence. I fight for full gender equality in law and in practice.</span></span>
-          <span class="badge">🌹 Social Democracy<span class="tooltip">Strong welfare, free education and healthcare for all. I support broad social-democratic reforms as a step toward deeper change.</span></span>
+          <span class="badge"><span data-i18n="val-dem-socialism">✊ Democratic Socialism</span><span class="tooltip" data-i18n="val-dem-socialism-tt">People's needs over profit. I believe the economy must serve everyone, not just the wealthy few.</span></span>
+          <span class="badge"><span data-i18n="val-climate">🌍 Climate Justice</span><span class="tooltip" data-i18n="val-climate-tt">The climate crisis hits the poorest hardest. I push for a fast, fair green transition that doesn't leave workers behind.</span></span>
+          <span class="badge"><span data-i18n="val-feminism">♀️ Feminism</span><span class="tooltip" data-i18n="val-feminism-tt">Equal pay, free abortion, safety from violence. I fight for full gender equality in law and in practice.</span></span>
+          <span class="badge"><span data-i18n="val-social-dem">🌹 Social Democracy</span><span class="tooltip" data-i18n="val-social-dem-tt">Strong welfare, free education and healthcare for all. I support broad social-democratic reforms as a step toward deeper change.</span></span>
         </div>
       </div>
 
       <!-- Key Issues -->
       <div id="beliefs-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold text-center">Key Issues</h2>
-        <p class="text-sm opacity-65 text-center mb-5">Policy priorities</p>
+        <h2 class="text-2xl md:text-3xl font-semibold text-center" data-i18n="issues-title">Key Issues</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="issues-subtitle">Policy priorities</p>
         <div class="badge-grid">
-          <span class="badge">🧑‍⚕️ Universal Healthcare<span class="tooltip">I want all healthcare fully public and free at point of use — no private queue-jumping.</span></span>
-          <span class="badge">👩‍⚖️ Reproductive Rights<span class="tooltip">I defend and want to expand the right to abortion, free from shame and barriers.</span></span>
-          <span class="badge">📚 Public Education<span class="tooltip">Free schools and universities for everyone. I oppose private schools that increase inequality.</span></span>
-          <span class="badge">🏳️‍🌈 LGBTQ+ Rights<span class="tooltip">Full legal and social equality for all, regardless of gender identity or sexual orientation.</span></span>
-          <span class="badge">🏦 Public Sector Strengthening<span class="tooltip">I fight privatisation of welfare — care, schools and transport should serve people, not profit.</span></span>
-          <span class="badge">🌱 Green Transition<span class="tooltip">Rapid shift away from fossil fuels with a just transition that protects jobs and communities.</span></span>
-          <span class="badge">⚖️ Economic Justice<span class="tooltip">Tax the wealthy, raise minimum wages, reduce the gap between rich and poor.</span></span>
-          <span class="badge">🔒 Digital Rights & Privacy<span class="tooltip">I oppose mass surveillance and fight for strong data privacy and open digital infrastructure.</span></span>
+          <span class="badge"><span data-i18n="issue-health">🧑‍⚕️ Universal Healthcare</span><span class="tooltip" data-i18n="issue-health-tt">I want all healthcare fully public and free at point of use — no private queue-jumping.</span></span>
+          <span class="badge"><span data-i18n="issue-repro">👩‍⚖️ Reproductive Rights</span><span class="tooltip" data-i18n="issue-repro-tt">I defend and want to expand the right to abortion, free from shame and barriers.</span></span>
+          <span class="badge"><span data-i18n="issue-edu">📚 Public Education</span><span class="tooltip" data-i18n="issue-edu-tt">Free schools and universities for everyone. I oppose private schools that increase inequality.</span></span>
+          <span class="badge"><span data-i18n="issue-lgbtq">🏳️‍🌈 LGBTQ+ Rights</span><span class="tooltip" data-i18n="issue-lgbtq-tt">Full legal and social equality for all, regardless of gender identity or sexual orientation.</span></span>
+          <span class="badge"><span data-i18n="issue-public-sector">🏦 Public Sector Strengthening</span><span class="tooltip" data-i18n="issue-public-sector-tt">I fight privatisation of welfare — care, schools and transport should serve people, not profit.</span></span>
+          <span class="badge"><span data-i18n="issue-green">🌱 Green Transition</span><span class="tooltip" data-i18n="issue-green-tt">Rapid shift away from fossil fuels with a just transition that protects jobs and communities.</span></span>
+          <span class="badge"><span data-i18n="issue-econ">⚖️ Economic Justice</span><span class="tooltip" data-i18n="issue-econ-tt">Tax the wealthy, raise minimum wages, reduce the gap between rich and poor.</span></span>
+          <span class="badge"><span data-i18n="issue-digital">🔒 Digital Rights &amp; Privacy</span><span class="tooltip" data-i18n="issue-digital-tt">I oppose mass surveillance and fight for strong data privacy and open digital infrastructure.</span></span>
         </div>
       </div>
 
       <!-- Links -->
       <div id="links-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center">Links</h2>
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="links-title">Links</h2>
         <ul class="space-y-4">
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
             <div class="max-w-full md:max-w-[70%]">
               <p class="font-semibold text-lg">🔗 GitHub</p>
-              <p class="text-sm opacity-65 break-words">Code repositories & projects.</p>
+              <p class="text-sm opacity-65 break-words" data-i18n="github-desc">Code repositories &amp; projects.</p>
             </div>
             <a href="https://github.com/08Robfin" target="_blank" rel="noopener noreferrer"
-               class="link-btn mt-2 md:mt-0">View →</a>
+               class="link-btn mt-2 md:mt-0" data-i18n="view-btn">View →</a>
           </li>
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
             <div class="max-w-full md:max-w-[70%]">
               <p class="font-semibold text-lg">🎮 Twitch</p>
-              <p class="text-sm opacity-65 break-words">Live streaming.</p>
+              <p class="text-sm opacity-65 break-words" data-i18n="twitch-desc">Live streaming.</p>
             </div>
             <a href="https://www.twitch.tv/robfinttv" target="_blank" rel="noopener noreferrer"
-               class="link-btn mt-2 md:mt-0">View →</a>
+               class="link-btn mt-2 md:mt-0" data-i18n="view-btn">View →</a>
           </li>
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
             <div class="max-w-full md:max-w-[70%]">
               <p class="font-semibold text-lg">💬 Discord Community</p>
-              <p class="text-sm opacity-65 break-words">Join the server.</p>
+              <p class="text-sm opacity-65 break-words" data-i18n="discord-desc">Join the server.</p>
             </div>
             <a href="https://discord.gg/7XVMssR9Be" target="_blank" rel="noopener noreferrer"
-               class="link-btn mt-2 md:mt-0">Join →</a>
+               class="link-btn mt-2 md:mt-0" data-i18n="join-btn">Join →</a>
           </li>
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
             <div class="max-w-full md:max-w-[70%]">
               <p class="font-semibold text-lg">🐦 X (Twitter)</p>
-              <p class="text-sm opacity-65 break-words">Follow for updates.</p>
+              <p class="text-sm opacity-65 break-words" data-i18n="x-desc">Follow for updates.</p>
             </div>
             <a href="https://x.com/robin_finnestad?s=21" target="_blank" rel="noopener noreferrer"
-               class="link-btn mt-2 md:mt-0">View →</a>
+               class="link-btn mt-2 md:mt-0" data-i18n="view-btn">View →</a>
           </li>
         </ul>
       </div>
 
       <!-- Referral Links -->
       <div id="referrals-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center">Referral Links</h2>
-        <p class="text-sm opacity-65 text-center mb-6">Support links with bonuses.</p>
+        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center" data-i18n="referrals-title">Referral Links</h2>
+        <p class="text-sm opacity-65 text-center mb-6" data-i18n="referrals-subtitle">Support links with bonuses.</p>
         <ul class="space-y-4">
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
             <div class="max-w-full md:max-w-[70%]">
               <p class="font-semibold text-lg">🐝 Honeygain</p>
-              <p class="text-sm opacity-65 break-words">Passive income by sharing bandwidth. Includes $3 welcome gift.</p>
+              <p class="text-sm opacity-65 break-words" data-i18n="honeygain-desc">Passive income by sharing bandwidth. Includes $3 welcome gift.</p>
             </div>
             <a href="https://join.honeygain.com/FINNE5EBF2" target="_blank" rel="noopener noreferrer"
-               class="link-btn mt-2 md:mt-0">View →</a>
+               class="link-btn mt-2 md:mt-0" data-i18n="view-btn">View →</a>
           </li>
         </ul>
       </div>
@@ -431,9 +497,218 @@
     </div>
 
     <footer class="text-center mt-10 opacity-60 text-xs">
-      <p>&copy; <span id="currentYear"></span> Robin Finnestad &mdash; Self-hosted on private infrastructure.</p>
+      <p>&copy; <span id="currentYear"></span> Robin Finnestad &mdash; <span data-i18n="footer-hosted">Self-hosted on private infrastructure.</span></p>
     </footer>
   </div>
+
+  <!-- ================================================================== -->
+  <!-- Translations                                                         -->
+  <!-- ================================================================== -->
+  <script>
+    const translations = {
+      en: {
+        "subtitle":               "IT Student & Political Activist",
+        "experience-title":       "Experience",
+        "skills-title":           "Core Skills",
+        "skill-leadership":       "📣 Leadership & Advocacy",
+        "skill-polsci":           "🌍 Political Science",
+        "skill-sysadmin":         "🌐 System Admin (Nginx/Linux)",
+        "skill-networking":       "🔧 Networking",
+        "skill-webdev":           "🖥️ Web Development",
+        "languages-title":        "Languages",
+        "lang-no":                "🇳🇴 Norwegian (Native)",
+        "lang-en":                "🇬🇧 English (Fluent)",
+        "lang-sv":                "🇸🇪 Swedish (Proficient)",
+        "values-title":           "Values",
+        "values-subtitle":        "Core political alignment",
+        "val-dem-socialism":      "✊ Democratic Socialism",
+        "val-dem-socialism-tt":   "People's needs over profit. I believe the economy must serve everyone, not just the wealthy few.",
+        "val-climate":            "🌍 Climate Justice",
+        "val-climate-tt":         "The climate crisis hits the poorest hardest. I push for a fast, fair green transition that doesn't leave workers behind.",
+        "val-feminism":           "♀️ Feminism",
+        "val-feminism-tt":        "Equal pay, free abortion, safety from violence. I fight for full gender equality in law and in practice.",
+        "val-social-dem":         "🌹 Social Democracy",
+        "val-social-dem-tt":      "Strong welfare, free education and healthcare for all. I support broad social-democratic reforms as a step toward deeper change.",
+        "issues-title":           "Key Issues",
+        "issues-subtitle":        "Policy priorities",
+        "issue-health":           "🧑‍⚕️ Universal Healthcare",
+        "issue-health-tt":        "I want all healthcare fully public and free at point of use — no private queue-jumping.",
+        "issue-repro":            "👩‍⚖️ Reproductive Rights",
+        "issue-repro-tt":         "I defend and want to expand the right to abortion, free from shame and barriers.",
+        "issue-edu":              "📚 Public Education",
+        "issue-edu-tt":           "Free schools and universities for everyone. I oppose private schools that increase inequality.",
+        "issue-lgbtq":            "🏳️‍🌈 LGBTQ+ Rights",
+        "issue-lgbtq-tt":         "Full legal and social equality for all, regardless of gender identity or sexual orientation.",
+        "issue-public-sector":    "🏦 Public Sector Strengthening",
+        "issue-public-sector-tt": "I fight privatisation of welfare — care, schools and transport should serve people, not profit.",
+        "issue-green":            "🌱 Green Transition",
+        "issue-green-tt":         "Rapid shift away from fossil fuels with a just transition that protects jobs and communities.",
+        "issue-econ":             "⚖️ Economic Justice",
+        "issue-econ-tt":          "Tax the wealthy, raise minimum wages, reduce the gap between rich and poor.",
+        "issue-digital":          "🔒 Digital Rights & Privacy",
+        "issue-digital-tt":       "I oppose mass surveillance and fight for strong data privacy and open digital infrastructure.",
+        "links-title":            "Links",
+        "github-desc":            "Code repositories & projects.",
+        "twitch-desc":            "Live streaming.",
+        "discord-desc":           "Join the server.",
+        "x-desc":                 "Follow for updates.",
+        "view-btn":               "View →",
+        "join-btn":               "Join →",
+        "referrals-title":        "Referral Links",
+        "referrals-subtitle":     "Support links with bonuses.",
+        "honeygain-desc":         "Passive income by sharing bandwidth. Includes $3 welcome gift.",
+        "present":                "Present",
+        "just-started":           "Just started",
+        "footer-hosted":          "Self-hosted on private infrastructure.",
+      },
+      no: {
+        "subtitle":               "IT-student & politisk aktivist",
+        "experience-title":       "Erfaring",
+        "skills-title":           "Kjernekompetanse",
+        "skill-leadership":       "📣 Lederskap & Påvirkning",
+        "skill-polsci":           "🌍 Statsvitenskap",
+        "skill-sysadmin":         "🌐 Systemadmin (Nginx/Linux)",
+        "skill-networking":       "🔧 Nettverk",
+        "skill-webdev":           "🖥️ Webutvikling",
+        "languages-title":        "Språk",
+        "lang-no":                "🇳🇴 Norsk (morsmål)",
+        "lang-en":                "🇬🇧 Engelsk (flytende)",
+        "lang-sv":                "🇸🇪 Svensk (godt nivå)",
+        "values-title":           "Verdier",
+        "values-subtitle":        "Politisk ståsted",
+        "val-dem-socialism":      "✊ Demokratisk sosialisme",
+        "val-dem-socialism-tt":   "Folks behov før profitt. Jeg mener at økonomien må tjene alle, ikke bare de velstående få.",
+        "val-climate":            "🌍 Klimarettferdighet",
+        "val-climate-tt":         "Klimakrisen rammer de fattigste hardest. Jeg kjemper for en rask, rettferdig grønn omstilling som ikke forlater arbeiderne.",
+        "val-feminism":           "♀️ Feminisme",
+        "val-feminism-tt":        "Lik lønn, fri abort, trygghet mot vold. Jeg kjemper for full likestilling i lov og i praksis.",
+        "val-social-dem":         "🌹 Sosialdemokrati",
+        "val-social-dem-tt":      "Sterk velferd, gratis utdanning og helsevesen for alle. Jeg støtter sosialdemokratiske reformer som et skritt mot dypere endring.",
+        "issues-title":           "Hjertesaker",
+        "issues-subtitle":        "Politiske prioriteringer",
+        "issue-health":           "🧑‍⚕️ Universell helsetjeneste",
+        "issue-health-tt":        "Jeg vil ha all helsehjelp fullt offentlig og gratis ved behov – ingen privat køfrihet.",
+        "issue-repro":            "👩‍⚖️ Reproduktive rettigheter",
+        "issue-repro-tt":         "Jeg forsvarer og vil utvide retten til abort, fri fra skam og hindringer.",
+        "issue-edu":              "📚 Offentlig utdanning",
+        "issue-edu-tt":           "Gratis skoler og universiteter for alle. Jeg er imot privatskoler som øker ulikheten.",
+        "issue-lgbtq":            "🏳️‍🌈 LHBT+-rettigheter",
+        "issue-lgbtq-tt":         "Full juridisk og sosial likhet for alle, uavhengig av kjønnsidentitet eller seksuell orientering.",
+        "issue-public-sector":    "🏦 Styrking av offentlig sektor",
+        "issue-public-sector-tt": "Jeg kjemper mot privatisering av velferd – omsorg, skoler og transport skal tjene folk, ikke profitt.",
+        "issue-green":            "🌱 Grønn omstilling",
+        "issue-green-tt":         "Rask overgang bort fra fossile brensler med en rettferdig omstilling som beskytter jobber og lokalsamfunn.",
+        "issue-econ":             "⚖️ Økonomisk rettferdighet",
+        "issue-econ-tt":          "Skattlegg de rike, hev minstelønn, reduser kløften mellom rik og fattig.",
+        "issue-digital":          "🔒 Digitale rettigheter & personvern",
+        "issue-digital-tt":       "Jeg er imot masseovervåking og kjemper for sterkt personvern og åpen digital infrastruktur.",
+        "links-title":            "Lenker",
+        "github-desc":            "Kodelagre & prosjekter.",
+        "twitch-desc":            "Direktesending.",
+        "discord-desc":           "Bli med på serveren.",
+        "x-desc":                 "Følg for oppdateringer.",
+        "view-btn":               "Se →",
+        "join-btn":               "Bli med →",
+        "referrals-title":        "Referanselenker",
+        "referrals-subtitle":     "Støttelenker med bonuser.",
+        "honeygain-desc":         "Passiv inntekt ved deling av båndbredde. Inkluderer $3 velkomstgave.",
+        "present":                "Nå",
+        "just-started":           "Nettopp startet",
+        "footer-hosted":          "Egendriftet på privat infrastruktur.",
+      },
+      sv: {
+        "subtitle":               "IT-student & politisk aktivist",
+        "experience-title":       "Erfarenhet",
+        "skills-title":           "Kärnkompetens",
+        "skill-leadership":       "📣 Ledarskap & Påverkan",
+        "skill-polsci":           "🌍 Statsvetenskap",
+        "skill-sysadmin":         "🌐 Systemadmin (Nginx/Linux)",
+        "skill-networking":       "🔧 Nätverk",
+        "skill-webdev":           "🖥️ Webbutveckling",
+        "languages-title":        "Språk",
+        "lang-no":                "🇳🇴 Norska (modersmål)",
+        "lang-en":                "🇬🇧 Engelska (flytande)",
+        "lang-sv":                "🇸🇪 Svenska (god nivå)",
+        "values-title":           "Värderingar",
+        "values-subtitle":        "Politisk inriktning",
+        "val-dem-socialism":      "✊ Demokratisk socialism",
+        "val-dem-socialism-tt":   "Folkets behov framför vinst. Jag anser att ekonomin måste tjäna alla, inte bara de förmögna få.",
+        "val-climate":            "🌍 Klimaträttvisa",
+        "val-climate-tt":         "Klimatkrisen drabbar de fattigaste hårdast. Jag kämpar för en snabb, rättvis grön omställning som inte lämnar arbetstagare bakom.",
+        "val-feminism":           "♀️ Feminism",
+        "val-feminism-tt":        "Lika lön, fri abort, trygghet från våld. Jag kämpar för full jämställdhet i lag och i praktiken.",
+        "val-social-dem":         "🌹 Socialdemokrati",
+        "val-social-dem-tt":      "Stark välfärd, gratis utbildning och sjukvård för alla. Jag stödjer socialdemokratiska reformer som ett steg mot djupare förändring.",
+        "issues-title":           "Hjärtefrågor",
+        "issues-subtitle":        "Politiska prioriteringar",
+        "issue-health":           "🧑‍⚕️ Universell sjukvård",
+        "issue-health-tt":        "Jag vill ha all sjukvård helt offentlig och gratis vid behov – ingen privat köfri vård.",
+        "issue-repro":            "👩‍⚖️ Reproduktiva rättigheter",
+        "issue-repro-tt":         "Jag försvarar och vill utvidga rätten till abort, fri från skam och hinder.",
+        "issue-edu":              "📚 Offentlig utbildning",
+        "issue-edu-tt":           "Gratis skolor och universitet för alla. Jag är emot fristående skolor som ökar ojämlikheten.",
+        "issue-lgbtq":            "🏳️‍🌈 HBTQ+-rättigheter",
+        "issue-lgbtq-tt":         "Full rättslig och social jämlikhet för alla, oavsett könsidentitet eller sexuell läggning.",
+        "issue-public-sector":    "🏦 Stärkning av offentlig sektor",
+        "issue-public-sector-tt": "Jag kämpar mot privatisering av välfärden – vård, skolor och kollektivtrafik ska tjäna folk, inte vinst.",
+        "issue-green":            "🌱 Grön omställning",
+        "issue-green-tt":         "Snabb övergång från fossila bränslen med en rättvis omställning som skyddar jobb och samhällen.",
+        "issue-econ":             "⚖️ Ekonomisk rättvisa",
+        "issue-econ-tt":          "Beskatta de rika, höj minimilöner, minska klyftan mellan rik och fattig.",
+        "issue-digital":          "🔒 Digitala rättigheter & integritet",
+        "issue-digital-tt":       "Jag är emot massövervakning och kämpar för stark dataintegritet och öppen digital infrastruktur.",
+        "links-title":            "Länkar",
+        "github-desc":            "Kodarkiv & projekt.",
+        "twitch-desc":            "Direktsändning.",
+        "discord-desc":           "Gå med i servern.",
+        "x-desc":                 "Följ för uppdateringar.",
+        "view-btn":               "Visa →",
+        "join-btn":               "Gå med →",
+        "referrals-title":        "Referenslänkar",
+        "referrals-subtitle":     "Supportlänkar med bonusar.",
+        "honeygain-desc":         "Passiv inkomst via delning av bandbredd. Inkluderar $3 välkomstgåva.",
+        "present":                "Nu",
+        "just-started":           "Precis börjat",
+        "footer-hosted":          "Självhostad på privat infrastruktur.",
+      }
+    };
+
+    let currentLang = "en";
+
+    function setLang(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+
+      document.documentElement.lang = lang === "no" ? "nb" : lang;
+
+      ["no", "en", "sv"].forEach(l => {
+        document.getElementById("btn-" + l).classList.toggle("active-lang", l === lang);
+      });
+
+      // Re-render positions with new language
+      document.getElementById("positions-list").innerHTML = "";
+      renderPositions();
+
+      try { localStorage.setItem("lang", lang); } catch(e) {}
+    }
+
+    // Auto-detect language on first visit
+    (function detectLang() {
+      try {
+        const saved = localStorage.getItem("lang");
+        if (saved && translations[saved]) { currentLang = saved; return; }
+      } catch(e) {}
+      const browser = (navigator.language || "en").toLowerCase().slice(0, 2);
+      if (browser === "no" || browser === "nb" || browser === "nn") currentLang = "no";
+      else if (browser === "sv") currentLang = "sv";
+      else currentLang = "en";
+    })();
+  </script>
 
   <script>
     document.getElementById("currentYear").textContent = new Date().getFullYear();
@@ -445,7 +720,6 @@
         if (fill) { setTimeout(() => { fill.style.width = pct + "%"; }, 150); }
       });
     }
-    document.addEventListener("DOMContentLoaded", updateProgressBars);
   </script>
 
   <script src="/socket.io/socket.io.js"></script>
@@ -490,25 +764,28 @@
     ];
 
     function calculateDuration(startDate, endDate) {
+      const t = translations[currentLang];
       const start = new Date(startDate);
       const end = endDate ? new Date(endDate) : new Date();
       const diffMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
       const years = Math.floor(diffMonths / 12);
       const months = diffMonths % 12;
-      if (years === 0 && months === 0) return "Just started";
+      if (years === 0 && months === 0) return t["just-started"];
       if (years === 0) return `${months} mo`;
       if (months === 0) return `${years} yr${years > 1 ? "s" : ""}`;
       return `${years} yr${years > 1 ? "s" : ""} ${months} mo`;
     }
 
     function renderPositions() {
+      const t = translations[currentLang];
+      const locale = currentLang === "no" ? "nb-NO" : currentLang === "sv" ? "sv-SE" : "en-US";
       const container = document.getElementById("positions-list");
       positions.forEach(pos => {
         const duration = calculateDuration(pos.start, pos.end);
-        const startStr = new Date(pos.start).toLocaleString('en-US', { month: 'short', year: 'numeric' });
+        const startStr = new Date(pos.start).toLocaleString(locale, { month: 'short', year: 'numeric' });
         const endStr = pos.end
-          ? new Date(pos.end).toLocaleString('en-US', { month: 'short', year: 'numeric' })
-          : "Present";
+          ? new Date(pos.end).toLocaleString(locale, { month: 'short', year: 'numeric' })
+          : t["present"];
 
         const li = document.createElement("li");
         li.className = "flex flex-col md:flex-row justify-between items-start md:items-center pb-2";
@@ -522,7 +799,11 @@
         container.appendChild(li);
       });
     }
-    document.addEventListener("DOMContentLoaded", renderPositions);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      setLang(currentLang);
+      updateProgressBars();
+    });
   </script>
 
 </body>
