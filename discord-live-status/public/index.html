@@ -258,22 +258,20 @@
     }
 
     /* ---- Language switcher ---- */
+    /* Mobile: sits inside the profile card, top-right corner */
     #lang-switcher {
-      position: fixed;
-      /* Mobile: bottom-center, clear of home indicator */
-      bottom: max(1.25rem, env(safe-area-inset-bottom) + 0.75rem);
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 200;
+      position: absolute;
+      top: 0.85rem;
+      right: 0.85rem;
+      z-index: 10;
     }
     @media (min-width: 768px) {
-      /* Desktop: top-right corner */
+      /* Desktop: fixed top-right of the viewport */
       #lang-switcher {
+        position: fixed;
         top: 1rem;
         right: 1rem;
-        bottom: auto;
-        left: auto;
-        transform: none;
+        z-index: 200;
       }
     }
     #lang-switcher-inner {
@@ -320,19 +318,19 @@
 </head>
 <body>
 
-  <!-- Language switcher -->
-  <div id="lang-switcher">
-    <div id="lang-switcher-inner">
-      <button onclick="setLang('no')" id="btn-no" class="lang-btn" title="Norsk">NO</button>
-      <button onclick="setLang('en')" id="btn-en" class="lang-btn active-lang" title="English">EN</button>
-      <button onclick="setLang('sv')" id="btn-sv" class="lang-btn" title="Svenska">SV</button>
-    </div>
-  </div>
-
   <div class="content-wrapper p-4 md:p-6">
 
     <!-- Profile -->
     <div id="profile-section" class="glass-card p-6 md:p-8 text-center mb-5">
+
+      <!-- Language switcher — inside card on mobile, fixed top-right on desktop -->
+      <div id="lang-switcher">
+        <div id="lang-switcher-inner">
+          <button onclick="setLang('no')" id="btn-no" class="lang-btn" title="Norsk">NO</button>
+          <button onclick="setLang('en')" id="btn-en" class="lang-btn active-lang" title="English">EN</button>
+          <button onclick="setLang('sv')" id="btn-sv" class="lang-btn" title="Svenska">SV</button>
+        </div>
+      </div>
       <div class="w-full flex justify-center mb-4">
         <div class="avatar-ring">
           <img
