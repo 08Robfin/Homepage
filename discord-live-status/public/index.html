@@ -10,8 +10,17 @@
   <meta name="trustpilot-one-time-domain-verification-id" content="933b3c12-41eb-4877-a55c-e43a75e99fc6"/>
 
   <style>
-    /* Prevent horizontal scroll without breaking Safari fixed positioning */
-    html { overflow-x: hidden; }
+    /*
+     * overflow-x: clip — clips without creating a scroll container.
+     * overflow-x: hidden creates a scroll container on html, which breaks body
+     * background propagation and position:fixed behaviour in Safari.
+     * background-color fills the scrollbar gutter on desktop (where overlay
+     * scrollbars aren't used) so there is no black strip on the side.
+     */
+    html {
+      overflow-x: clip;
+      background-color: #000;
+    }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -28,25 +37,47 @@
       padding-right: max(1rem, env(safe-area-inset-right));
       -webkit-overflow-scrolling: touch;
       color: #fff;
-      position: relative;
-      z-index: 0;
-      background: #000;
+      /*
+       * NO position/z-index on body — critical for correct layer ordering.
+       * Adding position+z-index creates a stacking context; body::before/after
+       * with z-index:-1 would then be scoped to that context and paint BEHIND
+       * body's own background, making them invisible.
+       * Without a body stacking context, ::before/::after live in html's stacking
+       * context: painted after html's background but below all positive z-index content.
+       */
+      background: transparent;
     }
 
-    /* Background photo */
+    /*
+     * Background photo.
+     * Negative safe-area-inset offsets extend the layer behind the Dynamic Island
+     * and URL bar on iOS Safari (viewport-fit=cover makes top:0 the visual viewport
+     * top, i.e. below the URL bar; subtracting the inset reaches behind it).
+     * On desktop the insets are 0 so behaviour is unchanged.
+     * z-index:-1 inside html's stacking context = above html background (#000),
+     * below all body content.
+     */
     body::before {
       content: "";
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      position: fixed;
+      top:    calc(-1 * env(safe-area-inset-top,    0px));
+      left:   calc(-1 * env(safe-area-inset-left,   0px));
+      right:  calc(-1 * env(safe-area-inset-right,  0px));
+      bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
       background: url('background.jpg') no-repeat center center / cover;
-      z-index: -2; pointer-events: none;
+      z-index: -1; pointer-events: none;
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
     }
 
-    /* Light scrim */
+    /* Light scrim — same coverage as the background layer */
     body::after {
       content: "";
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      position: fixed;
+      top:    calc(-1 * env(safe-area-inset-top,    0px));
+      left:   calc(-1 * env(safe-area-inset-left,   0px));
+      right:  calc(-1 * env(safe-area-inset-right,  0px));
+      bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
       background: rgba(0,0,0,0.18);
       z-index: -1; pointer-events: none;
       -webkit-transform: translateZ(0);
