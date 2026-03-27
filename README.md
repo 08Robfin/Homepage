@@ -5,7 +5,7 @@ A personal website I made (mostly out of boredom) that shows a live status of my
 ## 🔥 Features
 
 - **Live Discord Integration**  
-  It grabs my profile picture, name, status message, and status (online / idle / dnd / offline) directly from Discord and updates in real time. (50-500ms delay)
+  It grabs my profile picture, name, status message, and status (online / idle / dnd / offline) directly from Discord and updates in real time. (1-100ms delay)
 
 - **Auto Deployment**  
   Any push I make from VS Code to GitHub gets deployed to my server *within seconds*. All automatic. No dragging files around.
