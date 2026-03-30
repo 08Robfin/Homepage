@@ -267,6 +267,18 @@
       }
     }
 
+    /* ---- Referral links card — not a clickable surface ---- */
+    #referrals-section { cursor: default; }
+    @media (hover: hover) {
+      #referrals-section:hover {
+        transform: none !important;
+        box-shadow:
+          0 4px 16px rgba(0,0,0,0.15),
+          0 1px 3px  rgba(0,0,0,0.08),
+          inset 0 1px 0 rgba(255,255,255,0.3) !important;
+      }
+    }
+
     /* ---- Scrollbar ---- */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
@@ -515,6 +527,38 @@
         </ul>
       </div>
 
+      <!-- Certifications -->
+      <div id="certifications-section" class="masonry-item glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="certs-title">Certifications</h2>
+        <ul class="space-y-4" id="certs-list">
+
+          <!-- Google IT Support -->
+          <li class="flex items-start gap-4 pb-1">
+            <div class="flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center"
+                 style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);box-shadow:inset 0 1px 0 rgba(255,255,255,0.25);">
+              <!-- Google G logo (2025) -->
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/250px-Google_Favicon_2025.svg.png"
+                   alt="Google" width="30" height="30" style="object-fit:contain;"/>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-base leading-snug">Google IT Support</p>
+              <p class="text-sm opacity-60 mt-0.5">Google &mdash; Coursera &middot; 6 Courses</p>
+              <div class="flex items-center gap-2 mt-2 flex-wrap">
+                <span class="text-xs opacity-55" style="display:inline-flex;align-items:center;gap:0.3rem;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.7;flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span data-i18n="cert-google-date">Nov 24, 2025</span>
+                </span>
+                <a href="https://coursera.org/verify/professional-cert/KY33EM8TPDOE"
+                   target="_blank" rel="noopener noreferrer"
+                   class="link-btn" style="font-size:0.75rem;padding:0.25rem 0.75rem;"
+                   data-i18n="cert-verify-btn">Verify →</a>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+
       <!-- Referral Links -->
       <div id="referrals-section" class="masonry-item glass-card p-6 md:p-8">
         <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center" data-i18n="referrals-title">Referral Links</h2>
@@ -599,6 +643,9 @@
         "present":                "Present",
         "just-started":           "Just started",
         "footer-hosted":          "Self-hosted on private infrastructure.",
+        "certs-title":            "Certifications",
+        "cert-google-date":       "Nov 24, 2025",
+        "cert-verify-btn":        "Verify →",
       },
       no: {
         "subtitle":               "IT-student & politisk aktivist",
@@ -656,6 +703,9 @@
         "present":                "Nå",
         "just-started":           "Nettopp startet",
         "footer-hosted":          "Egendriftet på privat infrastruktur.",
+        "certs-title":            "Sertifiseringer",
+        "cert-google-date":       "24. nov 2025",
+        "cert-verify-btn":        "Verifiser →",
       },
       sv: {
         "subtitle":               "IT-student & politisk aktivist",
@@ -713,6 +763,9 @@
         "present":                "Nu",
         "just-started":           "Precis börjat",
         "footer-hosted":          "Självhostad på privat infrastruktur.",
+        "certs-title":            "Certifieringar",
+        "cert-google-date":       "24 nov 2025",
+        "cert-verify-btn":        "Verifiera →",
       }
     };
 
