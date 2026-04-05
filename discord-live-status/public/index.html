@@ -291,14 +291,8 @@
     @media (min-width: 1024px) { .content-wrapper { max-width: 1300px; } }
 
     /* ---- Masonry ---- */
-    .masonry { column-gap: 1.25rem; column-count: 1; }
-    @media (min-width: 768px)  { .masonry { column-count: 2; } }
-    @media (min-width: 1024px) { .masonry { column-count: 3; } }
-    .masonry-item {
-      break-inside: avoid; -webkit-column-break-inside: avoid;
-      page-break-inside: avoid; display: inline-block;
-      width: 100%; margin: 0 0 1.25rem;
-    }
+    .masonry { position: relative; }
+    .masonry-item { width: 100%; box-sizing: border-box; margin: 0 0 1.25rem; }
 
     /* ---- Language switcher ---- */
     /* Mobile: sits inside the profile card, top-right corner */
@@ -401,13 +395,45 @@
     <div class="masonry">
 
       <!-- Experience -->
-      <div id="positions-section" class="masonry-item glass-card p-6 md:p-8">
+      <div id="positions-section" class="masonry-item glass-card p-6 md:p-8" data-col="1">
         <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="experience-title">Experience</h2>
         <ul id="positions-list" class="space-y-4"></ul>
       </div>
 
+      <!-- Certifications -->
+      <div id="certifications-section" class="masonry-item glass-card p-6 md:p-8" data-col="1">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="certs-title">Certifications</h2>
+        <ul class="space-y-4" id="certs-list">
+
+          <!-- Google IT Support -->
+          <li class="flex items-start gap-4 pb-1">
+            <div class="flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center"
+                 style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);box-shadow:inset 0 1px 0 rgba(255,255,255,0.25);">
+              <!-- Google G logo (2025) -->
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/250px-Google_Favicon_2025.svg.png"
+                   alt="Google" width="30" height="30" style="object-fit:contain;"/>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-base leading-snug">Google IT Support</p>
+              <p class="text-sm opacity-60 mt-0.5">Google &mdash; Coursera &middot; 6 Courses</p>
+              <div class="flex items-center gap-2 mt-2 flex-wrap">
+                <span class="text-xs opacity-55" style="display:inline-flex;align-items:center;gap:0.3rem;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.7;flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span data-i18n="cert-google-date">Nov 24, 2025</span>
+                </span>
+                <a href="https://coursera.org/verify/professional-cert/KY33EM8TPDOE"
+                   target="_blank" rel="noopener noreferrer"
+                   class="link-btn" style="font-size:0.75rem;padding:0.25rem 0.75rem;"
+                   data-i18n="cert-verify-btn">Verify →</a>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+
       <!-- Core Skills -->
-      <div id="skills-section" class="masonry-item glass-card p-6 md:p-8">
+      <div id="skills-section" class="masonry-item glass-card p-6 md:p-8" data-col="1">
         <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="skills-title">Core Skills</h2>
         <ul id="current-skills-list" class="skills-list space-y-1">
           <li class="skill-item" data-progress="85">
@@ -442,7 +468,7 @@
       </div>
 
       <!-- Server Hosting -->
-      <div class="masonry-item glass-card p-6 md:p-8">
+      <div class="masonry-item glass-card p-6 md:p-8" data-col="2">
         <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center">🖥️ Server Hosting</h2>
         <p class="text-sm opacity-65 text-center mb-5">Affordable game server hosting, self-managed on private infrastructure.</p>
         <ul class="space-y-3 mb-5">
@@ -456,7 +482,7 @@
       </div>
 
       <!-- Values -->
-      <div id="ideology-section" class="masonry-item glass-card p-6 md:p-8">
+      <div id="ideology-section" class="masonry-item glass-card p-6 md:p-8" data-col="2">
         <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center" data-i18n="values-title">Values</h2>
         <p class="text-sm opacity-65 text-center mb-5" data-i18n="values-subtitle">Core political alignment</p>
         <div class="badge-grid">
@@ -468,7 +494,7 @@
       </div>
 
       <!-- Key Issues -->
-      <div id="beliefs-section" class="masonry-item glass-card p-6 md:p-8">
+      <div id="beliefs-section" class="masonry-item glass-card p-6 md:p-8" data-col="2">
         <h2 class="text-2xl md:text-3xl font-semibold text-center" data-i18n="issues-title">Key Issues</h2>
         <p class="text-sm opacity-65 text-center mb-5" data-i18n="issues-subtitle">Policy priorities</p>
         <div class="badge-grid">
@@ -483,8 +509,41 @@
         </div>
       </div>
 
+      <!-- 3D Printing -->
+      <div class="masonry-item glass-card p-6 md:p-8" data-col="3">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center">🖨️ 3D Printing</h2>
+        <p class="text-sm opacity-65 text-center mb-5">Custom 3D printed models, printed and shipped to your door. Available in Norway only.</p>
+        <ul class="space-y-3 mb-5">
+          <li class="flex items-center gap-2 text-sm opacity-80"><span>📦</span> Send me any model and get a price estimate</li>
+          <li class="flex items-center gap-2 text-sm opacity-80"><span>🔒</span> Secure payment through Finn.no Fiks Ferdig</li>
+          <li class="flex items-center gap-2 text-sm opacity-80"><span>⭐</span> 10/10 rating on Finn.no</li>
+        </ul>
+        <div class="flex justify-center">
+          <a href="/3dprint" class="link-btn text-sm">View service →</a>
+        </div>
+      </div>
+
+      <!-- Languages -->
+      <div id="languages-section" class="masonry-item glass-card p-6 md:p-8" data-col="3" style="animation: fadeInUp 0.45s ease both; animation-delay: 0.50s;">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="languages-title">Languages</h2>
+        <ul class="skills-list space-y-1">
+          <li class="skill-item" data-progress="100">
+            <span class="skill-name" data-i18n="lang-no">🇳🇴 Norwegian (Native)</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="95">
+            <span class="skill-name" data-i18n="lang-en">🇬🇧 English (Fluent)</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="50">
+            <span class="skill-name" data-i18n="lang-sv">🇸🇪 Swedish (Proficient)</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+        </ul>
+      </div>
+
       <!-- Links -->
-      <div id="links-section" class="masonry-item glass-card p-6 md:p-8">
+      <div id="links-section" class="masonry-item glass-card p-6 md:p-8" data-col="3">
         <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="links-title">Links</h2>
         <ul class="space-y-4">
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
@@ -522,59 +581,8 @@
         </ul>
       </div>
 
-      <!-- Certifications -->
-      <div id="certifications-section" class="masonry-item glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="certs-title">Certifications</h2>
-        <ul class="space-y-4" id="certs-list">
-
-          <!-- Google IT Support -->
-          <li class="flex items-start gap-4 pb-1">
-            <div class="flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center"
-                 style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);box-shadow:inset 0 1px 0 rgba(255,255,255,0.25);">
-              <!-- Google G logo (2025) -->
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/250px-Google_Favicon_2025.svg.png"
-                   alt="Google" width="30" height="30" style="object-fit:contain;"/>
-            </div>
-            <div class="flex-1 min-w-0">
-              <p class="font-semibold text-base leading-snug">Google IT Support</p>
-              <p class="text-sm opacity-60 mt-0.5">Google &mdash; Coursera &middot; 6 Courses</p>
-              <div class="flex items-center gap-2 mt-2 flex-wrap">
-                <span class="text-xs opacity-55" style="display:inline-flex;align-items:center;gap:0.3rem;">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.7;flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                  <span data-i18n="cert-google-date">Nov 24, 2025</span>
-                </span>
-                <a href="https://coursera.org/verify/professional-cert/KY33EM8TPDOE"
-                   target="_blank" rel="noopener noreferrer"
-                   class="link-btn" style="font-size:0.75rem;padding:0.25rem 0.75rem;"
-                   data-i18n="cert-verify-btn">Verify →</a>
-              </div>
-            </div>
-          </li>
-
-        </ul>
-      </div>
-
-      <!-- Languages -->
-      <div id="languages-section" class="masonry-item glass-card p-6 md:p-8" style="animation: fadeInUp 0.45s ease both; animation-delay: 0.50s;">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="languages-title">Languages</h2>
-        <ul class="skills-list space-y-1">
-          <li class="skill-item" data-progress="100">
-            <span class="skill-name" data-i18n="lang-no">🇳🇴 Norwegian (Native)</span>
-            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
-          </li>
-          <li class="skill-item" data-progress="95">
-            <span class="skill-name" data-i18n="lang-en">🇬🇧 English (Fluent)</span>
-            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
-          </li>
-          <li class="skill-item" data-progress="50">
-            <span class="skill-name" data-i18n="lang-sv">🇸🇪 Swedish (Proficient)</span>
-            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
-          </li>
-        </ul>
-      </div>
-
       <!-- Referral Links -->
-      <div id="referrals-section" class="masonry-item glass-card p-6 md:p-8">
+      <div id="referrals-section" class="masonry-item glass-card p-6 md:p-8" data-col="2">
         <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center" data-i18n="referrals-title">Referral Links</h2>
         <p class="text-sm opacity-65 text-center mb-6" data-i18n="referrals-subtitle">Support links with bonuses.</p>
         <ul class="space-y-4">
@@ -910,9 +918,63 @@
       });
     }
 
+    function runMasonry() {
+      const grid = document.querySelector('.masonry');
+      if (!grid) return;
+      const items = Array.from(grid.querySelectorAll(':scope > .masonry-item'));
+      const gap = 20;
+      const w = window.innerWidth;
+      const numCols = w >= 1024 ? 3 : w >= 768 ? 2 : 1;
+
+      if (numCols === 1) {
+        grid.style.position = '';
+        grid.style.height = '';
+        items.forEach(item => {
+          item.style.position = '';
+          item.style.top = '';
+          item.style.left = '';
+          item.style.width = '';
+          item.style.marginBottom = '1.25rem';
+        });
+        return;
+      }
+
+      grid.style.position = 'relative';
+      const colW = (grid.clientWidth - gap * (numCols - 1)) / numCols;
+
+      items.forEach(item => {
+        item.style.position = 'absolute';
+        item.style.width = colW + 'px';
+        item.style.marginBottom = '0';
+      });
+
+      grid.getBoundingClientRect(); // force reflow so heights are accurate
+
+      const colH = new Array(numCols).fill(0);
+      items.forEach(item => {
+        let col;
+        if (numCols === 3) {
+          // use fixed column assignment from data-col (1/2/3 → 0/1/2)
+          col = Math.min(parseInt(item.dataset.col || '1') - 1, 2);
+        } else {
+          // 2 cols: data-col 1+3 → col 0, data-col 2 → col 1
+          const assigned = parseInt(item.dataset.col || '1');
+          col = assigned === 2 ? 1 : 0;
+        }
+        item.style.left = col * (colW + gap) + 'px';
+        item.style.top = colH[col] + 'px';
+        colH[col] += item.offsetHeight + gap;
+      });
+
+      grid.style.height = Math.max(...colH) + 'px';
+    }
+
+    window.addEventListener('resize', runMasonry);
+
     document.addEventListener("DOMContentLoaded", () => {
       setLang(currentLang);
       updateProgressBars();
+      requestAnimationFrame(() => requestAnimationFrame(runMasonry));
     });
   </script>
 
