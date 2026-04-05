@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>Server Hosting | robfin.no</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+
+  <style>
+    html { overflow-x: clip; background-color: #000; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh; min-height: 100dvh;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      padding: 1rem;
+      padding-top: max(1rem, env(safe-area-inset-top));
+      padding-bottom: max(1rem, env(safe-area-inset-bottom));
+      padding-left: max(1rem, env(safe-area-inset-left));
+      padding-right: max(1rem, env(safe-area-inset-right));
+      -webkit-overflow-scrolling: touch;
+      color: #fff; background: transparent;
+    }
+
+    body::before {
+      content: ""; position: fixed;
+      top: calc(-1 * env(safe-area-inset-top, 0px));
+      left: calc(-1 * env(safe-area-inset-left, 0px));
+      right: calc(-1 * env(safe-area-inset-right, 0px));
+      bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+      background: url('../background.jpg') no-repeat center center / cover;
+      z-index: -1; pointer-events: none;
+      -webkit-transform: translateZ(0); transform: translateZ(0);
+    }
+
+    body::after {
+      content: ""; position: fixed;
+      top: calc(-1 * env(safe-area-inset-top, 0px));
+      left: calc(-1 * env(safe-area-inset-left, 0px));
+      right: calc(-1 * env(safe-area-inset-right, 0px));
+      bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+      background: rgba(0,0,0,0.28);
+      z-index: -1; pointer-events: none;
+      -webkit-transform: translateZ(0); transform: translateZ(0);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in   { animation: fadeInUp 0.45s ease both; }
+    .fade-in-1 { animation: fadeInUp 0.45s ease both; animation-delay: 0.06s; }
+    .fade-in-2 { animation: fadeInUp 0.45s ease both; animation-delay: 0.14s; }
+    .fade-in-3 { animation: fadeInUp 0.45s ease both; animation-delay: 0.22s; }
+    .fade-in-4 { animation: fadeInUp 0.45s ease both; animation-delay: 0.30s; }
+    .fade-in-5 { animation: fadeInUp 0.45s ease both; animation-delay: 0.38s; }
+
+    .glass-card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-top: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.3);
+      border-radius: 20px; padding: 2rem;
+      position: relative; z-index: 1;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .glass-card * { color: #f0f0f0 !important; text-shadow: 0 1px 2px rgba(0,0,0,0.15); }
+
+    .link-btn {
+      display: inline-block; font-size: 0.8rem; font-weight: 600;
+      padding: 0.35rem 1rem; border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-top: 1px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      color: #fff !important; text-decoration: none; white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3);
+      transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+    }
+    @media (hover: hover) {
+      .link-btn:hover {
+        background: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.15) 100%);
+        transform: scale(1.04);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4);
+      }
+    }
+
+    .content-wrapper { width: 100%; max-width: 600px; position: relative; z-index: 1; }
+    @media (min-width: 768px)  { .content-wrapper { max-width: 860px; } }
+    @media (min-width: 1024px) { .content-wrapper { max-width: 1000px; } }
+
+    .masonry { column-gap: 1.25rem; column-count: 1; }
+    @media (min-width: 768px) { .masonry { column-count: 2; } }
+    .masonry-item {
+      break-inside: avoid; -webkit-column-break-inside: avoid;
+      page-break-inside: avoid; display: inline-block;
+      width: 100%; margin: 0 0 1.25rem;
+    }
+
+    /* RAM Slider */
+    .ram-slider {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 6px; border-radius: 999px;
+      background: rgba(255,255,255,0.2); outline: none; cursor: pointer;
+    }
+    .ram-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3); cursor: pointer;
+      border: 2px solid rgba(255,255,255,0.5);
+      transition: transform 0.15s;
+    }
+    .ram-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+    .ram-slider::-moz-range-thumb {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3); cursor: pointer;
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+
+    .price-display {
+      background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 100%);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-top: 1px solid rgba(255,255,255,0.4);
+      border-radius: 16px; padding: 1.25rem; text-align: center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+
+    .game-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.05) 100%);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-top: 1px solid rgba(255,255,255,0.35);
+      border-radius: 14px; padding: 1rem 1.25rem;
+      display: flex; align-items: center; gap: 0.9rem;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    .contact-chip {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.07) 100%);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-top: 1px solid rgba(255,255,255,0.4);
+      border-radius: 14px; padding: 0.75rem 1.1rem;
+      text-decoration: none;
+      transition: background 0.18s, transform 0.18s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+    @media (hover: hover) {
+      .contact-chip:hover {
+        background: linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.12) 100%);
+        transform: translateY(-2px);
+      }
+    }
+
+    .pay-pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-top: 1px solid rgba(255,255,255,0.35);
+      border-radius: 999px; padding: 0.35rem 0.9rem;
+      font-size: 0.8rem; font-weight: 500;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+
+    @keyframes statusPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(67,181,129,0.7); }
+      60%       { box-shadow: 0 0 0 5px rgba(67,181,129,0); }
+    }
+    .status-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #3ba55d; flex-shrink: 0;
+      animation: statusPulse 2.2s infinite;
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+  </style>
+</head>
+<body>
+
+  <div class="content-wrapper p-4 md:p-6">
+
+    <!-- Header -->
+    <div class="glass-card p-6 md:p-8 text-center mb-5 fade-in" style="position:relative;">
+      <a href="/" class="link-btn text-xs" style="position:absolute;top:1.1rem;left:1.1rem;">← Back</a>
+      <div class="text-5xl mb-3">🖥️</div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-2">Server Hosting</h1>
+      <p class="text-base opacity-75 max-w-md mx-auto">Affordable game servers hosted on private infrastructure in Norway. You get full panel access, managed by you, powered by me.</p>
+    </div>
+
+    <div class="masonry">
+
+      <!-- Pricing Calculator -->
+      <div class="masonry-item glass-card p-6 md:p-8 fade-in-1">
+        <h2 class="text-2xl font-semibold mb-1 text-center">💰 Pricing</h2>
+        <p class="text-sm opacity-60 text-center mb-6">24.99 kr per GB / month. Drag to explore.</p>
+
+        <div class="mb-4">
+          <div class="flex justify-between text-xs opacity-55 mb-2 px-0.5">
+            <span>1 GB</span><span>2 GB</span><span>4 GB</span><span>5 GB</span><span>6 GB</span><span>10 GB</span><span>12 GB</span>
+          </div>
+          <input type="range" class="ram-slider" id="ramSlider" min="0" max="6" step="1" value="0">
+        </div>
+
+        <div class="price-display mt-5">
+          <div class="text-xs opacity-55 mb-1 uppercase tracking-widest">Estimated monthly price</div>
+          <div class="text-5xl font-bold mb-1" id="priceDisplay">24.99</div>
+          <div class="text-lg opacity-70 mb-3">kr / month</div>
+          <div class="flex justify-center gap-4 flex-wrap text-xs opacity-65">
+            <span id="ramDisplay">1 GB RAM</span>
+            <span>·</span>
+            <span id="playersDisplay">2–3 players</span>
+          </div>
+        </div>
+
+        <p class="text-xs opacity-40 text-center mt-4">Need a different size, or price? I'm open to discussing other options, just reach out.</p>
+      </div>
+
+      <!-- Games -->
+      <div class="masonry-item glass-card p-6 md:p-8 fade-in-2">
+        <h2 class="text-2xl font-semibold mb-1 text-center">🎮 Available Games</h2>
+        <p class="text-sm opacity-60 text-center mb-6">More titles being added regularly.</p>
+
+        <div class="space-y-3">
+          <div class="game-card">
+            <div class="text-3xl flex-shrink-0">⛏️</div>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-base leading-snug">Minecraft</p>
+              <p class="text-xs opacity-60 mt-0.5">Java &amp; Bedrock · Vanilla, Spigot, Paper, Forge, Fabric</p>
+            </div>
+            <span class="text-xs font-semibold px-2 py-1 rounded-full flex-shrink-0" style="background:rgba(100,220,130,0.18);border:1px solid rgba(100,220,130,0.35);color:#7defa0 !important;">Available</span>
+          </div>
+
+          <div class="game-card" style="opacity:0.5;">
+            <div class="text-3xl flex-shrink-0">🎲</div>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-base leading-snug">More games</p>
+              <p class="text-xs opacity-60 mt-0.5">Additional titles coming soon</p>
+            </div>
+            <span class="text-xs font-semibold px-2 py-1 rounded-full flex-shrink-0" style="background:rgba(255,200,80,0.15);border:1px solid rgba(255,200,80,0.3);color:#ffd97d !important;">Soon</span>
+          </div>
+        </div>
+
+        <div class="mt-5 pt-4" style="border-top:1px solid rgba(255,255,255,0.1);">
+          <p class="text-xs opacity-50 text-center">Don't see your game? Reach out, if I can host it, we'll figure it out.</p>
+        </div>
+      </div>
+
+      <!-- What's included -->
+      <div class="masonry-item glass-card p-6 md:p-8 fade-in-3">
+        <h2 class="text-2xl font-semibold mb-6 text-center">✅ What's included</h2>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3 text-sm">
+            <span class="text-base flex-shrink-0 mt-0.5">🎛️</span>
+            <div>
+              <span class="font-semibold">Full PufferPanel access</span>
+              <p class="text-xs opacity-60 mt-0.5">Start, stop, restart your server. View console logs, upload files, manage configs; all from your own login at <span style="opacity:0.85;">panel.robfin.no</span></p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3 text-sm">
+            <span class="text-base flex-shrink-0 mt-0.5">🌍</span>
+            <div>
+              <span class="font-semibold">Hosted in Norway</span>
+              <p class="text-xs opacity-60 mt-0.5">Low latency for Scandinavian players. 99.6% uptime.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3 text-sm">
+            <span class="text-base flex-shrink-0 mt-0.5">⚡</span>
+            <div>
+              <span class="font-semibold">Fast setup</span>
+              <p class="text-xs opacity-60 mt-0.5">Your server is typically ready within 1 hour of payment.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3 text-sm">
+            <span class="text-base flex-shrink-0 mt-0.5">💬</span>
+            <div>
+              <span class="font-semibold">Direct support</span>
+              <p class="text-xs opacity-60 mt-0.5">You deal with me directly: no ticket queue, no chatbots.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3 text-sm">
+            <span class="text-base flex-shrink-0 mt-0.5">🔄</span>
+            <div>
+              <span class="font-semibold">Flexible billing</span>
+              <p class="text-xs opacity-60 mt-0.5">Monthly. Cancel or change plan anytime, just let me know.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact & Purchase -->
+      <div class="masonry-item glass-card p-6 md:p-8 fade-in-4">
+        <h2 class="text-2xl font-semibold mb-1 text-center">📬 Get in touch</h2>
+        <p class="text-sm opacity-60 text-center mb-6">To purchase or ask questions, contact me via email or Discord. I'll get back to you quickly.</p>
+
+        <div class="flex flex-col gap-3 mb-6">
+          <a href="mailto:finnestadrobin@gmail.com" class="contact-chip">
+            <span class="text-xl">✉️</span>
+            <div>
+              <div class="text-xs opacity-55 leading-none mb-0.5">Email</div>
+              <div class="text-sm font-semibold">finnestadrobin@gmail.com</div>
+            </div>
+          </a>
+          <div class="contact-chip" style="cursor:default;">
+            <span class="text-xl">💬</span>
+            <div>
+              <div class="text-xs opacity-55 leading-none mb-0.5">Discord</div>
+              <div class="text-sm font-semibold">robfin</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid rgba(255,255,255,0.1);" class="pt-5">
+          <p class="text-xs opacity-55 text-center mb-3 uppercase tracking-widest">Payment methods</p>
+          <div class="flex flex-wrap justify-center gap-2">
+            <span class="pay-pill">🧡 Vipps<span style="opacity:0.6;font-size:0.7em;">(Norway only)</span></span>
+            <span class="pay-pill">🅿️ PayPal</span>
+            <span class="pay-pill">🏦 Bank Transfer <span style="opacity:0.6;font-size:0.7em;">(Norway only)</span></span>
+          </div>
+          <p class="text-xs opacity-40 text-center mt-3">Payment details shared after we agree on a plan.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="text-center mt-8 opacity-50 text-xs">
+      <p>&copy; <span id="currentYear"></span> Robin Finnestad &mdash; Self-hosted on private infrastructure.</p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    const tiers = [
+      { ram: '1 GB',  price: '24.99',  players: '2–3 players'   },
+      { ram: '2 GB',  price: '49.99',  players: '5–7 players'   },
+      { ram: '4 GB',  price: '99.99',  players: '10–15 players'  },
+      { ram: '5 GB',  price: '124.99', players: '15–20 players'  },
+      { ram: '6 GB',  price: '149.99', players: '20–25 players'  },
+      { ram: '10 GB', price: '249.99', players: '40–50 players'  },
+      { ram: '12 GB', price: '299.99', players: '50–60 players'  },
+    ];
+
+    const slider    = document.getElementById('ramSlider');
+    const priceEl   = document.getElementById('priceDisplay');
+    const ramEl     = document.getElementById('ramDisplay');
+    const playersEl = document.getElementById('playersDisplay');
+
+    function updateSlider() {
+      const t = tiers[parseInt(slider.value)];
+      priceEl.textContent   = t.price;
+      ramEl.textContent     = t.ram + ' RAM';
+      playersEl.textContent = t.players;
+      const pct = (slider.value / slider.max) * 100;
+      slider.style.background = `linear-gradient(to right, rgba(255,255,255,0.7) ${pct}%, rgba(255,255,255,0.2) ${pct}%)`;
+    }
+
+    slider.addEventListener('input', updateSlider);
+    updateSlider();
+  </script>
+</body>
+</html>
