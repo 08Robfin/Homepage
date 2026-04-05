@@ -290,9 +290,26 @@
     @media (min-width: 768px)  { .content-wrapper { max-width: 860px; } }
     @media (min-width: 1024px) { .content-wrapper { max-width: 1300px; } }
 
-    /* ---- Masonry ---- */
-    .masonry { position: relative; }
-    .masonry-item { width: 100%; box-sizing: border-box; margin: 0 0 1.25rem; }
+    /* ---- Section grids ---- */
+    .section-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      opacity: 0.45; margin: 0.25rem 0 0.75rem 0.25rem;
+    }
+    .two-grid {
+      display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-bottom: 1.5rem; align-items: start;
+    }
+    @media (min-width: 640px) { .two-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .about-grid {
+      column-count: 1; column-gap: 1.25rem; margin-bottom: 1.5rem;
+    }
+    @media (min-width: 768px)  { .about-grid { column-count: 2; } }
+    @media (min-width: 1024px) { .about-grid { column-count: 3; } }
+    .about-grid > .glass-card {
+      break-inside: avoid; -webkit-column-break-inside: avoid;
+      page-break-inside: avoid; display: inline-block;
+      width: 100%; margin-bottom: 1.25rem;
+    }
 
     /* ---- Language switcher ---- */
     /* Mobile: sits inside the profile card, top-right corner */
@@ -392,24 +409,48 @@
       </div>
     </div>
 
-    <div class="masonry">
+    <!-- SERVICES -->
+    <p class="section-label" data-i18n="section-services">Services</p>
+    <div class="two-grid">
 
-      <!-- Experience -->
-      <div id="positions-section" class="masonry-item glass-card p-6 md:p-8" data-col="1">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="experience-title">Experience</h2>
-        <ul id="positions-list" class="space-y-4"></ul>
+      <div class="glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center" data-i18n="srv-title">🖥️ Server Hosting</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="srv-subtitle">Affordable game server hosting, self-managed on private infrastructure.</p>
+        <ul class="space-y-3 mb-5">
+          <li class="flex items-center gap-2 text-sm opacity-80"><span>⚡</span><span data-i18n="srv-li1">Low-latency servers hosted in Norway</span></li>
+          <li class="flex items-center gap-2 text-sm opacity-80"><span>🎮</span><span data-i18n="srv-li2">Minecraft &amp; more — from 24.99 kr/month</span></li>
+          <li class="flex items-center gap-2 text-sm opacity-80"><span>🔧</span><span data-i18n="srv-li3">Full panel access via PufferPanel</span></li>
+        </ul>
+        <div class="flex justify-center">
+          <a href="/Server" class="link-btn text-sm" data-i18n="srv-btn">View hosting →</a>
+        </div>
       </div>
 
-      <!-- Certifications -->
-      <div id="certifications-section" class="masonry-item glass-card p-6 md:p-8" data-col="1">
+      <div class="glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center" data-i18n="print-title">🖨️ 3D Printing</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="print-subtitle">Custom 3D printed models, printed and shipped to your door. Available in Norway only.</p>
+        <ul class="space-y-3 mb-5">
+          <li class="flex items-center gap-2 text-sm opacity-80"><span>📦</span><span data-i18n="print-li1">Send me any model and get a price estimate</span></li>
+          <li class="flex items-center gap-2 text-sm opacity-80"><span>🔒</span><span data-i18n="print-li2">Secure payment through Finn.no Fiks Ferdig</span></li>
+          <li class="flex items-center gap-2 text-sm opacity-80"><span>⭐</span><span data-i18n="print-li3">10/10 rating on Finn.no</span></li>
+        </ul>
+        <div class="flex justify-center">
+          <a href="/3dprint" class="link-btn text-sm" data-i18n="print-btn">View service →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ABOUT ME -->
+    <p class="section-label" data-i18n="section-about">About me</p>
+    <div class="about-grid">
+
+      <div id="certifications-section" class="glass-card p-6 md:p-8">
         <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="certs-title">Certifications</h2>
         <ul class="space-y-4" id="certs-list">
-
-          <!-- Google IT Support -->
           <li class="flex items-start gap-4 pb-1">
             <div class="flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center"
                  style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);box-shadow:inset 0 1px 0 rgba(255,255,255,0.25);">
-              <!-- Google G logo (2025) -->
               <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/250px-Google_Favicon_2025.svg.png"
                    alt="Google" width="30" height="30" style="object-fit:contain;"/>
             </div>
@@ -428,12 +469,15 @@
               </div>
             </div>
           </li>
-
         </ul>
       </div>
 
-      <!-- Core Skills -->
-      <div id="skills-section" class="masonry-item glass-card p-6 md:p-8" data-col="1">
+      <div id="positions-section" class="glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="experience-title">Experience</h2>
+        <ul id="positions-list" class="space-y-4"></ul>
+      </div>
+
+      <div id="skills-section" class="glass-card p-6 md:p-8">
         <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="skills-title">Core Skills</h2>
         <ul id="current-skills-list" class="skills-list space-y-1">
           <li class="skill-item" data-progress="85">
@@ -467,22 +511,7 @@
         </ul>
       </div>
 
-      <!-- Server Hosting -->
-      <div class="masonry-item glass-card p-6 md:p-8" data-col="2">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center">🖥️ Server Hosting</h2>
-        <p class="text-sm opacity-65 text-center mb-5">Affordable game server hosting, self-managed on private infrastructure.</p>
-        <ul class="space-y-3 mb-5">
-          <li class="flex items-center gap-2 text-sm opacity-80"><span>⚡</span> Low-latency servers hosted in Norway</li>
-          <li class="flex items-center gap-2 text-sm opacity-80"><span>🎮</span> Minecraft &amp; more — from 24.99 kr/month</li>
-          <li class="flex items-center gap-2 text-sm opacity-80"><span>🔧</span> Full panel access via PufferPanel</li>
-        </ul>
-        <div class="flex justify-center">
-          <a href="/Server" class="link-btn text-sm">View hosting →</a>
-        </div>
-      </div>
-
-      <!-- Values -->
-      <div id="ideology-section" class="masonry-item glass-card p-6 md:p-8" data-col="2">
+      <div id="ideology-section" class="glass-card p-6 md:p-8">
         <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center" data-i18n="values-title">Values</h2>
         <p class="text-sm opacity-65 text-center mb-5" data-i18n="values-subtitle">Core political alignment</p>
         <div class="badge-grid">
@@ -493,8 +522,7 @@
         </div>
       </div>
 
-      <!-- Key Issues -->
-      <div id="beliefs-section" class="masonry-item glass-card p-6 md:p-8" data-col="2">
+      <div id="beliefs-section" class="glass-card p-6 md:p-8">
         <h2 class="text-2xl md:text-3xl font-semibold text-center" data-i18n="issues-title">Key Issues</h2>
         <p class="text-sm opacity-65 text-center mb-5" data-i18n="issues-subtitle">Policy priorities</p>
         <div class="badge-grid">
@@ -509,22 +537,7 @@
         </div>
       </div>
 
-      <!-- 3D Printing -->
-      <div class="masonry-item glass-card p-6 md:p-8" data-col="3">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center">🖨️ 3D Printing</h2>
-        <p class="text-sm opacity-65 text-center mb-5">Custom 3D printed models, printed and shipped to your door. Available in Norway only.</p>
-        <ul class="space-y-3 mb-5">
-          <li class="flex items-center gap-2 text-sm opacity-80"><span>📦</span> Send me any model and get a price estimate</li>
-          <li class="flex items-center gap-2 text-sm opacity-80"><span>🔒</span> Secure payment through Finn.no Fiks Ferdig</li>
-          <li class="flex items-center gap-2 text-sm opacity-80"><span>⭐</span> 10/10 rating on Finn.no</li>
-        </ul>
-        <div class="flex justify-center">
-          <a href="/3dprint" class="link-btn text-sm">View service →</a>
-        </div>
-      </div>
-
-      <!-- Languages -->
-      <div id="languages-section" class="masonry-item glass-card p-6 md:p-8" data-col="3" style="animation: fadeInUp 0.45s ease both; animation-delay: 0.50s;">
+      <div id="languages-section" class="glass-card p-6 md:p-8">
         <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="languages-title">Languages</h2>
         <ul class="skills-list space-y-1">
           <li class="skill-item" data-progress="100">
@@ -542,8 +555,13 @@
         </ul>
       </div>
 
-      <!-- Links -->
-      <div id="links-section" class="masonry-item glass-card p-6 md:p-8" data-col="3">
+    </div>
+
+    <!-- LINKS -->
+    <p class="section-label" data-i18n="section-links">Links</p>
+    <div class="two-grid">
+
+      <div id="links-section" class="glass-card p-6 md:p-8">
         <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="links-title">Links</h2>
         <ul class="space-y-4">
           <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
@@ -581,8 +599,7 @@
         </ul>
       </div>
 
-      <!-- Referral Links -->
-      <div id="referrals-section" class="masonry-item glass-card p-6 md:p-8" data-col="2">
+      <div id="referrals-section" class="glass-card p-6 md:p-8">
         <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center" data-i18n="referrals-title">Referral Links</h2>
         <p class="text-sm opacity-65 text-center mb-6" data-i18n="referrals-subtitle">Support links with bonuses.</p>
         <ul class="space-y-4">
@@ -668,6 +685,21 @@
         "certs-title":            "Certifications",
         "cert-google-date":       "Nov 24, 2025",
         "cert-verify-btn":        "Verify →",
+        "section-services":       "Services",
+        "section-about":          "About me",
+        "section-links":          "Links",
+        "srv-title":              "🖥️ Server Hosting",
+        "srv-subtitle":           "Affordable game server hosting, self-managed on private infrastructure.",
+        "srv-li1":                "Low-latency servers hosted in Norway",
+        "srv-li2":                "Minecraft & more — from 24.99 kr/month",
+        "srv-li3":                "Full panel access via PufferPanel",
+        "srv-btn":                "View hosting →",
+        "print-title":            "🖨️ 3D Printing",
+        "print-subtitle":         "Custom 3D printed models, printed and shipped to your door. Available in Norway only.",
+        "print-li1":              "Send me any model and get a price estimate",
+        "print-li2":              "Secure payment through Finn.no Fiks Ferdig",
+        "print-li3":              "10/10 rating on Finn.no",
+        "print-btn":              "View service →",
       },
       no: {
         "subtitle":               "IT-student & politisk aktivist",
@@ -728,6 +760,21 @@
         "certs-title":            "Sertifiseringer",
         "cert-google-date":       "24. nov 2025",
         "cert-verify-btn":        "Verifiser →",
+        "section-services":       "Tjenester",
+        "section-about":          "Om meg",
+        "section-links":          "Lenker",
+        "srv-title":              "🖥️ Serverhosting",
+        "srv-subtitle":           "Rimelig spillserverhosting, selvdriftet på privat infrastruktur.",
+        "srv-li1":                "Lavlatensservere i Norge",
+        "srv-li2":                "Minecraft og mer – fra 24,99 kr/måned",
+        "srv-li3":                "Full paneltilgang via PufferPanel",
+        "srv-btn":                "Se hosting →",
+        "print-title":            "🖨️ 3D-printing",
+        "print-subtitle":         "Egendefinerte 3D-printede modeller, printet og sendt til deg. Kun tilgjengelig i Norge.",
+        "print-li1":              "Send meg en modell og få et prisestimat",
+        "print-li2":              "Trygg betaling via Finn.no Fiks Ferdig",
+        "print-li3":              "10/10 vurdering på Finn.no",
+        "print-btn":              "Se tjeneste →",
       },
       sv: {
         "subtitle":               "IT-student & politisk aktivist",
@@ -788,6 +835,21 @@
         "certs-title":            "Certifieringar",
         "cert-google-date":       "24 nov 2025",
         "cert-verify-btn":        "Verifiera →",
+        "section-services":       "Tjänster",
+        "section-about":          "Om mig",
+        "section-links":          "Länkar",
+        "srv-title":              "🖥️ Serverhosting",
+        "srv-subtitle":           "Prisvärd spelserverhosting, självdrift på privat infrastruktur.",
+        "srv-li1":                "Låglatensservrar i Norge",
+        "srv-li2":                "Minecraft och mer – från 24,99 kr/månad",
+        "srv-li3":                "Full panelåtkomst via PufferPanel",
+        "srv-btn":                "Se hosting →",
+        "print-title":            "🖨️ 3D-utskrift",
+        "print-subtitle":         "Anpassade 3D-utskrivna modeller, utskrivna och skickade till dig. Endast tillgängligt i Norge.",
+        "print-li1":              "Skicka mig en modell och få en prisuppskattning",
+        "print-li2":              "Säker betalning via Finn.no Fiks Ferdig",
+        "print-li3":              "10/10-betyg på Finn.no",
+        "print-btn":              "Se tjänst →",
       }
     };
 
@@ -918,63 +980,9 @@
       });
     }
 
-    function runMasonry() {
-      const grid = document.querySelector('.masonry');
-      if (!grid) return;
-      const items = Array.from(grid.querySelectorAll(':scope > .masonry-item'));
-      const gap = 20;
-      const w = window.innerWidth;
-      const numCols = w >= 1024 ? 3 : w >= 768 ? 2 : 1;
-
-      if (numCols === 1) {
-        grid.style.position = '';
-        grid.style.height = '';
-        items.forEach(item => {
-          item.style.position = '';
-          item.style.top = '';
-          item.style.left = '';
-          item.style.width = '';
-          item.style.marginBottom = '1.25rem';
-        });
-        return;
-      }
-
-      grid.style.position = 'relative';
-      const colW = (grid.clientWidth - gap * (numCols - 1)) / numCols;
-
-      items.forEach(item => {
-        item.style.position = 'absolute';
-        item.style.width = colW + 'px';
-        item.style.marginBottom = '0';
-      });
-
-      grid.getBoundingClientRect(); // force reflow so heights are accurate
-
-      const colH = new Array(numCols).fill(0);
-      items.forEach(item => {
-        let col;
-        if (numCols === 3) {
-          // use fixed column assignment from data-col (1/2/3 → 0/1/2)
-          col = Math.min(parseInt(item.dataset.col || '1') - 1, 2);
-        } else {
-          // 2 cols: data-col 1+3 → col 0, data-col 2 → col 1
-          const assigned = parseInt(item.dataset.col || '1');
-          col = assigned === 2 ? 1 : 0;
-        }
-        item.style.left = col * (colW + gap) + 'px';
-        item.style.top = colH[col] + 'px';
-        colH[col] += item.offsetHeight + gap;
-      });
-
-      grid.style.height = Math.max(...colH) + 'px';
-    }
-
-    window.addEventListener('resize', runMasonry);
-
     document.addEventListener("DOMContentLoaded", () => {
       setLang(currentLang);
       updateProgressBars();
-      requestAnimationFrame(() => requestAnimationFrame(runMasonry));
     });
   </script>
 
