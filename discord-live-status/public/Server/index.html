@@ -183,6 +183,49 @@
     ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+
+    #lang-switcher {
+      position: absolute;
+      top: 0.85rem;
+      right: 0.85rem;
+      z-index: 10;
+    }
+    #lang-switcher-inner {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.15rem;
+      padding: 0.3rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border-top: 1px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.35);
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      color: rgba(255,255,255,0.5);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.2s, background 0.2s;
+      line-height: 1;
+    }
+    .lang-btn:hover { color: rgba(255,255,255,0.9); }
+    .lang-btn.active-lang {
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.12) 100%);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.4);
+      color: #ffffff;
+    }
   </style>
 </head>
 <body>
@@ -191,18 +234,25 @@
 
     <!-- Header -->
     <div class="glass-card p-6 md:p-8 text-center mb-5 fade-in" style="position:relative;">
-      <a href="/" class="link-btn text-xs" style="position:absolute;top:1.1rem;left:1.1rem;">← Back</a>
+      <a href="/" class="link-btn text-xs" style="position:absolute;top:1.1rem;left:1.1rem;" data-i18n="back-btn">← Back</a>
+      <div id="lang-switcher">
+        <div id="lang-switcher-inner">
+          <button onclick="setLang('no')" id="btn-no" class="lang-btn" title="Norsk">NO</button>
+          <button onclick="setLang('en')" id="btn-en" class="lang-btn active-lang" title="English">EN</button>
+          <button onclick="setLang('sv')" id="btn-sv" class="lang-btn" title="Svenska">SV</button>
+        </div>
+      </div>
       <div class="text-5xl mb-3">🖥️</div>
-      <h1 class="text-4xl md:text-5xl font-bold mb-2">Server Hosting</h1>
-      <p class="text-base opacity-75 max-w-md mx-auto">Affordable game servers hosted on private infrastructure in Norway. You get full panel access, managed by you, powered by me.</p>
+      <h1 class="text-4xl md:text-5xl font-bold mb-2" data-i18n="page-title">Server Hosting</h1>
+      <p class="text-base opacity-75 max-w-md mx-auto" data-i18n="page-subtitle">Affordable game servers hosted on private infrastructure in Norway. You get full panel access, managed by you, powered by me.</p>
     </div>
 
     <div class="masonry">
 
       <!-- Pricing Calculator -->
       <div class="masonry-item glass-card p-6 md:p-8 fade-in-1">
-        <h2 class="text-2xl font-semibold mb-1 text-center">💰 Pricing</h2>
-        <p class="text-sm opacity-60 text-center mb-6">24.99 kr per GB / month. Drag to explore.</p>
+        <h2 class="text-2xl font-semibold mb-1 text-center" data-i18n="pricing-title">💰 Pricing</h2>
+        <p class="text-sm opacity-60 text-center mb-6" data-i18n="pricing-subtitle">24.99 kr per GB / month. Drag to explore.</p>
 
         <div class="mb-4">
           <div class="flex justify-between text-xs opacity-55 mb-2 px-0.5">
@@ -212,9 +262,9 @@
         </div>
 
         <div class="price-display mt-5">
-          <div class="text-xs opacity-55 mb-1 uppercase tracking-widest">Estimated monthly price</div>
+          <div class="text-xs opacity-55 mb-1 uppercase tracking-widest" data-i18n="pricing-label">Estimated monthly price</div>
           <div class="text-5xl font-bold mb-1" id="priceDisplay">24.99</div>
-          <div class="text-lg opacity-70 mb-3">kr / month</div>
+          <div class="text-lg opacity-70 mb-3" data-i18n="pricing-unit">kr / month</div>
           <div class="flex justify-center gap-4 flex-wrap text-xs opacity-65">
             <span id="ramDisplay">1 GB RAM</span>
             <span>·</span>
@@ -222,76 +272,76 @@
           </div>
         </div>
 
-        <p class="text-xs opacity-40 text-center mt-4">Need a different size, or price? I'm open to discussing other options, just reach out.</p>
+        <p class="text-xs opacity-40 text-center mt-4" data-i18n="pricing-note">Need a different size, or price? I'm open to discussing other options, just reach out.</p>
       </div>
 
       <!-- Games -->
       <div class="masonry-item glass-card p-6 md:p-8 fade-in-2">
-        <h2 class="text-2xl font-semibold mb-1 text-center">🎮 Available Games</h2>
-        <p class="text-sm opacity-60 text-center mb-6">More titles being added regularly.</p>
+        <h2 class="text-2xl font-semibold mb-1 text-center" data-i18n="games-title">🎮 Available Games</h2>
+        <p class="text-sm opacity-60 text-center mb-6" data-i18n="games-subtitle">More titles being added regularly.</p>
 
         <div class="space-y-3">
           <div class="game-card">
             <div class="text-3xl flex-shrink-0">⛏️</div>
             <div class="flex-1 min-w-0">
               <p class="font-semibold text-base leading-snug">Minecraft</p>
-              <p class="text-xs opacity-60 mt-0.5">Java &amp; Bedrock · Vanilla, Spigot, Paper, Forge, Fabric</p>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="minecraft-desc">Java &amp; Bedrock · Vanilla, Spigot, Paper, Forge, Fabric</p>
             </div>
-            <span class="text-xs font-semibold px-2 py-1 rounded-full flex-shrink-0" style="background:rgba(100,220,130,0.18);border:1px solid rgba(100,220,130,0.35);color:#7defa0 !important;">Available</span>
+            <span class="text-xs font-semibold px-2 py-1 rounded-full flex-shrink-0" style="background:rgba(100,220,130,0.18);border:1px solid rgba(100,220,130,0.35);color:#7defa0 !important;" data-i18n="status-available">Available</span>
           </div>
 
           <div class="game-card" style="opacity:0.5;">
             <div class="text-3xl flex-shrink-0">🎲</div>
             <div class="flex-1 min-w-0">
-              <p class="font-semibold text-base leading-snug">More games</p>
-              <p class="text-xs opacity-60 mt-0.5">Additional titles coming soon</p>
+              <p class="font-semibold text-base leading-snug" data-i18n="more-games-title">More games</p>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="more-games-desc">Additional titles coming soon</p>
             </div>
-            <span class="text-xs font-semibold px-2 py-1 rounded-full flex-shrink-0" style="background:rgba(255,200,80,0.15);border:1px solid rgba(255,200,80,0.3);color:#ffd97d !important;">Soon</span>
+            <span class="text-xs font-semibold px-2 py-1 rounded-full flex-shrink-0" style="background:rgba(255,200,80,0.15);border:1px solid rgba(255,200,80,0.3);color:#ffd97d !important;" data-i18n="status-soon">Soon</span>
           </div>
         </div>
 
         <div class="mt-5 pt-4" style="border-top:1px solid rgba(255,255,255,0.1);">
-          <p class="text-xs opacity-50 text-center">Don't see your game? Reach out, if I can host it, we'll figure it out.</p>
+          <p class="text-xs opacity-50 text-center" data-i18n="games-note">Don't see your game? Reach out, if I can host it, we'll figure it out.</p>
         </div>
       </div>
 
       <!-- What's included -->
       <div class="masonry-item glass-card p-6 md:p-8 fade-in-3">
-        <h2 class="text-2xl font-semibold mb-6 text-center">✅ What's included</h2>
+        <h2 class="text-2xl font-semibold mb-6 text-center" data-i18n="included-title">✅ What's included</h2>
         <ul class="space-y-3">
           <li class="flex items-start gap-3 text-sm">
             <span class="text-base flex-shrink-0 mt-0.5">🎛️</span>
             <div>
-              <span class="font-semibold">Full PufferPanel access</span>
-              <p class="text-xs opacity-60 mt-0.5">Start, stop, restart your server. View console logs, upload files, manage configs; all from your own login at <span style="opacity:0.85;">panel.robfin.no</span></p>
+              <span class="font-semibold" data-i18n="panel-title">Full PufferPanel access</span>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="panel-desc">Start, stop, restart your server. View console logs, upload files, manage configs — all from your own login at panel.robfin.no</p>
             </div>
           </li>
           <li class="flex items-start gap-3 text-sm">
             <span class="text-base flex-shrink-0 mt-0.5">🌍</span>
             <div>
-              <span class="font-semibold">Hosted in Norway</span>
-              <p class="text-xs opacity-60 mt-0.5">Low latency for Scandinavian players. 99.6% uptime.</p>
+              <span class="font-semibold" data-i18n="norway-inc-title">Hosted in Norway</span>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="norway-inc-desc">Low latency for Scandinavian players. 99.6% uptime.</p>
             </div>
           </li>
           <li class="flex items-start gap-3 text-sm">
             <span class="text-base flex-shrink-0 mt-0.5">⚡</span>
             <div>
-              <span class="font-semibold">Fast setup</span>
-              <p class="text-xs opacity-60 mt-0.5">Your server is typically ready within 1 hour of payment.</p>
+              <span class="font-semibold" data-i18n="setup-title">Fast setup</span>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="setup-desc">Your server is typically ready within 1 hour of payment.</p>
             </div>
           </li>
           <li class="flex items-start gap-3 text-sm">
             <span class="text-base flex-shrink-0 mt-0.5">💬</span>
             <div>
-              <span class="font-semibold">Direct support</span>
-              <p class="text-xs opacity-60 mt-0.5">You deal with me directly: no ticket queue, no chatbots.</p>
+              <span class="font-semibold" data-i18n="support-title">Direct support</span>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="support-desc">You deal with me directly: no ticket queue, no chatbots.</p>
             </div>
           </li>
           <li class="flex items-start gap-3 text-sm">
             <span class="text-base flex-shrink-0 mt-0.5">🔄</span>
             <div>
-              <span class="font-semibold">Flexible billing</span>
-              <p class="text-xs opacity-60 mt-0.5">Monthly. Cancel or change plan anytime, just let me know.</p>
+              <span class="font-semibold" data-i18n="billing-title">Flexible billing</span>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="billing-desc">Monthly. Cancel or change plan anytime, just let me know.</p>
             </div>
           </li>
         </ul>
@@ -299,56 +349,189 @@
 
       <!-- Contact & Purchase -->
       <div class="masonry-item glass-card p-6 md:p-8 fade-in-4">
-        <h2 class="text-2xl font-semibold mb-1 text-center">📬 Get in touch</h2>
-        <p class="text-sm opacity-60 text-center mb-6">To purchase or ask questions, contact me via email or Discord. I'll get back to you quickly.</p>
+        <h2 class="text-2xl font-semibold mb-1 text-center" data-i18n="contact-title">📬 Get in touch</h2>
+        <p class="text-sm opacity-60 text-center mb-6" data-i18n="contact-subtitle">To purchase or ask questions, contact me via email or Discord. I'll get back to you quickly.</p>
 
         <div class="flex flex-col gap-3 mb-6">
           <a href="mailto:finnestadrobin@gmail.com" class="contact-chip">
             <span class="text-xl">✉️</span>
             <div>
-              <div class="text-xs opacity-55 leading-none mb-0.5">Email</div>
+              <div class="text-xs opacity-55 leading-none mb-0.5" data-i18n="email-label">Email</div>
               <div class="text-sm font-semibold">finnestadrobin@gmail.com</div>
             </div>
           </a>
           <div class="contact-chip" style="cursor:default;">
             <span class="text-xl">💬</span>
             <div>
-              <div class="text-xs opacity-55 leading-none mb-0.5">Discord</div>
+              <div class="text-xs opacity-55 leading-none mb-0.5" data-i18n="discord-label">Discord</div>
               <div class="text-sm font-semibold">robfin</div>
             </div>
           </div>
         </div>
 
         <div style="border-top:1px solid rgba(255,255,255,0.1);" class="pt-5">
-          <p class="text-xs opacity-55 text-center mb-3 uppercase tracking-widest">Payment methods</p>
+          <p class="text-xs opacity-55 text-center mb-3 uppercase tracking-widest" data-i18n="payment-methods">Payment methods</p>
           <div class="flex flex-wrap justify-center gap-2">
             <span class="pay-pill">🧡 Vipps<span style="opacity:0.6;font-size:0.7em;">(Norway only)</span></span>
             <span class="pay-pill">🅿️ PayPal</span>
             <span class="pay-pill">🏦 Bank Transfer <span style="opacity:0.6;font-size:0.7em;">(Norway only)</span></span>
           </div>
-          <p class="text-xs opacity-40 text-center mt-3">Payment details shared after we agree on a plan.</p>
+          <p class="text-xs opacity-40 text-center mt-3" data-i18n="payment-note">Payment details shared after we agree on a plan.</p>
         </div>
       </div>
 
     </div>
 
     <footer class="text-center mt-8 opacity-50 text-xs">
-      <p>&copy; <span id="currentYear"></span> Robin Finnestad &mdash; Self-hosted on private infrastructure.</p>
+      <p>&copy; <span id="currentYear"></span> Robin Finnestad &mdash; <span data-i18n="footer-server">Self-hosted on private infrastructure.</span></p>
     </footer>
   </div>
 
   <script>
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-    const tiers = [
-      { ram: '1 GB',  price: '24.99',  players: '2–3 players'   },
-      { ram: '2 GB',  price: '49.99',  players: '5–7 players'   },
-      { ram: '4 GB',  price: '99.99',  players: '10–15 players'  },
-      { ram: '5 GB',  price: '124.99', players: '15–20 players'  },
-      { ram: '6 GB',  price: '149.99', players: '20–25 players'  },
-      { ram: '10 GB', price: '249.99', players: '40–50 players'  },
-      { ram: '12 GB', price: '299.99', players: '50–60 players'  },
-    ];
+    const translations = {
+      en: {
+        "back-btn":         "← Back",
+        "page-title":       "Server Hosting",
+        "page-subtitle":    "Affordable game servers hosted on private infrastructure in Norway. You get full panel access, managed by you, powered by me.",
+        "pricing-title":    "💰 Pricing",
+        "pricing-subtitle": "24.99 kr per GB / month. Drag to explore.",
+        "pricing-label":    "Estimated monthly price",
+        "pricing-unit":     "kr / month",
+        "pricing-note":     "Need a different size, or price? I'm open to discussing other options, just reach out.",
+        "games-title":      "🎮 Available Games",
+        "games-subtitle":   "More titles being added regularly.",
+        "minecraft-desc":   "Java & Bedrock · Vanilla, Spigot, Paper, Forge, Fabric",
+        "status-available": "Available",
+        "more-games-title": "More games",
+        "more-games-desc":  "Additional titles coming soon",
+        "status-soon":      "Soon",
+        "games-note":       "Don't see your game? Reach out, if I can host it, we'll figure it out.",
+        "included-title":   "✅ What's included",
+        "panel-title":      "Full PufferPanel access",
+        "panel-desc":       "Start, stop, restart your server. View console logs, upload files, manage configs — all from your own login at panel.robfin.no",
+        "norway-inc-title": "Hosted in Norway",
+        "norway-inc-desc":  "Low latency for Scandinavian players. 99.6% uptime.",
+        "setup-title":      "Fast setup",
+        "setup-desc":       "Your server is typically ready within 1 hour of payment.",
+        "support-title":    "Direct support",
+        "support-desc":     "You deal with me directly: no ticket queue, no chatbots.",
+        "billing-title":    "Flexible billing",
+        "billing-desc":     "Monthly. Cancel or change plan anytime, just let me know.",
+        "contact-title":    "📬 Get in touch",
+        "contact-subtitle": "To purchase or ask questions, contact me via email or Discord. I'll get back to you quickly.",
+        "email-label":      "Email",
+        "discord-label":    "Discord",
+        "payment-methods":  "Payment methods",
+        "payment-note":     "Payment details shared after we agree on a plan.",
+        "footer-server":    "Self-hosted on private infrastructure.",
+      },
+      no: {
+        "back-btn":         "← Tilbake",
+        "page-title":       "Serverhosting",
+        "page-subtitle":    "Rimelige spillservere på privat infrastruktur i Norge. Du får full tilgang til kontrollpanelet, styrt av deg, drevet av meg.",
+        "pricing-title":    "💰 Priser",
+        "pricing-subtitle": "24,99 kr per GB / måned. Dra for å utforske.",
+        "pricing-label":    "Estimert månedspris",
+        "pricing-unit":     "kr / måned",
+        "pricing-note":     "Trenger du en annen størrelse eller pris? Jeg er åpen for å diskutere andre alternativer, ta kontakt.",
+        "games-title":      "🎮 Tilgjengelige spill",
+        "games-subtitle":   "Flere titler legges til jevnlig.",
+        "minecraft-desc":   "Java og Bedrock · Vanilla, Spigot, Paper, Forge, Fabric",
+        "status-available": "Tilgjengelig",
+        "more-games-title": "Flere spill",
+        "more-games-desc":  "Flere titler kommer snart",
+        "status-soon":      "Snart",
+        "games-note":       "Ser du ikke spillet ditt? Ta kontakt, kan jeg hoste det, finner vi en løsning.",
+        "included-title":   "✅ Hva er inkludert",
+        "panel-title":      "Full PufferPanel-tilgang",
+        "panel-desc":       "Start, stopp, omstart av serveren. Vis konsolllogger, last opp filer, administrer konfigurasjoner — alt fra din egen innlogging på panel.robfin.no",
+        "norway-inc-title": "Hostet i Norge",
+        "norway-inc-desc":  "Lav latens for skandinaviske spillere. 99,6% oppetid.",
+        "setup-title":      "Rask oppsett",
+        "setup-desc":       "Serveren din er vanligvis klar innen 1 time etter betaling.",
+        "support-title":    "Direkte støtte",
+        "support-desc":     "Du handler direkte med meg: ingen ticket-kø, ingen chatboter.",
+        "billing-title":    "Fleksibel fakturering",
+        "billing-desc":     "Månedlig. Avbryt eller endre plan når som helst, bare gi meg beskjed.",
+        "contact-title":    "📬 Ta kontakt",
+        "contact-subtitle": "For kjøp eller spørsmål, kontakt meg via e-post eller Discord. Jeg svarer raskt.",
+        "email-label":      "E-post",
+        "discord-label":    "Discord",
+        "payment-methods":  "Betalingsmåter",
+        "payment-note":     "Betalingsdetaljer deles etter at vi har avtalt en plan.",
+        "footer-server":    "Egendriftet på privat infrastruktur.",
+      },
+      sv: {
+        "back-btn":         "← Tillbaka",
+        "page-title":       "Serverhosting",
+        "page-subtitle":    "Prisvärda spelservrar på privat infrastruktur i Norge. Du får full åtkomst till kontrollpanelen, hanterad av dig, driven av mig.",
+        "pricing-title":    "💰 Prissättning",
+        "pricing-subtitle": "24,99 kr per GB / månad. Dra för att utforska.",
+        "pricing-label":    "Uppskattad månadskostnad",
+        "pricing-unit":     "kr / månad",
+        "pricing-note":     "Behöver du en annan storlek eller pris? Jag är öppen för att diskutera andra alternativ, hör av dig.",
+        "games-title":      "🎮 Tillgängliga spel",
+        "games-subtitle":   "Fler titlar läggs till regelbundet.",
+        "minecraft-desc":   "Java och Bedrock · Vanilla, Spigot, Paper, Forge, Fabric",
+        "status-available": "Tillgänglig",
+        "more-games-title": "Fler spel",
+        "more-games-desc":  "Fler titlar kommer snart",
+        "status-soon":      "Snart",
+        "games-note":       "Ser du inte ditt spel? Hör av dig, om jag kan hosta det löser vi det.",
+        "included-title":   "✅ Vad ingår",
+        "panel-title":      "Full PufferPanel-åtkomst",
+        "panel-desc":       "Starta, stoppa, omstarta din server. Visa konsollloggar, ladda upp filer, hantera konfigurationer — allt från din egen inloggning på panel.robfin.no",
+        "norway-inc-title": "Hostad i Norge",
+        "norway-inc-desc":  "Låg latens för skandinaviska spelare. 99,6% drifttid.",
+        "setup-title":      "Snabb installation",
+        "setup-desc":       "Din server är vanligtvis redo inom 1 timme efter betalning.",
+        "support-title":    "Direkt support",
+        "support-desc":     "Du hanterar direkt med mig: ingen ticket-kö, inga chatbotar.",
+        "billing-title":    "Flexibel fakturering",
+        "billing-desc":     "Månadsvis. Avbryt eller byt plan när som helst, meddela mig bara.",
+        "contact-title":    "📬 Kom i kontakt",
+        "contact-subtitle": "För köp eller frågor, kontakta mig via e-post eller Discord. Jag svarar snabbt.",
+        "email-label":      "E-post",
+        "discord-label":    "Discord",
+        "payment-methods":  "Betalningsmetoder",
+        "payment-note":     "Betalningsinformation delas efter att vi kommit överens om en plan.",
+        "footer-server":    "Självhostad på privat infrastruktur.",
+      }
+    };
+
+    const tierData = {
+      en: [
+        { ram: '1 GB',  price: '24.99',  players: '2–3 players'   },
+        { ram: '2 GB',  price: '49.99',  players: '5–7 players'   },
+        { ram: '4 GB',  price: '99.99',  players: '10–15 players'  },
+        { ram: '5 GB',  price: '124.99', players: '15–20 players'  },
+        { ram: '6 GB',  price: '149.99', players: '20–25 players'  },
+        { ram: '10 GB', price: '249.99', players: '40–50 players'  },
+        { ram: '12 GB', price: '299.99', players: '50–60 players'  },
+      ],
+      no: [
+        { ram: '1 GB',  price: '24,99',  players: '2–3 spillere'   },
+        { ram: '2 GB',  price: '49,99',  players: '5–7 spillere'   },
+        { ram: '4 GB',  price: '99,99',  players: '10–15 spillere'  },
+        { ram: '5 GB',  price: '124,99', players: '15–20 spillere'  },
+        { ram: '6 GB',  price: '149,99', players: '20–25 spillere'  },
+        { ram: '10 GB', price: '249,99', players: '40–50 spillere'  },
+        { ram: '12 GB', price: '299,99', players: '50–60 spillere'  },
+      ],
+      sv: [
+        { ram: '1 GB',  price: '24,99',  players: '2–3 spelare'   },
+        { ram: '2 GB',  price: '49,99',  players: '5–7 spelare'   },
+        { ram: '4 GB',  price: '99,99',  players: '10–15 spelare'  },
+        { ram: '5 GB',  price: '124,99', players: '15–20 spelare'  },
+        { ram: '6 GB',  price: '149,99', players: '20–25 spelare'  },
+        { ram: '10 GB', price: '249,99', players: '40–50 spelare'  },
+        { ram: '12 GB', price: '299,99', players: '50–60 spelare'  },
+      ],
+    };
+
+    let currentLang = 'en';
 
     const slider    = document.getElementById('ramSlider');
     const priceEl   = document.getElementById('priceDisplay');
@@ -356,6 +539,7 @@
     const playersEl = document.getElementById('playersDisplay');
 
     function updateSlider() {
+      const tiers = tierData[currentLang] || tierData.en;
       const t = tiers[parseInt(slider.value)];
       priceEl.textContent   = t.price;
       ramEl.textContent     = t.ram + ' RAM';
@@ -364,8 +548,37 @@
       slider.style.background = `linear-gradient(to right, rgba(255,255,255,0.7) ${pct}%, rgba(255,255,255,0.2) ${pct}%)`;
     }
 
+    function setLang(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.documentElement.lang = lang === 'no' ? 'nb' : lang;
+      ['no', 'en', 'sv'].forEach(l => {
+        document.getElementById('btn-' + l).classList.toggle('active-lang', l === lang);
+      });
+      updateSlider();
+      try { localStorage.setItem('lang', lang); } catch(e) {}
+    }
+
+    (function detectLang() {
+      try {
+        const saved = localStorage.getItem('lang');
+        if (saved && translations[saved]) { currentLang = saved; return; }
+      } catch(e) {}
+      const browser = (navigator.language || 'en').toLowerCase().slice(0, 2);
+      if (browser === 'no' || browser === 'nb' || browser === 'nn') currentLang = 'no';
+      else if (browser === 'sv') currentLang = 'sv';
+      else currentLang = 'en';
+    })();
+
     slider.addEventListener('input', updateSlider);
-    updateSlider();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setLang(currentLang);
+    });
   </script>
 </body>
 </html>

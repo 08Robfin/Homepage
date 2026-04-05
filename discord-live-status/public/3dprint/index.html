@@ -186,6 +186,49 @@
     ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+
+    #lang-switcher {
+      position: absolute;
+      top: 0.85rem;
+      right: 0.85rem;
+      z-index: 10;
+    }
+    #lang-switcher-inner {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.15rem;
+      padding: 0.3rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border-top: 1px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.35);
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      color: rgba(255,255,255,0.5);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.2s, background 0.2s;
+      line-height: 1;
+    }
+    .lang-btn:hover { color: rgba(255,255,255,0.9); }
+    .lang-btn.active-lang {
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.12) 100%);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.4);
+      color: #ffffff;
+    }
   </style>
 </head>
 <body>
@@ -194,13 +237,20 @@
 
     <!-- Header -->
     <div class="glass-card p-6 md:p-8 text-center mb-5 fade-in" style="position:relative;">
-      <a href="/" class="link-btn text-xs" style="position:absolute;top:1.1rem;left:1.1rem;">← Back</a>
+      <a href="/" class="link-btn text-xs" style="position:absolute;top:1.1rem;left:1.1rem;" data-i18n="back-btn">← Back</a>
+      <div id="lang-switcher">
+        <div id="lang-switcher-inner">
+          <button onclick="setLang('no')" id="btn-no" class="lang-btn" title="Norsk">NO</button>
+          <button onclick="setLang('en')" id="btn-en" class="lang-btn active-lang" title="English">EN</button>
+          <button onclick="setLang('sv')" id="btn-sv" class="lang-btn" title="Svenska">SV</button>
+        </div>
+      </div>
       <div class="text-5xl mb-3">🖨️</div>
-      <h1 class="text-4xl md:text-5xl font-bold mb-2">3D Printing</h1>
-      <p class="text-base opacity-75 max-w-md mx-auto">Send me any model, get a price estimate, and I'll print it for you. Simple, personal, and fully secured through Finn.no.</p>
+      <h1 class="text-4xl md:text-5xl font-bold mb-2" data-i18n="page-title">3D Printing</h1>
+      <p class="text-base opacity-75 max-w-md mx-auto" data-i18n="page-subtitle">Send me any model, get a price estimate, and I'll print it for you. Simple, personal, and fully secured through Finn.no.</p>
       <div class="flex justify-center mt-4">
         <div class="norway-banner" style="border-radius:999px;padding:0.4rem 1.1rem;">
-          <span class="text-sm font-semibold">🌍  This service is available in Norway only</span>
+          <span class="text-sm font-semibold" data-i18n="norway-only">🌍  This service is available in Norway only</span>
         </div>
       </div>
     </div>
@@ -209,39 +259,39 @@
 
       <!-- How it works -->
       <div class="masonry-item glass-card p-6 md:p-8 fade-in-1">
-        <h2 class="text-2xl font-semibold mb-1 text-center">⚙️ How it works</h2>
-        <p class="text-sm opacity-60 text-center mb-6">Four simple steps from idea to finished print.</p>
+        <h2 class="text-2xl font-semibold mb-1 text-center" data-i18n="how-title">⚙️ How it works</h2>
+        <p class="text-sm opacity-60 text-center mb-6" data-i18n="how-subtitle">Four simple steps from idea to finished print.</p>
 
         <div class="space-y-3">
           <div class="step-card">
             <div class="step-num">1</div>
             <div>
-              <p class="font-semibold text-sm leading-snug">Send me your model</p>
-              <p class="text-xs opacity-60 mt-0.5">Share a file (STL, OBJ, 3MF) or a link to any model site. No model? Describe what you want and I'll find one.</p>
+              <p class="font-semibold text-sm leading-snug" data-i18n="step1-title">Send me your model</p>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="step1-desc">Share a file (STL, OBJ, 3MF) or a link to any model site. No model? Describe what you want and I'll find one.</p>
             </div>
           </div>
 
           <div class="step-card">
             <div class="step-num">2</div>
             <div>
-              <p class="font-semibold text-sm leading-snug">Get a price estimate</p>
-              <p class="text-xs opacity-60 mt-0.5">I'll calculate material, print time, and complexity and send you a clear quote with no hidden fees.</p>
+              <p class="font-semibold text-sm leading-snug" data-i18n="step2-title">Get a price estimate</p>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="step2-desc">I'll calculate material, print time, and complexity and send you a clear quote with no hidden fees.</p>
             </div>
           </div>
 
           <div class="step-card">
             <div class="step-num">3</div>
             <div>
-              <p class="font-semibold text-sm leading-snug">Pay securely via Finn.no</p>
-              <p class="text-xs opacity-60 mt-0.5">All payments go through <span style="opacity:0.9;font-weight:600;">Fiks Ferdig</span> on Finn.no. Buyer and seller protection for both of us. No cash, no risk.</p>
+              <p class="font-semibold text-sm leading-snug" data-i18n="step3-title">Pay securely via Finn.no</p>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="step3-desc">All payments go through <span style="opacity:0.9;font-weight:600;">Fiks Ferdig</span> on Finn.no. Buyer and seller protection for both of us. No cash, no risk.</p>
             </div>
           </div>
 
           <div class="step-card">
             <div class="step-num">4</div>
             <div>
-              <p class="font-semibold text-sm leading-snug">Receive your print</p>
-              <p class="text-xs opacity-60 mt-0.5">I print your model and ship it to you. You'll be notified when it's on its way.</p>
+              <p class="font-semibold text-sm leading-snug" data-i18n="step4-title">Receive your print</p>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="step4-desc">I print your model and ship it to you. You'll be notified when it's on its way.</p>
             </div>
           </div>
         </div>
@@ -249,62 +299,62 @@
 
       <!-- Payment & Trust -->
       <div class="masonry-item glass-card p-6 md:p-8 fade-in-2">
-        <h2 class="text-2xl font-semibold mb-1 text-center">🔒 Safe payment</h2>
-        <p class="text-sm opacity-60 text-center mb-6">All transactions are handled through Finn.no's <strong>Fiks Ferdig</strong> service. Norway's trusted buyer &amp; seller protection.</p>
+        <h2 class="text-2xl font-semibold mb-1 text-center" data-i18n="payment-title">🔒 Safe payment</h2>
+        <p class="text-sm opacity-60 text-center mb-6" data-i18n="payment-subtitle">All transactions are handled through Finn.no's <strong>Fiks Ferdig</strong> service. Norway's trusted buyer &amp; seller protection.</p>
 
         <a href="https://www.finn.no/profile/ads?userId=899115574" target="_blank" rel="noopener" class="finn-btn mb-4" style="width:100%;box-sizing:border-box;">
           <span class="text-xl">🔗</span>
-          <span>View my Finn.no profile</span>
+          <span data-i18n="finn-profile-btn">View my Finn.no profile</span>
         </a>
 
         <div class="flex justify-center">
           <div class="rating-badge">
             <span>⭐</span>
             <span style="color:#fbbf24 !important;">10 / 10</span>
-            <span style="opacity:0.7;font-weight:400;">rating</span>
+            <span style="opacity:0.7;font-weight:400;" data-i18n="rating-label">rating</span>
           </div>
         </div>
       </div>
 
       <!-- What I can print -->
       <div class="masonry-item glass-card p-6 md:p-8 fade-in-3">
-        <h2 class="text-2xl font-semibold mb-1 text-center">🎨 What I can print</h2>
-        <p class="text-sm opacity-60 text-center mb-6">Got a model in mind? I can most likely print it.</p>
+        <h2 class="text-2xl font-semibold mb-1 text-center" data-i18n="what-title">🎨 What I can print</h2>
+        <p class="text-sm opacity-60 text-center mb-6" data-i18n="what-subtitle">Got a model in mind? I can most likely print it.</p>
 
         <ul class="space-y-3">
           <li class="flex items-start gap-3 text-sm">
             <span class="text-base flex-shrink-0 mt-0.5">🎮</span>
             <div>
-              <span class="font-semibold">Gaming &amp; collectibles</span>
-              <p class="text-xs opacity-60 mt-0.5">Figurines, props, display stands, controller mounts.</p>
+              <span class="font-semibold" data-i18n="cat-gaming">Gaming &amp; collectibles</span>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="cat-gaming-desc">Figurines, props, display stands, controller mounts.</p>
             </div>
           </li>
           <li class="flex items-start gap-3 text-sm">
             <span class="text-base flex-shrink-0 mt-0.5">🏠</span>
             <div>
-              <span class="font-semibold">Home &amp; practical parts</span>
-              <p class="text-xs opacity-60 mt-0.5">Hooks, brackets, cable management, replacement parts.</p>
+              <span class="font-semibold" data-i18n="cat-home">Home &amp; practical parts</span>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="cat-home-desc">Hooks, brackets, cable management, replacement parts.</p>
             </div>
           </li>
           <li class="flex items-start gap-3 text-sm">
             <span class="text-base flex-shrink-0 mt-0.5">🎁</span>
             <div>
-              <span class="font-semibold">Custom gifts</span>
-              <p class="text-xs opacity-60 mt-0.5">Personalised items, nameplates, keychains, decorations.</p>
+              <span class="font-semibold" data-i18n="cat-gifts">Custom gifts</span>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="cat-gifts-desc">Personalised items, nameplates, keychains, decorations.</p>
             </div>
           </li>
           <li class="flex items-start gap-3 text-sm">
             <span class="text-base flex-shrink-0 mt-0.5">⚙️</span>
             <div>
-              <span class="font-semibold">Mechanical &amp; functional</span>
-              <p class="text-xs opacity-60 mt-0.5">Gears, enclosures, jigs, tools, and prototypes.</p>
+              <span class="font-semibold" data-i18n="cat-mech">Mechanical &amp; functional</span>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="cat-mech-desc">Gears, enclosures, jigs, tools, and prototypes.</p>
             </div>
           </li>
           <li class="flex items-start gap-3 text-sm">
             <span class="text-base flex-shrink-0 mt-0.5">💡</span>
             <div>
-              <span class="font-semibold">Your own idea</span>
-              <p class="text-xs opacity-60 mt-0.5">No model yet? Tell me what you want and I'll find or suggest something.</p>
+              <span class="font-semibold" data-i18n="cat-idea">Your own idea</span>
+              <p class="text-xs opacity-60 mt-0.5" data-i18n="cat-idea-desc">No model yet? Tell me what you want and I'll find or suggest something.</p>
             </div>
           </li>
         </ul>
@@ -312,21 +362,21 @@
 
       <!-- Contact -->
       <div class="masonry-item glass-card p-6 md:p-8 fade-in-4">
-        <h2 class="text-2xl font-semibold mb-1 text-center">📬 Get in touch</h2>
-        <p class="text-sm opacity-60 text-center mb-6">Send me your model file or a link, tell me what you want, and I'll come back with a quote.</p>
+        <h2 class="text-2xl font-semibold mb-1 text-center" data-i18n="contact-title">📬 Get in touch</h2>
+        <p class="text-sm opacity-60 text-center mb-6" data-i18n="contact-subtitle">Send me your model file or a link, tell me what you want, and I'll come back with a quote.</p>
 
         <div class="flex flex-col gap-3">
           <a href="mailto:finnestadrobin@gmail.com" class="contact-chip">
             <span class="text-xl">✉️</span>
             <div>
-              <div class="text-xs opacity-55 leading-none mb-0.5">Email</div>
+              <div class="text-xs opacity-55 leading-none mb-0.5" data-i18n="email-label">Email</div>
               <div class="text-sm font-semibold">finnestadrobin@gmail.com</div>
             </div>
           </a>
           <div class="contact-chip" style="cursor:default;">
             <span class="text-xl">💬</span>
             <div>
-              <div class="text-xs opacity-55 leading-none mb-0.5">Discord</div>
+              <div class="text-xs opacity-55 leading-none mb-0.5" data-i18n="discord-label">Discord</div>
               <div class="text-sm font-semibold">robfin</div>
             </div>
           </div>
@@ -336,8 +386,8 @@
           <div class="norway-banner">
             <span class="text-xl flex-shrink-0">📍</span>
             <div>
-              <p class="text-sm font-semibold">Norway only</p>
-              <p class="text-xs opacity-70 mt-0.5">Shipping and payment through Finn.no Fiks Ferdig are only available within Norway.</p>
+              <p class="text-sm font-semibold" data-i18n="norway-only-title">Norway only</p>
+              <p class="text-xs opacity-70 mt-0.5" data-i18n="norway-only-desc">Shipping and payment through Finn.no Fiks Ferdig are only available within Norway.</p>
             </div>
           </div>
         </div>
@@ -346,12 +396,163 @@
     </div>
 
     <footer class="text-center mt-8 opacity-50 text-xs">
-      <p>&copy; <span id="currentYear"></span> Robin Finnestad. 3D Printing in Norway.</p>
+      <p>&copy; <span id="currentYear"></span> Robin Finnestad. <span data-i18n="footer-print">3D Printing in Norway.</span></p>
     </footer>
   </div>
 
   <script>
     document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    const translations = {
+      en: {
+        "back-btn":          "← Back",
+        "page-title":        "3D Printing",
+        "page-subtitle":     "Send me any model, get a price estimate, and I'll print it for you. Simple, personal, and fully secured through Finn.no.",
+        "norway-only":       "This service is available in Norway only",
+        "how-title":         "⚙️ How it works",
+        "how-subtitle":      "Four simple steps from idea to finished print.",
+        "step1-title":       "Send me your model",
+        "step1-desc":        "Share a file (STL, OBJ, 3MF) or a link to any model site. No model? Describe what you want and I'll find one.",
+        "step2-title":       "Get a price estimate",
+        "step2-desc":        "I'll calculate material, print time, and complexity and send you a clear quote with no hidden fees.",
+        "step3-title":       "Pay securely via Finn.no",
+        "step3-desc":        "All payments go through Fiks Ferdig on Finn.no. Buyer and seller protection for both of us. No cash, no risk.",
+        "step4-title":       "Receive your print",
+        "step4-desc":        "I print your model and ship it to you. You'll be notified when it's on its way.",
+        "payment-title":     "🔒 Safe payment",
+        "payment-subtitle":  "All transactions are handled through Finn.no's Fiks Ferdig service. Norway's trusted buyer & seller protection.",
+        "finn-profile-btn":  "View my Finn.no profile",
+        "rating-label":      "rating",
+        "what-title":        "🎨 What I can print",
+        "what-subtitle":     "Got a model in mind? I can most likely print it.",
+        "cat-gaming":        "Gaming & collectibles",
+        "cat-gaming-desc":   "Figurines, props, display stands, controller mounts.",
+        "cat-home":          "Home & practical parts",
+        "cat-home-desc":     "Hooks, brackets, cable management, replacement parts.",
+        "cat-gifts":         "Custom gifts",
+        "cat-gifts-desc":    "Personalised items, nameplates, keychains, decorations.",
+        "cat-mech":          "Mechanical & functional",
+        "cat-mech-desc":     "Gears, enclosures, jigs, tools, and prototypes.",
+        "cat-idea":          "Your own idea",
+        "cat-idea-desc":     "No model yet? Tell me what you want and I'll find or suggest something.",
+        "contact-title":     "📬 Get in touch",
+        "contact-subtitle":  "Send me your model file or a link, tell me what you want, and I'll come back with a quote.",
+        "email-label":       "Email",
+        "discord-label":     "Discord",
+        "norway-only-title": "Norway only",
+        "norway-only-desc":  "Shipping and payment through Finn.no Fiks Ferdig are only available within Norway.",
+        "footer-print":      "3D Printing in Norway.",
+      },
+      no: {
+        "back-btn":          "← Tilbake",
+        "page-title":        "3D-printing",
+        "page-subtitle":     "Send meg en modell, få et prisestimat, og jeg printer den for deg. Enkelt, personlig og fullt sikret gjennom Finn.no.",
+        "norway-only":       "Denne tjenesten er kun tilgjengelig i Norge",
+        "how-title":         "⚙️ Slik fungerer det",
+        "how-subtitle":      "Fire enkle steg fra idé til ferdig print.",
+        "step1-title":       "Send meg modellen din",
+        "step1-desc":        "Del en fil (STL, OBJ, 3MF) eller en lenke til en modellside. Ingen modell? Beskriv hva du vil ha, så finner jeg en.",
+        "step2-title":       "Få et prisestimat",
+        "step2-desc":        "Jeg beregner materiale, printtid og kompleksitet og sender deg et klart tilbud uten skjulte gebyrer.",
+        "step3-title":       "Betal trygt via Finn.no",
+        "step3-desc":        "Alle betalinger går gjennom Fiks Ferdig på Finn.no. Kjøper- og selgerbeskyttelse for begge parter. Ingen kontanter, ingen risiko.",
+        "step4-title":       "Motta printen din",
+        "step4-desc":        "Jeg printer modellen og sender den til deg. Du blir varslet når den er på vei.",
+        "payment-title":     "🔒 Trygg betaling",
+        "payment-subtitle":  "Alle transaksjoner håndteres gjennom Finn.nos Fiks Ferdig-tjeneste. Norges betrodde kjøper- og selgerbeskyttelse.",
+        "finn-profile-btn":  "Se min Finn.no-profil",
+        "rating-label":      "vurdering",
+        "what-title":        "🎨 Hva jeg kan printe",
+        "what-subtitle":     "Har du en modell i tankene? Jeg kan mest sannsynlig printe den.",
+        "cat-gaming":        "Gaming & samleobjekter",
+        "cat-gaming-desc":   "Figurer, rekvisitter, utstillingsstativ, kontrollerfester.",
+        "cat-home":          "Hjem & praktiske deler",
+        "cat-home-desc":     "Kroker, braketter, kabelhåndtering, reservedeler.",
+        "cat-gifts":         "Egendefinerte gaver",
+        "cat-gifts-desc":    "Personlige gjenstander, navneskilt, nøkkelringer, dekorasjoner.",
+        "cat-mech":          "Mekanisk & funksjonelt",
+        "cat-mech-desc":     "Tannhjul, kabinetter, jigs, verktøy og prototyper.",
+        "cat-idea":          "Din egen idé",
+        "cat-idea-desc":     "Ingen modell ennå? Fortell meg hva du vil ha, så finner eller foreslår jeg noe.",
+        "contact-title":     "📬 Ta kontakt",
+        "contact-subtitle":  "Send meg modellfilen eller en lenke, fortell meg hva du vil ha, og jeg kommer tilbake med et tilbud.",
+        "email-label":       "E-post",
+        "discord-label":     "Discord",
+        "norway-only-title": "Kun Norge",
+        "norway-only-desc":  "Frakt og betaling via Finn.no Fiks Ferdig er kun tilgjengelig i Norge.",
+        "footer-print":      "3D-printing i Norge.",
+      },
+      sv: {
+        "back-btn":          "← Tillbaka",
+        "page-title":        "3D-printing",
+        "page-subtitle":     "Skicka mig en modell, få en prisuppskattning och jag skriver ut den åt dig. Enkelt, personligt och helt säkrat via Finn.no.",
+        "norway-only":       "Denna tjänst är endast tillgänglig i Norge",
+        "how-title":         "⚙️ Hur det fungerar",
+        "how-subtitle":      "Fyra enkla steg från idé till färdig utskrift.",
+        "step1-title":       "Skicka mig din modell",
+        "step1-desc":        "Dela en fil (STL, OBJ, 3MF) eller en länk till en modellsida. Ingen modell? Beskriv vad du vill ha så hittar jag en.",
+        "step2-title":       "Få en prisuppskattning",
+        "step2-desc":        "Jag beräknar material, utskriftstid och komplexitet och skickar dig en tydlig offert utan dolda avgifter.",
+        "step3-title":       "Betala säkert via Finn.no",
+        "step3-desc":        "Alla betalningar går via Fiks Ferdig på Finn.no. Köpar- och säljarskydd för oss båda. Inga kontanter, ingen risk.",
+        "step4-title":       "Ta emot din utskrift",
+        "step4-desc":        "Jag skriver ut din modell och skickar den till dig. Du meddelas när den är på väg.",
+        "payment-title":     "🔒 Säker betalning",
+        "payment-subtitle":  "Alla transaktioner hanteras via Finn.nos Fiks Ferdig-tjänst. Norges betrodda köpar- och säljarskydd.",
+        "finn-profile-btn":  "Se min Finn.no-profil",
+        "rating-label":      "betyg",
+        "what-title":        "🎨 Vad jag kan skriva ut",
+        "what-subtitle":     "Har du en modell i åtanke? Jag kan troligtvis skriva ut den.",
+        "cat-gaming":        "Gaming & samlarföremål",
+        "cat-gaming-desc":   "Figurer, rekvisita, displayställ, kontrollerfästen.",
+        "cat-home":          "Hem & praktiska delar",
+        "cat-home-desc":     "Krokar, fästen, kabelhantering, reservdelar.",
+        "cat-gifts":         "Anpassade presenter",
+        "cat-gifts-desc":    "Personliga föremål, namnplattor, nyckelringar, dekorationer.",
+        "cat-mech":          "Mekanisk & funktionell",
+        "cat-mech-desc":     "Kugghjul, höljen, jiggar, verktyg och prototyper.",
+        "cat-idea":          "Din egen idé",
+        "cat-idea-desc":     "Ingen modell ännu? Berätta vad du vill ha så hittar eller föreslår jag något.",
+        "contact-title":     "📬 Kom i kontakt",
+        "contact-subtitle":  "Skicka mig din modellfil eller en länk, berätta vad du vill ha, och jag återkommer med en offert.",
+        "email-label":       "E-post",
+        "discord-label":     "Discord",
+        "norway-only-title": "Endast Norge",
+        "norway-only-desc":  "Frakt och betalning via Finn.no Fiks Ferdig är endast tillgängliga i Norge.",
+        "footer-print":      "3D-printing i Norge.",
+      }
+    };
+
+    let currentLang = 'en';
+
+    function setLang(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.documentElement.lang = lang === 'no' ? 'nb' : lang;
+      ['no', 'en', 'sv'].forEach(l => {
+        document.getElementById('btn-' + l).classList.toggle('active-lang', l === lang);
+      });
+      try { localStorage.setItem('lang', lang); } catch(e) {}
+    }
+
+    (function detectLang() {
+      try {
+        const saved = localStorage.getItem('lang');
+        if (saved && translations[saved]) { currentLang = saved; return; }
+      } catch(e) {}
+      const browser = (navigator.language || 'en').toLowerCase().slice(0, 2);
+      if (browser === 'no' || browser === 'nb' || browser === 'nn') currentLang = 'no';
+      else if (browser === 'sv') currentLang = 'sv';
+      else currentLang = 'en';
+    })();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setLang(currentLang);
+    });
   </script>
 </body>
 </html>
