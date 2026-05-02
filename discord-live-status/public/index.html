@@ -116,6 +116,10 @@
     .glass-card * { color: #f0f0f0 !important; text-shadow: 0 1px 2px rgba(0,0,0,0.15); }
 
     /* ---- Avatar ---- */
+    .avatar-bubble-container {
+      position: relative;
+      display: inline-block;
+    }
     .avatar-ring {
       padding: 0; border-radius: 50%; display: inline-block;
       position: relative;
@@ -184,17 +188,21 @@
     }
     #discord-text-part { white-space: normal; word-break: break-word; min-width: 0; }
 
-    /* ---- Bubble repositions below avatar on small screens ---- */
+    /* ---- Bubble drops below avatar on small screens ---- */
     @media (max-width: 540px) {
-      .discord-thinking-bubble {
-        top: 124px;
-        left: 50%;
-        transform: translateX(-50%);
-        max-width: calc(100vw - 5rem);
-        text-align: left;
+      .avatar-bubble-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
       }
-      .bubble-dot-1 { top: 114px; left: 50px; }
-      .bubble-dot-2 { top: 108px; left: 54px; }
+      .discord-thinking-bubble {
+        position: static;
+        transform: none;
+        max-width: calc(100vw - 4rem);
+        width: max-content;
+      }
+      .bubble-dot { display: none !important; }
     }
 
     /* ---- Status dot ---- */
@@ -432,11 +440,13 @@
         </div>
       </div>
       <div class="w-full flex justify-center mb-4">
-        <div class="avatar-ring">
-          <img
-            src="https://github.com/08Robfin/Homepage/blob/main/images/robfin-pfp.png?raw=true"
-            alt="Robfin"/>
-          <span id="discord-status-indicator" class="status-indicator status-offline"></span>
+        <div class="avatar-bubble-container">
+          <div class="avatar-ring">
+            <img
+              src="https://github.com/08Robfin/Homepage/blob/main/images/robfin-pfp.png?raw=true"
+              alt="Robfin"/>
+            <span id="discord-status-indicator" class="status-indicator status-offline"></span>
+          </div>
           <span class="bubble-dot bubble-dot-1"></span>
           <span class="bubble-dot bubble-dot-2"></span>
           <div class="discord-thinking-bubble">
