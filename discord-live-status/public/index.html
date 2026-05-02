@@ -188,20 +188,24 @@
     }
     #discord-text-part { white-space: normal; word-break: break-word; min-width: 0; }
 
-    /* ---- Bubble drops below avatar on small screens ---- */
-    @media (max-width: 540px) {
+    /* ---- Bubble drops below avatar on narrow screens ---- */
+    @media (max-width: 900px) {
       .avatar-bubble-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
       }
       .discord-thinking-bubble {
         position: static;
         transform: none;
         max-width: calc(100vw - 4rem);
         width: max-content;
+        justify-content: center;
+        text-align: center;
+        padding: 0.35rem 1rem;
       }
+      .discord-thinking-bubble::before { display: none; }
       .bubble-dot { display: none !important; }
     }
 
