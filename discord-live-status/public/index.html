@@ -131,7 +131,7 @@
     .discord-thinking-bubble {
       display: none; /* hidden until JS shows it */
       position: absolute;
-      top: -8px; left: 96px;
+      top: -8px; left: 122px;
       background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
       backdrop-filter: blur(14px) saturate(150%);
       -webkit-backdrop-filter: blur(14px) saturate(150%);
@@ -147,7 +147,7 @@
       flex-direction: row;
       align-items: center;
       gap: 0.35rem;
-      max-width: 320px;
+      max-width: 400px;
       white-space: nowrap;
       z-index: 10;
       /* White text + shadow so it reads over the light glass */
@@ -163,17 +163,17 @@
     .discord-thinking-bubble::after {
       content: "";
       position: absolute;
-      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+      background: rgba(255,255,255,0.5);
       border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.6);
     }
     .discord-thinking-bubble::before {
-      width: 9px; height: 9px;
-      bottom: 7px; left: -15px;
+      width: 12px; height: 12px;
+      bottom: 6px; left: -20px;
     }
     .discord-thinking-bubble::after {
-      width: 6px; height: 6px;
-      bottom: 3px; left: -24px;
+      width: 8px; height: 8px;
+      bottom: 2px; left: -32px;
     }
     #discord-emoji-part { flex-shrink: 0; line-height: 1; display: inline-flex; align-items: center; }
     #discord-emoji-part img {
@@ -188,7 +188,7 @@
       background: transparent !important;
       border-radius: 0 !important;
     }
-    #discord-text-part  { overflow: hidden; text-overflow: ellipsis; }
+    #discord-text-part { white-space: nowrap; }
 
     /* ---- Status dot ---- */
     @keyframes onlinePulse {
