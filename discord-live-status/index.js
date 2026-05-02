@@ -119,17 +119,35 @@ client.once('ready', async () => {
 
 // 6) Whenever Discord tells us presence changed, update again
 client.on('presenceUpdate', (oldPresence, newPresence) => {
-  if (newPresence.userId === USER_ID) {
-    console.log('🎉 presenceUpdate:', newPresence.status, newPresence.activities);
-    const user = newPresence.member.user;
-    updateData(user, newPresence);
+  if (!newPresence || newPresence.userId !== USER_ID) return;
+
+  console.log('🎉 presenceUpdate:', newPresence.status, newPresence.activities);
+
+  // member may not be cached — fetch it explicitly
+  const member = newPresence.member;
+  if (member) {
+    updateData(member.user, newPresence);
+  } else {
+    // member not cached, re-fetch from guild
+    const guild = newPresence.guild;
+    if (guild) {
+      guild.members.fetch(USER_ID).then(m => {
+        updateData(m.user, newPresence);
+      }).catch(err => console.error('Failed to fetch member on presenceUpdate:', err));
+    }
   }
 });
 
-// 7) If username/avatar/badges change, re‐emit (we drop presence here)
+// 7) If username/avatar/badges change, keep existing presence status
 client.on('userUpdate', (oldUser, newUser) => {
-  if (newUser.id === USER_ID) {
-    updateData(newUser, null);
+  if (newUser.id !== USER_ID) return;
+  // Re-emit with updated user data but preserve the last known presence
+  // by re-fetching from a guild so we don't falsely set status → offline
+  for (const guild of client.guilds.cache.values()) {
+    guild.members.fetch(USER_ID).then(member => {
+      updateData(newUser, member.presence);
+    }).catch(() => null);
+    break;
   }
 });
 
