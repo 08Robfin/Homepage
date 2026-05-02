@@ -168,6 +168,12 @@
     }
     #discord-emoji-bubble { flex-shrink: 0; display: flex; align-items: center; }
     #discord-emoji-bubble img { width: 1.1em; height: 1.1em; object-fit: contain; }
+    /* Override glass-card's white text — bubble has a light background so needs dark text */
+    .discord-thinking-bubble,
+    .discord-thinking-bubble * {
+      color: rgba(15, 15, 15, 0.88) !important;
+      text-shadow: none !important;
+    }
 
     /* ---- Status dot ---- */
     @keyframes onlinePulse {
@@ -930,19 +936,17 @@
       const emojiEl = document.getElementById("discord-emoji-bubble");
       const bubble = document.querySelector(".discord-thinking-bubble");
 
+      const hasEmoji = data.customEmojiUrl || data.customEmojiText;
+      const hasText  = data.customStatusText && data.customStatusText.trim();
+
       if (data.customEmojiUrl) {
         emojiEl.innerHTML = `<img src="${data.customEmojiUrl}" />`;
-        customEl.textContent = data.customStatusText || "";
-      } else if (data.customEmojiText) {
-        emojiEl.textContent = data.customEmojiText;
-        customEl.textContent = data.customStatusText || "";
       } else {
-        emojiEl.textContent = "";
-        customEl.textContent = data.customStatusText || "";
+        emojiEl.textContent = data.customEmojiText || "";
       }
+      customEl.textContent = data.customStatusText || "";
 
-      const hasContent = emojiEl.textContent.trim() || customEl.textContent.trim() || emojiEl.querySelector("img");
-      bubble.style.display = hasContent ? "flex" : "none";
+      bubble.style.display = (hasEmoji || hasText) ? "flex" : "none";
     });
   </script>
 
