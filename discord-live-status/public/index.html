@@ -184,6 +184,19 @@
     }
     #discord-text-part { white-space: normal; word-break: break-word; min-width: 0; }
 
+    /* ---- Bubble repositions below avatar on small screens ---- */
+    @media (max-width: 540px) {
+      .discord-thinking-bubble {
+        top: 124px;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: calc(100vw - 5rem);
+        text-align: left;
+      }
+      .bubble-dot-1 { top: 114px; left: 50px; }
+      .bubble-dot-2 { top: 108px; left: 54px; }
+    }
+
     /* ---- Status dot ---- */
     @keyframes onlinePulse {
       0%, 100% { opacity: 1; transform: scale(1); }
