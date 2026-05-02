@@ -147,7 +147,7 @@
       flex-direction: row;
       align-items: center;
       gap: 0.35rem;
-      max-width: 220px;
+      max-width: 320px;
       white-space: nowrap;
       z-index: 10;
       /* White text + shadow so it reads over the light glass */
@@ -175,8 +175,19 @@
       width: 6px; height: 6px;
       bottom: 3px; left: -24px;
     }
-    #discord-emoji-part { flex-shrink: 0; line-height: 1; }
-    #discord-emoji-part img { width: 1.4em; height: 1.4em; vertical-align: middle; object-fit: contain; }
+    #discord-emoji-part { flex-shrink: 0; line-height: 1; display: inline-flex; align-items: center; }
+    #discord-emoji-part img {
+      width: 1.7em; height: 1.7em;
+      vertical-align: middle;
+      object-fit: contain;
+      /* Strip any inherited shadow/border that could draw a halo or circle around the emoji */
+      text-shadow: none !important;
+      box-shadow: none !important;
+      filter: none !important;
+      border: none !important;
+      background: transparent !important;
+      border-radius: 0 !important;
+    }
     #discord-text-part  { overflow: hidden; text-overflow: ellipsis; }
 
     /* ---- Status dot ---- */
