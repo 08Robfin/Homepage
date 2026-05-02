@@ -145,10 +145,10 @@
       font-size: 0.92rem;
       font-weight: 500;
       flex-direction: row;
-      align-items: flex-start;
+      align-items: center;
       gap: 0.35rem;
-      max-width: 280px;
-      white-space: normal;
+      max-width: 500px;
+      white-space: nowrap;
       z-index: 10;
       /* White text + shadow so it reads over the light glass */
       color: #fff !important;
@@ -188,7 +188,7 @@
       background: transparent !important;
       border-radius: 0 !important;
     }
-    #discord-text-part { white-space: normal; word-break: break-word; }
+    #discord-text-part { white-space: nowrap; }
 
     /* ---- Status dot ---- */
     @keyframes onlinePulse {
