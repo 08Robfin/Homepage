@@ -159,23 +159,16 @@
       color: #fff !important;
       text-shadow: 0 1px 4px rgba(0,0,0,0.55) !important;
     }
-    /* Thought-bubble dot tail */
-    .discord-thinking-bubble::before,
-    .discord-thinking-bubble::after {
-      content: "";
+    /* Thought-bubble dot tail — fixed to avatar ring, not bubble height */
+    .bubble-dot {
+      display: none;
       position: absolute;
-      background: rgba(255,255,255,0.5);
       border-radius: 50%;
+      background: rgba(255,255,255,0.5);
       border: 1px solid rgba(255,255,255,0.6);
     }
-    .discord-thinking-bubble::before {
-      width: 12px; height: 12px;
-      bottom: 7px; left: -20px;
-    }
-    .discord-thinking-bubble::after {
-      width: 8px; height: 8px;
-      bottom: 3px; left: -32px;
-    }
+    .bubble-dot-1 { width: 12px; height: 12px; top: 22px; left: 104px; }
+    .bubble-dot-2 { width: 8px;  height: 8px;  top: 28px; left: 91px; }
     #discord-emoji-part { flex-shrink: 0; line-height: 1; display: inline-flex; align-items: center; }
     #discord-emoji-part img {
       width: 1.7em; height: 1.7em;
@@ -431,6 +424,8 @@
             src="https://github.com/08Robfin/Homepage/blob/main/images/robfin-pfp.png?raw=true"
             alt="Robfin"/>
           <span id="discord-status-indicator" class="status-indicator status-offline"></span>
+          <span class="bubble-dot bubble-dot-1"></span>
+          <span class="bubble-dot bubble-dot-2"></span>
           <div class="discord-thinking-bubble">
             <span id="discord-emoji-part"></span>
             <span id="discord-text-part"></span>
@@ -951,6 +946,7 @@
       const emojiPart = document.getElementById("discord-emoji-part");
       const textPart  = document.getElementById("discord-text-part");
       const bubble    = document.querySelector(".discord-thinking-bubble");
+      const dots      = document.querySelectorAll(".bubble-dot");
 
       const hasEmoji = data.customEmojiUrl || data.customEmojiText;
       const hasText  = data.customStatusText && data.customStatusText.trim();
@@ -962,7 +958,9 @@
       }
       textPart.textContent = data.customStatusText || "";
 
-      bubble.style.display = (hasEmoji || hasText) ? "flex" : "none";
+      const show = !!(hasEmoji || hasText);
+      bubble.style.display = show ? "flex" : "none";
+      dots.forEach(d => d.style.display = show ? "block" : "none");
     });
   </script>
 
