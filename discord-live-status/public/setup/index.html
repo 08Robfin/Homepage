@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>PC Setup | robfin.no</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+
+  <style>
+    html { overflow-x: clip; background-color: #000; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh; min-height: 100dvh;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      padding: 1rem;
+      padding-top: max(1rem, env(safe-area-inset-top));
+      padding-bottom: max(1rem, env(safe-area-inset-bottom));
+      padding-left: max(1rem, env(safe-area-inset-left));
+      padding-right: max(1rem, env(safe-area-inset-right));
+      -webkit-overflow-scrolling: touch;
+      color: #fff; background: transparent;
+    }
+
+    body::before {
+      content: ""; position: fixed;
+      top: calc(-1 * env(safe-area-inset-top, 0px));
+      left: calc(-1 * env(safe-area-inset-left, 0px));
+      right: calc(-1 * env(safe-area-inset-right, 0px));
+      bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+      background: url('../background.jpg') no-repeat center center / cover;
+      z-index: -1; pointer-events: none;
+      -webkit-transform: translateZ(0); transform: translateZ(0);
+    }
+
+    body::after {
+      content: ""; position: fixed;
+      top: calc(-1 * env(safe-area-inset-top, 0px));
+      left: calc(-1 * env(safe-area-inset-left, 0px));
+      right: calc(-1 * env(safe-area-inset-right, 0px));
+      bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+      background: rgba(0,0,0,0.28);
+      z-index: -1; pointer-events: none;
+      -webkit-transform: translateZ(0); transform: translateZ(0);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in   { animation: fadeInUp 0.45s ease both; }
+    .fade-in-1 { animation: fadeInUp 0.45s ease both; animation-delay: 0.08s; }
+    .fade-in-2 { animation: fadeInUp 0.45s ease both; animation-delay: 0.16s; }
+
+    .glass-card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-top: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.3);
+      border-radius: 20px; padding: 2rem;
+      position: relative; z-index: 1;
+    }
+    .glass-card * { color: #f0f0f0 !important; text-shadow: 0 1px 2px rgba(0,0,0,0.15); }
+
+    .link-btn {
+      display: inline-block; font-size: 0.8rem; font-weight: 600;
+      padding: 0.35rem 1rem; border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-top: 1px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      color: #fff !important; text-decoration: none; white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3);
+      transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+    }
+    @media (hover: hover) {
+      .link-btn:hover {
+        background: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.15) 100%);
+        transform: scale(1.04);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4);
+      }
+    }
+
+    .content-wrapper { width: 100%; max-width: 600px; position: relative; z-index: 1; }
+    @media (min-width: 768px)  { .content-wrapper { max-width: 860px; } }
+    @media (min-width: 1024px) { .content-wrapper { max-width: 1000px; } }
+
+    .two-grid {
+      display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-bottom: 1.5rem; align-items: start;
+    }
+    @media (min-width: 640px) { .two-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .section-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      opacity: 0.45; margin: 0.25rem 0 0.75rem 0.25rem;
+      text-shadow: none !important;
+    }
+
+    .spec-row {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .spec-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .spec-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; opacity: 0.45; flex: 0 0 90px;
+    }
+    .spec-value { font-size: 0.88rem; font-weight: 500; }
+
+    .step-row {
+      display: flex; align-items: flex-start; gap: 0.9rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .step-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .step-num {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.26);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700;
+    }
+    .price-tag {
+      font-size: 0.75rem; font-weight: 700; opacity: 0.55; white-space: nowrap;
+    }
+    .shop-link {
+      display: inline-flex; align-items: center;
+      font-size: 0.72rem; font-weight: 600;
+      padding: 0.2rem 0.65rem; border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.06) 100%);
+      border-top: 1px solid rgba(255,255,255,0.38);
+      border-left: 1px solid rgba(255,255,255,0.22);
+      border-right: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      color: #fff !important; text-decoration: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+      transition: background 0.18s, transform 0.18s;
+    }
+    @media (hover: hover) {
+      .shop-link:hover {
+        background: linear-gradient(135deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.1) 100%);
+        transform: scale(1.03);
+      }
+    }
+
+    .total-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 1rem;
+      margin-top: 0.25rem;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+
+    #lang-switcher {
+      position: absolute; top: 0.85rem; right: 0.85rem; z-index: 10;
+    }
+    #lang-switcher-inner {
+      display: inline-flex; align-items: center; gap: 0.15rem; padding: 0.3rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border-top: 1px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.35);
+    }
+    .lang-btn {
+      background: none; border: none; cursor: pointer;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.07em;
+      color: rgba(255,255,255,0.5); text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      padding: 0.3rem 0.7rem; border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.2s, background 0.2s; line-height: 1;
+    }
+    .lang-btn:hover { color: rgba(255,255,255,0.9); }
+    .lang-btn.active-lang {
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.12) 100%);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.4);
+      color: #ffffff;
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+  </style>
+</head>
+<body>
+
+  <div class="content-wrapper p-4 md:p-6">
+
+    <!-- Header -->
+    <div class="glass-card p-6 md:p-8 text-center mb-5 fade-in" style="position:relative;">
+      <a href="/" class="link-btn text-xs" style="position:absolute;top:1.1rem;left:1.1rem;" data-i18n="back-btn">← Back</a>
+      <div id="lang-switcher">
+        <div id="lang-switcher-inner">
+          <button onclick="setLang('no')" id="btn-no" class="lang-btn" title="Norsk">NO</button>
+          <button onclick="setLang('en')" id="btn-en" class="lang-btn active-lang" title="English">EN</button>
+          <button onclick="setLang('sv')" id="btn-sv" class="lang-btn" title="Svenska">SV</button>
+        </div>
+      </div>
+      <div class="text-5xl mb-3">🖥️</div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-2" data-i18n="page-title">PC Setup</h1>
+      <p class="text-base opacity-70 max-w-sm mx-auto" data-i18n="page-subtitle">Current specs and what I'm upgrading next.</p>
+    </div>
+
+    <div class="two-grid">
+
+      <!-- Current specs -->
+      <div class="glass-card p-6 md:p-8 fade-in-1">
+        <h2 class="text-xl font-semibold mb-4" data-i18n="current-title">Current specs</h2>
+
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="spec-cpu">CPU</span>
+          <span class="spec-value">Intel Core i5-12400F</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="spec-mobo">Mobo</span>
+          <span class="spec-value">Gigabyte B660 DS3H AX DDR4</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="spec-ram">RAM</span>
+          <span class="spec-value">32 GB DDR4</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="spec-gpu">GPU</span>
+          <span class="spec-value">RTX 3060 Ti (Gigabyte)</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="spec-storage">Storage</span>
+          <span class="spec-value">1 TB Kingston NVMe + 1 TB WD Blue NVMe</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="spec-psu">PSU</span>
+          <span class="spec-value">Corsair CX650 650 W</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="spec-os">OS</span>
+          <span class="spec-value">Windows 11 Home</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label" data-i18n="spec-case">Case</span>
+          <span class="spec-value" data-i18n="spec-case-val">Generic</span>
+        </div>
+      </div>
+
+      <!-- Upgrade plan -->
+      <div class="glass-card p-6 md:p-8 fade-in-2">
+        <h2 class="text-xl font-semibold mb-1" data-i18n="upgrade-title">Upgrade plan</h2>
+        <p class="text-xs opacity-45 mb-4" data-i18n="upgrade-note">All prices in NOK, VAT included.</p>
+
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-2 mb-1">
+              <p class="font-semibold text-sm" data-i18n="step1-name">PSU</p>
+              <span class="price-tag">1 202,-</span>
+            </div>
+            <p class="text-xs opacity-55 mb-2">Needed before the new GPU goes in. Upgrading to 750 W Gold rated.</p>
+            <a href="https://www.proshop.no/Stroemforsyning-PSU/MSI-MAG-A750GL-PCIE5-Stroemforsyning-PSU-750-Watt-120-mm-ATX-31-80-Plus-Gold-sertifisert/3191305" target="_blank" rel="noopener noreferrer" class="shop-link">proshop.no →</a>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-2 mb-1">
+              <p class="font-semibold text-sm" data-i18n="step2-name">GPU</p>
+              <span class="price-tag">6 990,-</span>
+            </div>
+            <p class="text-xs opacity-55 mb-2">Jumping from the RTX 3060 Ti to the RTX 5070, a big generational leap in performance.</p>
+            <a href="https://www.komplett.no/product/1319438/datautstyr/pc-komponenter/skjermkort/gigabyte-geforce-rtx-5070-windforce-oc" target="_blank" rel="noopener noreferrer" class="shop-link">komplett.no →</a>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-num">3</div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-2 mb-1">
+              <p class="font-semibold text-sm" data-i18n="step3-name">CPU + Mobo + RAM + Cooler</p>
+              <span class="price-tag">11 069,-</span>
+            </div>
+            <p class="text-xs opacity-55 mb-2">Full platform switch to AM5. All done together since they're interdependent.</p>
+            <div class="flex flex-wrap gap-1">
+              <a href="https://www.komplett.no/product/1309696/datautstyr/pc-komponenter/prosessorer/amd-ryzen-7-9700x-cpu" target="_blank" rel="noopener noreferrer" class="shop-link">CPU →</a>
+              <a href="https://www.proshop.no/Hovedkort/ASRock-B650-STEEL-LEGEND-WIFI-Hovedkort-AMD-B650-AMD-AM5-socket-DDR5-RAM-ATX/3262140" target="_blank" rel="noopener noreferrer" class="shop-link">Mobo →</a>
+              <a href="https://www.komplett.no/product/1317578/datautstyr/pc-komponenter/minnebrikker/kingston-fury-beast-ddr5-6400mhz-32gb" target="_blank" rel="noopener noreferrer" class="shop-link">RAM →</a>
+              <a href="https://www.proshop.no/Prosessor-kjoeler/be-quiet-PURE-ROCK-PRO-3-Black-CPU-Luftkjoeler-Max-35-dBA/3348114" target="_blank" rel="noopener noreferrer" class="shop-link">Cooler →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-num">4</div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-2 mb-1">
+              <p class="font-semibold text-sm" data-i18n="step4-name">Storage</p>
+              <span class="price-tag">4 989,-</span>
+            </div>
+            <p class="text-xs opacity-55 mb-2">Replacing both current drives with a single 4 TB NVMe, way more room for games and projects.</p>
+            <a href="https://www.proshop.no/SSD/Kingston-NV3-SSD-4TB-PCIe-40-M2-2280/3284684" target="_blank" rel="noopener noreferrer" class="shop-link">proshop.no →</a>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-num">5</div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-2 mb-1">
+              <p class="font-semibold text-sm" data-i18n="step5-name">Case</p>
+              <span class="price-tag">1 628,-</span>
+            </div>
+            <p class="text-xs opacity-55 mb-2">Finally replacing the generic case. The Fractal North is clean, well-ventilated, and looks great on a desk.</p>
+            <a href="https://www.komplett.no/product/1223032/datautstyr/pc-komponenter/kabinetterbarebone/midi-tower/fractal-north-chalk-white-mesh-mid-tower" target="_blank" rel="noopener noreferrer" class="shop-link">komplett.no →</a>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <footer class="text-center mt-6 opacity-50 text-xs">
+      <p>&copy; <span id="currentYear"></span> Robin Finnestad</p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    const translations = {
+      en: {
+        "back-btn":       "← Back",
+        "page-title":     "PC Setup",
+        "page-subtitle":  "Current specs and what I'm upgrading next.",
+        "current-title":  "Current specs",
+        "spec-cpu":       "CPU",
+        "spec-mobo":      "Mobo",
+        "spec-ram":       "RAM",
+        "spec-gpu":       "GPU",
+        "spec-storage":   "Storage",
+        "spec-psu":       "PSU",
+        "spec-os":        "OS",
+        "spec-case":      "Case",
+        "spec-case-val":  "Generic",
+        "upgrade-title":  "Upgrade plan",
+        "upgrade-note":   "All prices in NOK, VAT included.",
+        "step1-name":     "PSU",
+        "step2-name":     "GPU",
+        "step3-name":     "CPU + Mobo + RAM + Cooler",
+        "step4-name":     "Storage",
+        "step5-name":     "Case",
+        "total-label":    "Total",
+      },
+      no: {
+        "back-btn":       "← Tilbake",
+        "page-title":     "PC-oppsett",
+        "page-subtitle":  "Navaerende spesifikasjoner og hva jeg oppgraderer.",
+        "current-title":  "Navaerende spesifikasjoner",
+        "spec-cpu":       "Prosessor",
+        "spec-mobo":      "Hovedkort",
+        "spec-ram":       "RAM",
+        "spec-gpu":       "Skjermkort",
+        "spec-storage":   "Lagring",
+        "spec-psu":       "Stromforsyning",
+        "spec-os":        "OS",
+        "spec-case":      "Kabinett",
+        "spec-case-val":  "Generisk",
+        "upgrade-title":  "Oppgraderingsplan",
+        "upgrade-note":   "Alle priser i NOK, inkl. mva.",
+        "step1-name":     "Stromforsyning",
+        "step2-name":     "Skjermkort",
+        "step3-name":     "Prosessor + Hovedkort + RAM + Kjøler",
+        "step4-name":     "Lagring",
+        "step5-name":     "Kabinett",
+        "total-label":    "Totalt",
+      },
+      sv: {
+        "back-btn":       "← Tillbaka",
+        "page-title":     "PC-setup",
+        "page-subtitle":  "Nuvarande specifikationer och vad jag uppgraderar.",
+        "current-title":  "Nuvarande specifikationer",
+        "spec-cpu":       "Processor",
+        "spec-mobo":      "Moderkort",
+        "spec-ram":       "RAM",
+        "spec-gpu":       "Grafikkort",
+        "spec-storage":   "Lagring",
+        "spec-psu":       "Natagggregat",
+        "spec-os":        "OS",
+        "spec-case":      "Chassi",
+        "spec-case-val":  "Generiskt",
+        "upgrade-title":  "Uppgraderingsplan",
+        "upgrade-note":   "Alla priser i NOK, inkl. moms.",
+        "step1-name":     "Natagggregat",
+        "step2-name":     "Grafikkort",
+        "step3-name":     "Processor + Moderkort + RAM + Kylare",
+        "step4-name":     "Lagring",
+        "step5-name":     "Chassi",
+        "total-label":    "Totalt",
+      }
+    };
+
+    let currentLang = 'en';
+
+    function setLang(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+      document.documentElement.lang = lang === 'no' ? 'nb' : lang;
+      ['no', 'en', 'sv'].forEach(l => {
+        document.getElementById('btn-' + l).classList.toggle('active-lang', l === lang);
+      });
+      try { localStorage.setItem('lang', lang); } catch(e) {}
+    }
+
+    (function detectLang() {
+      try {
+        const saved = localStorage.getItem('lang');
+        if (saved && translations[saved]) { currentLang = saved; return; }
+      } catch(e) {}
+      const browser = (navigator.language || 'en').toLowerCase().slice(0, 2);
+      if (browser === 'no' || browser === 'nb' || browser === 'nn') currentLang = 'no';
+      else if (browser === 'sv') currentLang = 'sv';
+      else currentLang = 'en';
+    })();
+
+    document.addEventListener('DOMContentLoaded', () => { setLang(currentLang); });
+  </script>
+</body>
+</html>
