@@ -372,6 +372,12 @@
     }
     @media (min-width: 640px) { .two-grid { grid-template-columns: repeat(2, 1fr); } }
 
+    .three-grid {
+      display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-bottom: 1.5rem; align-items: start;
+    }
+    @media (min-width: 640px)  { .three-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .three-grid { grid-template-columns: repeat(3, 1fr); } }
+
     .about-grid {
       column-count: 1; column-gap: 1.25rem; margin-bottom: 1.5rem;
     }
@@ -628,66 +634,51 @@
 
     <!-- LINKS -->
     <p class="section-label" data-i18n="section-links">Links</p>
-    <div class="two-grid">
+    <div class="three-grid">
 
-      <div id="links-section" class="glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="links-title">Links</h2>
-        <ul class="space-y-4">
-          <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
-            <div class="max-w-full md:max-w-[70%]">
-              <p class="font-semibold text-lg">🔗 GitHub</p>
-              <p class="text-sm opacity-65 break-words" data-i18n="github-desc">Code repositories &amp; projects.</p>
-            </div>
-            <a href="https://github.com/08Robfin" target="_blank" rel="noopener noreferrer"
-               class="link-btn mt-2 md:mt-0" data-i18n="view-btn">View →</a>
-          </li>
-          <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
-            <div class="max-w-full md:max-w-[70%]">
-              <p class="font-semibold text-lg">🎮 Twitch</p>
-              <p class="text-sm opacity-65 break-words" data-i18n="twitch-desc">Live streaming.</p>
-            </div>
-            <a href="https://www.twitch.tv/robfinttv" target="_blank" rel="noopener noreferrer"
-               class="link-btn mt-2 md:mt-0" data-i18n="view-btn">View →</a>
-          </li>
-          <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
-            <div class="max-w-full md:max-w-[70%]">
-              <p class="font-semibold text-lg">💬 Discord Community</p>
-              <p class="text-sm opacity-65 break-words" data-i18n="discord-desc">Join the server.</p>
-            </div>
-            <a href="https://discord.gg/7XVMssR9Be" target="_blank" rel="noopener noreferrer"
-               class="link-btn mt-2 md:mt-0" data-i18n="join-btn">Join →</a>
-          </li>
-          <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
-            <div class="max-w-full md:max-w-[70%]">
-              <p class="font-semibold text-lg">🐦 X (Twitter)</p>
-              <p class="text-sm opacity-65 break-words" data-i18n="x-desc">Follow for updates.</p>
-            </div>
-            <a href="https://x.com/robin_finnestad?s=21" target="_blank" rel="noopener noreferrer"
-               class="link-btn mt-2 md:mt-0" data-i18n="view-btn">View →</a>
-          </li>
-          <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
-            <div class="max-w-full md:max-w-[70%]">
-              <p class="font-semibold text-lg">🖥️ PC Setup</p>
-              <p class="text-sm opacity-65 break-words" data-i18n="setup-desc">My current specs and upgrade plans.</p>
-            </div>
-            <a href="/setup" class="link-btn mt-2 md:mt-0" data-i18n="view-btn">View →</a>
-          </li>
-        </ul>
+      <div class="glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center" data-i18n="setup-title">🖥️ PC Setup</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="setup-desc">My current specs and upgrade plans.</p>
+        <div class="flex justify-center">
+          <a href="/setup" class="link-btn text-sm" data-i18n="view-btn">View →</a>
+        </div>
       </div>
 
-      <div id="referrals-section" class="glass-card p-6 md:p-8">
-        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center" data-i18n="referrals-title">Referral Links</h2>
-        <p class="text-sm opacity-65 text-center mb-6" data-i18n="referrals-subtitle">Support links with bonuses.</p>
-        <ul class="space-y-4">
-          <li class="flex flex-col md:flex-row justify-between items-start md:items-center pb-2">
-            <div class="max-w-full md:max-w-[70%]">
-              <p class="font-semibold text-lg">🐝 Honeygain</p>
-              <p class="text-sm opacity-65 break-words" data-i18n="honeygain-desc">Passive income by sharing bandwidth. Includes $3 welcome gift.</p>
-            </div>
-            <a href="https://join.honeygain.com/FINNE5EBF2" target="_blank" rel="noopener noreferrer"
-               class="link-btn mt-2 md:mt-0" data-i18n="view-btn">View →</a>
-          </li>
-        </ul>
+      <div class="glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center" data-i18n="twitch-title">🎮 Twitch</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="twitch-desc">Live streaming.</p>
+        <div class="flex justify-center">
+          <a href="https://www.twitch.tv/robfinttv" target="_blank" rel="noopener noreferrer"
+             class="link-btn text-sm" data-i18n="watch-btn">Watch →</a>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center" data-i18n="github-title">🔗 GitHub</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="github-desc">Code repositories &amp; projects.</p>
+        <div class="flex justify-center">
+          <a href="https://github.com/08Robfin" target="_blank" rel="noopener noreferrer"
+             class="link-btn text-sm" data-i18n="view-btn">View →</a>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center" data-i18n="discord-title">💬 Discord</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="discord-desc">Join the server.</p>
+        <div class="flex justify-center">
+          <a href="https://discord.gg/7XVMssR9Be" target="_blank" rel="noopener noreferrer"
+             class="link-btn text-sm" data-i18n="join-btn">Join →</a>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center" data-i18n="honeygain-title">🐝 Honeygain</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="honeygain-desc">Passive income by sharing bandwidth. Includes $3 welcome gift.</p>
+        <div class="flex justify-center">
+          <a href="https://join.honeygain.com/FINNE5EBF2" target="_blank" rel="noopener noreferrer"
+             class="link-btn text-sm" data-i18n="join-btn">Join →</a>
+        </div>
+        <p class="text-xs opacity-40 text-center mt-3" data-i18n="referral-disclaimer">* Referral link</p>
       </div>
 
     </div>
@@ -746,15 +737,20 @@
         "issue-digital":          "🔒 Digital Rights & Privacy",
         "issue-digital-tt":       "I oppose mass surveillance and fight for strong data privacy and open digital infrastructure.",
         "links-title":            "Links",
+        "setup-title":            "🖥️ PC Setup",
+        "twitch-title":           "🎮 Twitch",
+        "github-title":           "🔗 GitHub",
+        "discord-title":          "💬 Discord",
         "github-desc":            "Code repositories & projects.",
         "twitch-desc":            "Live streaming.",
         "discord-desc":           "Join the server.",
-        "x-desc":                 "Follow for updates.",
         "view-btn":               "View →",
+        "watch-btn":              "Watch →",
         "join-btn":               "Join →",
         "referrals-title":        "Referral Links",
         "referrals-subtitle":     "Support links with bonuses.",
         "honeygain-desc":         "Passive income by sharing bandwidth. Includes $3 welcome gift.",
+        "referral-disclaimer":    "* Referral link",
         "present":                "Present",
         "just-started":           "Just started",
         "footer-hosted":          "Self-hosted on private infrastructure.",
@@ -822,15 +818,20 @@
         "issue-digital":          "🔒 Digitale rettigheter & personvern",
         "issue-digital-tt":       "Jeg er imot masseovervåking og kjemper for sterkt personvern og åpen digital infrastruktur.",
         "links-title":            "Lenker",
+        "setup-title":            "🖥️ PC-oppsett",
+        "twitch-title":           "🎮 Twitch",
+        "github-title":           "🔗 GitHub",
+        "discord-title":          "💬 Discord",
         "github-desc":            "Kodelagre & prosjekter.",
         "twitch-desc":            "Direktesending.",
         "discord-desc":           "Bli med på serveren.",
-        "x-desc":                 "Følg for oppdateringer.",
         "view-btn":               "Se →",
+        "watch-btn":              "Se →",
         "join-btn":               "Bli med →",
         "referrals-title":        "Referanselenker",
         "referrals-subtitle":     "Støttelenker med bonuser.",
         "honeygain-desc":         "Passiv inntekt ved deling av båndbredde. Inkluderer $3 velkomstgave.",
+        "referral-disclaimer":    "* Referanselenke",
         "present":                "Nå",
         "just-started":           "Nettopp startet",
         "footer-hosted":          "Egendriftet på privat infrastruktur.",
@@ -898,15 +899,20 @@
         "issue-digital":          "🔒 Digitala rättigheter & integritet",
         "issue-digital-tt":       "Jag är emot massövervakning och kämpar för stark dataintegritet och öppen digital infrastruktur.",
         "links-title":            "Länkar",
+        "setup-title":            "🖥️ PC-setup",
+        "twitch-title":           "🎮 Twitch",
+        "github-title":           "🔗 GitHub",
+        "discord-title":          "💬 Discord",
         "github-desc":            "Kodarkiv & projekt.",
         "twitch-desc":            "Direktsändning.",
         "discord-desc":           "Gå med i servern.",
-        "x-desc":                 "Följ för uppdateringar.",
         "view-btn":               "Visa →",
+        "watch-btn":              "Se →",
         "join-btn":               "Gå med →",
         "referrals-title":        "Referenslänkar",
         "referrals-subtitle":     "Supportlänkar med bonusar.",
         "honeygain-desc":         "Passiv inkomst via delning av bandbredd. Inkluderar $3 välkomstgåva.",
+        "referral-disclaimer":    "* Referenslänk",
         "present":                "Nu",
         "just-started":           "Precis börjat",
         "footer-hosted":          "Självhostad på privat infrastruktur.",
