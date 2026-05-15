@@ -130,6 +130,22 @@
     .price-tag {
       font-size: 0.75rem; font-weight: 700; opacity: 0.55; white-space: nowrap;
     }
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em;
+      padding: 0.18rem 0.55rem; border-radius: 999px;
+      background: rgba(52, 211, 153, 0.18);
+      border: 1px solid rgba(52, 211, 153, 0.45);
+      color: #6ee7b7 !important;
+      text-shadow: none !important;
+      white-space: nowrap;
+    }
+    .step-num-ordered {
+      background: rgba(52, 211, 153, 0.22) !important;
+      border-color: rgba(52, 211, 153, 0.5) !important;
+      color: #6ee7b7 !important;
+      box-shadow: 0 0 8px rgba(52, 211, 153, 0.25);
+    }
     .shop-link {
       display: inline-flex; align-items: center;
       font-size: 0.72rem; font-weight: 600;
@@ -258,10 +274,13 @@
         <p class="text-xs opacity-45 mb-4" data-i18n="upgrade-note">All prices in NOK, VAT included.</p>
 
         <div class="step-row">
-          <div class="step-num">1</div>
+          <div class="step-num step-num-ordered">✓</div>
           <div class="flex-1 min-w-0">
             <div class="flex items-center justify-between gap-2 mb-1">
-              <p class="font-semibold text-sm" data-i18n="step1-name">PSU</p>
+              <div class="flex items-center gap-2">
+                <p class="font-semibold text-sm" data-i18n="step1-name">PSU</p>
+                <span class="status-badge" data-i18n="step1-status">📦 On its way</span>
+              </div>
               <span class="price-tag">1 202,-</span>
             </div>
             <p class="text-xs opacity-55 mb-2">Needed before the new GPU goes in. Upgrading to 750 W Gold rated.</p>
@@ -352,6 +371,7 @@
         "upgrade-title":  "Upgrade plan",
         "upgrade-note":   "All prices in NOK, VAT included.",
         "step1-name":     "PSU",
+        "step1-status":   "📦 On its way",
         "step2-name":     "GPU",
         "step3-name":     "CPU + Mobo + RAM + Cooler",
         "step4-name":     "Storage",
@@ -375,6 +395,7 @@
         "upgrade-title":  "Oppgraderingsplan",
         "upgrade-note":   "Alle priser i NOK, inkl. mva.",
         "step1-name":     "Stromforsyning",
+        "step1-status":   "📦 På vei",
         "step2-name":     "Skjermkort",
         "step3-name":     "Prosessor + Hovedkort + RAM + Kjøler",
         "step4-name":     "Lagring",
@@ -398,6 +419,7 @@
         "upgrade-title":  "Uppgraderingsplan",
         "upgrade-note":   "Alla priser i NOK, inkl. moms.",
         "step1-name":     "Natagggregat",
+        "step1-status":   "📦 På väg",
         "step2-name":     "Grafikkort",
         "step3-name":     "Processor + Moderkort + RAM + Kylare",
         "step4-name":     "Lagring",
