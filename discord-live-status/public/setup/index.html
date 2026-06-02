@@ -166,6 +166,29 @@
       }
     }
 
+    .emergency-card {
+      background: rgba(239, 68, 68, 0.18);
+      backdrop-filter: blur(40px) saturate(180%);
+      -webkit-backdrop-filter: blur(40px) saturate(180%);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-top: 1px solid rgba(239, 68, 68, 0.6);
+      box-shadow: 0 4px 16px rgba(239, 68, 68, 0.15), 0 1px 3px rgba(0,0,0,0.08), inset 0 1px 0 rgba(239, 68, 68, 0.25);
+      border-radius: 20px; padding: 1.5rem 2rem;
+      position: relative; z-index: 1;
+      margin-bottom: 1.5rem;
+    }
+    .emergency-card * { color: #f0f0f0 !important; text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+
+    .pulse-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #f87171; flex-shrink: 0;
+      animation: pulse-anim 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse-anim {
+      0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(248,113,113,0.6); }
+      50% { opacity: 0.7; transform: scale(1.2); box-shadow: 0 0 0 5px rgba(248,113,113,0); }
+    }
+
     .total-row {
       display: flex; justify-content: space-between; align-items: center;
       padding-top: 1rem;
@@ -226,6 +249,22 @@
       <div class="text-5xl mb-3">🖥️</div>
       <h1 class="text-4xl md:text-5xl font-bold mb-2" data-i18n="page-title">PC Setup</h1>
       <p class="text-base opacity-70 max-w-sm mx-auto" data-i18n="page-subtitle">Current specs and what I'm upgrading next.</p>
+    </div>
+
+    <!-- Emergency alert -->
+    <div class="emergency-card fade-in-1">
+      <div class="flex items-center gap-2 mb-2">
+        <div class="pulse-dot"></div>
+        <span style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#f87171!important;" data-i18n="emergency-label">Emergency</span>
+      </div>
+      <h2 class="text-lg font-bold mb-1" data-i18n="emergency-title">Server HDD is actively dying</h2>
+      <p class="text-xs opacity-70 mb-3" data-i18n="emergency-desc">The 4 TB HDD in my home server is failing — needs to be replaced and cloned ASAP. This is priority #1 with my money right now, before any other upgrades.</p>
+      <div class="flex flex-wrap gap-2 items-center">
+        <span class="text-xs opacity-50 font-semibold" data-i18n="emergency-looking">Buying one of these:</span>
+        <a href="https://www.netonnet.no/art/data-og-nettbrett/nettverk/nas/seagate-ironwolf-st4000vn006/1025268.11010/" target="_blank" rel="noopener noreferrer" class="shop-link" style="border-color:rgba(239,68,68,0.4)!important;">Seagate IronWolf 4 TB — 2 299,- (NetOnNet) →</a>
+        <span class="text-xs opacity-40">or</span>
+        <a href="https://www.elkjop.no/product/gaming/pc-komponenter/intern-lagring/intern-harddisk-hdd/seagate-ironwolf-35-intern-harddisk-til-nas-8-tb/149739" target="_blank" rel="noopener noreferrer" class="shop-link" style="border-color:rgba(239,68,68,0.4)!important;">Seagate IronWolf 8 TB — 3 190,- (Elkjøp) →</a>
+      </div>
     </div>
 
     <div class="two-grid">
@@ -359,7 +398,11 @@
         "step3-name":     "CPU + Mobo + RAM + Cooler",
         "step4-name":     "Storage",
         "step5-name":     "Case",
-        "total-label":    "Total",
+        "total-label":       "Total",
+        "emergency-label":   "Emergency",
+        "emergency-title":   "Server HDD is actively dying",
+        "emergency-desc":    "The 4 TB HDD in my home server is failing — needs to be replaced and cloned ASAP. This is priority #1 with my money right now, before any other upgrades.",
+        "emergency-looking": "Buying one of these:",
       },
       no: {
         "back-btn":       "← Tilbake",
@@ -381,7 +424,11 @@
         "step3-name":     "Prosessor + Hovedkort + RAM + Kjøler",
         "step4-name":     "Lagring",
         "step5-name":     "Kabinett",
-        "total-label":    "Totalt",
+        "total-label":       "Totalt",
+        "emergency-label":   "Hastetilfelle",
+        "emergency-title":   "Server-HDD-en er i ferd med å dø",
+        "emergency-desc":    "4 TB HDD-en i hjemmeserveren min er i ferd med å gi opp — må byttes og klones ASAP. Dette er prioritet #1 med pengene mine akkurat nå, før alle andre oppgraderinger.",
+        "emergency-looking": "Kjøper en av disse:",
       },
       sv: {
         "back-btn":       "← Tillbaka",
@@ -403,7 +450,11 @@
         "step3-name":     "Processor + Moderkort + RAM + Kylare",
         "step4-name":     "Lagring",
         "step5-name":     "Chassi",
-        "total-label":    "Totalt",
+        "total-label":       "Totalt",
+        "emergency-label":   "Nödläge",
+        "emergency-title":   "Server-HDD håller på att ge upp",
+        "emergency-desc":    "4 TB HDD:n i min hemserver är på väg att dö — måste bytas ut och klonas ASAP. Det här är prioritet #1 med mina pengar just nu, före alla andra uppgraderingar.",
+        "emergency-looking": "Köper en av dessa:",
       }
     };
 
