@@ -33,15 +33,19 @@ async function initDb() {
         FOREIGN KEY(username) REFERENCES users(username)
       );
     `);
-    console.log('Database initialized successfully.');
+
+    // Oppdaterer alle eksisterende saker i databasen til nytt XP-system
+    await db.exec(`UPDATE cases SET xp = ROUND(100 + 8 * SQRT(minutes));`);
+    
+    console.log('Database initialized and XP updated successfully.');
   } catch (err) {
     console.error('Failed to initialize database:', err);
   }
 }
 
-// Gives high weight to logging cases (150 base XP per case) + time scaling
+// Gi ~100-150 XP per sak avhengig av tidsbruk
 function computeXp(minutes) {
-  return Math.max(1, Math.round(150 + 12 * Math.sqrt(minutes)));
+  return Math.max(1, Math.round(100 + 8 * Math.sqrt(minutes)));
 }
 
 // Middleware to verify admin password

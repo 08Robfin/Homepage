@@ -283,13 +283,14 @@
     input.value = current + m;
   }
 
-// Ny og mye snillere level-formel (krever kun 25 XP for Level 1, 100 XP for Level 2, osv.)
+// Med denne formelen kreves det ~10 125 XP for Level 15.
+// Med ca. 100 XP per sak vil du nå Level 15 på ca. 90–100 saker!
 function levelFromXp(xp) { 
-  return Math.floor(Math.sqrt(Math.max(0, xp) / 25)); 
+  return Math.floor(Math.sqrt(Math.max(0, xp) / 45)); 
 }
 
 function xpForLevel(l) { 
-  return l * l * 250; 
+  return l * l * 45; 
 }
 
 function titleForLevel(l) {
