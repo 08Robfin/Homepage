@@ -4,7 +4,10 @@ const sqlite3 = require('sqlite3');
 const { open } = require('sqlite'); // ensure you have 'sqlite' or 'sqlite3' wrapper set up
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Caseboard running on port ${PORT}`);
+});
 
 app.use(express.json());
 
