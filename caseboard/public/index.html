@@ -1,108 +1,167 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CaseBoard</title>
+<title>CaseBoard | UiA IT-Drift</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#FAFAF9;
-    --panel:#FFFFFF;
-    --panel-raised:#F3F0EC;
-    --tint:#E9F1FA;
-    --line:#E3E1DC;
-    --text:#1A1A1A;
-    --dim:#6B6862;
-    --red:#BA0C2F;
-    --red-dark:#8C0924;
-    --red-tint:#FBE7EA;
-    --blue:#2E6B9E;
-    --blue-tint:#E7F0FB;
-    --radius-hero:20px;
-    --radius-card:14px;
+  :root {
+    /* UiA Color Palette */
+    --uia-red: #BA0C2F;
+    --uia-red-dark: #8C0924;
+    --uia-bg: #FFFFFF;
+    --uia-blue: #E8F1FA;
+    --uia-blue-dark: #CDE0F5;
+    --uia-peach: #F4EAE4;
+    --uia-peach-dark: #E6D5C9;
+    --text-main: #1A1A1A;
+    --text-muted: #595959;
+    --line: #EAEAEA;
+    --radius-hero: 80px;
+    --radius-card: 16px;
+    --radius-pill: 999px;
   }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;}
-  body{min-height:100vh;}
-  .hidden{display:none !important;}
-  button{font-family:inherit;cursor:pointer;}
-  input{font-family:inherit;}
-
-  #login-screen{
-    min-height:100vh;display:flex;align-items:center;justify-content:center;
-    padding:32px 20px;background:var(--red);
-  }
-  .login-box{width:100%;max-width:420px;background:var(--panel);border-radius:var(--radius-hero);padding:34px 32px;box-shadow:0 18px 40px rgba(0,0,0,0.18);}
-  .login-title{font-family:'Space Grotesk';font-weight:700;font-size:32px;margin:0 0 6px 0;color:var(--red);}
-  .login-sub{color:var(--dim);font-size:14px;margin:0 0 26px 0;line-height:1.55;}
-  .profile-list{display:flex;flex-direction:column;gap:8px;margin-bottom:22px;max-height:240px;overflow-y:auto;}
-  .profile-chip{
-    background:var(--tint);border:1px solid var(--line);border-radius:10px;
-    padding:10px 14px;font-size:14px;color:var(--text);display:flex;align-items:center;justify-content:space-between;
-    transition:border-color .15s,background .15s;text-align:left;
-  }
-  .profile-chip:hover{border-color:var(--red);background:var(--red-tint);}
-  .new-profile-row{display:flex;gap:8px;}
-  #new-username{
-    flex:1;background:var(--panel);border:1px solid var(--line);border-radius:999px;
-    padding:12px 16px;color:var(--text);font-size:14px;outline:none;
-  }
-  #new-username:focus{border-color:var(--red);}
-  .btn{
-    border:none;border-radius:999px;padding:12px 20px;font-size:14px;font-weight:600;
-    background:var(--red);color:#FFFFFF;transition:filter .15s;
-  }
-  .btn:hover{filter:brightness(1.12);}
-  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text);}
-
-  #app-screen{display:none;min-height:100vh;}
-  body.app-ready #app-screen{display:block;}
-  .topbar{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:16px 26px;background:var(--red);color:#fff;
-  }
-  .brand-name{font-family:'Space Grotesk';font-weight:700;font-size:18px;color:#fff;}
-  .switch-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.35);color:#fff;border-radius:999px;padding:7px 14px;font-size:12px;}
-
-  .layout{
-    display:grid;grid-template-columns:340px 1fr;gap:22px;padding:24px 26px 60px;max-width:1180px;margin:0 auto;
-  }
-  @media (max-width: 860px){ .layout{grid-template-columns:1fr;} }
-
-  .hero-card{
-    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-hero);
-    padding:26px;margin-bottom:20px;
-  }
-  .lvl-title{color:var(--red);font-size:14px;font-weight:600;}
-  .xp-track{height:8px;background:var(--panel-raised);border-radius:999px;overflow:hidden;margin-top:8px;}
-  .xp-fill{height:100%;background:linear-gradient(90deg,var(--red-dark),var(--red));border-radius:999px;}
-
-  .form-card{
-    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-card);padding:22px;
-  }
-  #case-minutes{
-    width:100%;background:var(--panel);border:1px solid var(--line);border-radius:10px;
-    padding:11px 12px;color:var(--text);font-size:15px;outline:none;margin-bottom:12px;
-  }
-  .panel-card{
-    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-card);
-    padding:20px;margin-bottom:20px;
-  }
-  .tabs{display:flex;gap:12px;margin-bottom:16px;}
-  .tab-btn{background:none;border:none;font-weight:600;color:var(--dim);padding:4px 0;}
-  .tab-btn.active{color:var(--red);border-bottom:2px solid var(--red);}
   
-  .leader-row, .case-row{
-    display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);
+  * { box-sizing: border-box; }
+  html, body { 
+    margin: 0; padding: 0; 
+    background: var(--uia-bg); 
+    color: var(--text-main); 
+    font-family: 'Inter', sans-serif; 
   }
-  .leader-row.is-me{font-weight:bold;color:var(--red);}
-  .toast{
-    position:fixed;bottom:22px;left:50%;transform:translateX(-50%);
-    background:var(--text);color:#fff;padding:10px 20px;border-radius:999px;font-size:13px;
-    display:none;
+  body { min-height: 100vh; display: flex; flex-direction: column; }
+  .hidden { display: none !important; }
+  button { font-family: inherit; cursor: pointer; border: none; }
+  input { font-family: inherit; outline: none; }
+
+  /* Login Screen */
+  #login-screen {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: var(--uia-red); padding: 20px;
   }
+  .login-box {
+    width: 100%; max-width: 440px; background: var(--uia-bg);
+    border-radius: 24px; padding: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  }
+  .login-title { font-weight: 700; font-size: 32px; color: var(--uia-red); margin: 0 0 8px 0; }
+  .login-sub { color: var(--text-muted); font-size: 15px; margin: 0 0 30px 0; line-height: 1.5; }
+  
+  .profile-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; max-height: 250px; overflow-y: auto; }
+  .profile-chip {
+    background: var(--uia-blue); border: 1px solid transparent; border-radius: var(--radius-card);
+    padding: 14px 18px; font-size: 15px; color: var(--text-main); 
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.2s; text-align: left; font-weight: 500;
+  }
+  .profile-chip:hover { background: var(--uia-blue-dark); transform: translateY(-2px); }
+  
+  .new-profile-row { display: flex; gap: 10px; }
+  #new-username {
+    flex: 1; background: #F5F5F5; border: 2px solid transparent; border-radius: var(--radius-pill);
+    padding: 14px 20px; font-size: 15px; transition: border 0.2s;
+  }
+  #new-username:focus { border-color: var(--uia-red); background: #FFF; }
+  
+  .btn-primary {
+    border-radius: var(--radius-pill); padding: 14px 24px; font-size: 15px; font-weight: 600;
+    background: var(--uia-red); color: #FFF; transition: filter 0.2s, transform 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .btn-primary:hover { filter: brightness(1.1); transform: scale(1.02); }
+
+  /* App Layout */
+  #app-screen { display: none; flex: 1; }
+  body.app-ready #app-screen { display: block; }
+  
+  /* Navbar */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 40px; background: var(--uia-red); color: #FFF;
+  }
+  .brand-logo { display: flex; align-items: center; gap: 12px; }
+  .brand-logo svg { height: 32px; fill: #FFF; }
+  .brand-text { font-weight: 700; font-size: 20px; letter-spacing: -0.5px; }
+  .switch-btn {
+    background: transparent; border: 1px solid rgba(255,255,255,0.4); color: #FFF;
+    border-radius: var(--radius-pill); padding: 8px 16px; font-size: 13px; font-weight: 500;
+    transition: background 0.2s;
+  }
+  .switch-btn:hover { background: rgba(255,255,255,0.1); }
+
+  /* UiA Hero Banner */
+  .uia-hero {
+    background: var(--uia-red); color: #FFF; padding: 40px 40px 80px;
+    border-bottom-left-radius: var(--radius-hero); margin-bottom: 40px;
+  }
+  .hero-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end;}
+  .hero-title { font-size: 42px; font-weight: 700; max-width: 500px; line-height: 1.1; margin: 0 0 16px 0; }
+  .hero-subtitle { font-size: 18px; opacity: 0.9; margin: 0; }
+  
+  /* Main Grid */
+  .layout {
+    display: grid; grid-template-columns: 1fr 380px; gap: 30px; 
+    padding: 0 40px 80px; max-width: 1280px; margin: 0 auto;
+  }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .uia-hero { border-bottom-left-radius: 40px; padding: 30px 20px 50px;} .topbar { padding: 15px 20px; } .layout { padding: 0 20px 40px; } }
+
+  /* Cards */
+  .card { border-radius: var(--radius-card); padding: 30px; margin-bottom: 30px; }
+  .card-blue { background: var(--uia-blue); }
+  .card-peach { background: var(--uia-peach); }
+  .card-white { background: var(--uia-bg); border: 1px solid var(--line); }
+  .card-title { font-size: 20px; font-weight: 700; margin: 0 0 20px 0; color: var(--text-main); }
+
+  /* Stats Grid (New Feature) */
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+  .stat-box { background: rgba(255,255,255,0.6); padding: 16px; border-radius: 12px; text-align: center; }
+  .stat-val { font-size: 24px; font-weight: 700; color: var(--uia-red); }
+  .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-top: 4px; }
+
+  /* Progress Bar */
+  .xp-track { height: 12px; background: rgba(0,0,0,0.06); border-radius: var(--radius-pill); overflow: hidden; margin-top: 16px; }
+  .xp-fill { height: 100%; background: var(--uia-red); border-radius: var(--radius-pill); transition: width 0.5s ease; }
+  
+  /* Quick Add Buttons */
+  .quick-add { display: flex; gap: 10px; margin-bottom: 16px; }
+  .quick-btn {
+    flex: 1; background: #FFF; border: 1px solid var(--line); border-radius: 8px;
+    padding: 10px; font-size: 14px; font-weight: 600; color: var(--text-main); transition: all 0.15s;
+  }
+  .quick-btn:hover { border-color: var(--uia-red); color: var(--uia-red); }
+
+  #case-minutes {
+    width: 100%; background: #FFF; border: 2px solid transparent; border-radius: 12px;
+    padding: 16px; font-size: 18px; margin-bottom: 16px; transition: border 0.2s; text-align: center;
+  }
+  #case-minutes:focus { border-color: var(--uia-red); }
+
+  /* Leaderboard & Lists */
+  .tabs { display: flex; gap: 20px; border-bottom: 2px solid var(--line); margin-bottom: 20px; }
+  .tab-btn { background: none; font-weight: 600; font-size: 15px; color: var(--text-muted); padding: 10px 0; margin-bottom: -2px; border-bottom: 2px solid transparent; }
+  .tab-btn.active { color: var(--uia-red); border-bottom-color: var(--uia-red); }
+  
+  .list-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px;
+  }
+  .list-row:last-child { border-bottom: none; }
+  .list-row.is-me { font-weight: 700; color: var(--uia-red); background: var(--uia-red-tint); border-radius: 8px; padding: 14px 10px; margin: 0 -10px; }
+  
+  .rank-badge {
+    background: var(--uia-red); color: white; border-radius: var(--radius-pill);
+    padding: 2px 8px; font-size: 12px; font-weight: 700; margin-right: 10px;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--text-main); color: #FFF; padding: 14px 24px; border-radius: var(--radius-pill);
+    font-size: 14px; font-weight: 500; opacity: 0; transition: all 0.3s; pointer-events: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
@@ -110,66 +169,107 @@
 <div id="login-screen">
   <div class="login-box">
     <div class="login-title">CaseBoard</div>
-    <div class="login-sub">Select your profile or create a new one to start logging cases.</div>
+    <div class="login-sub">Velg din profil for å registrere IT-saker og tjene XP.</div>
     <div id="profile-list" class="profile-list"></div>
     <div class="new-profile-row">
-      <input id="new-profile" type="text" placeholder="Your name..." />
-      <button class="btn" onclick="createProfile()">Clock In</button>
+      <input id="new-profile" type="text" placeholder="Ditt navn..." autocomplete="off" />
+      <button class="btn-primary" onclick="createProfile()">Logg inn →</button>
     </div>
   </div>
 </div>
 
 <div id="app-screen">
   <div class="topbar">
-    <div class="brand-name">CaseBoard</div>
-    <div>
-      <span data-current-user style="font-weight:bold;margin-right:12px;"></span>
-      <button class="switch-btn" onclick="logout()">Switch Profile</button>
+    <div class="brand-logo">
+      <!-- Minimalist representation of a logo -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="20" width="20" height="60" rx="4"/>
+        <rect x="40" y="40" width="20" height="40" rx="4"/>
+        <rect x="70" y="10" width="20" height="70" rx="4"/>
+      </svg>
+      <span class="brand-text">UiA IT-Drift</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <span style="font-weight: 600; font-size: 14px;">Logget inn som: <span data-current-user style="color: #FFD2D9;"></span></span>
+      <button class="switch-btn" onclick="logout()">Bytt bruker</button>
     </div>
   </div>
 
-  <div class="layout">
+  <header class="uia-hero">
+    <div class="hero-content">
+      <div>
+        <h1 class="hero-title">Bli en del av et unikt fellesskap på IT-Drift!</h1>
+        <p class="hero-subtitle">Nivå <span data-current-level>0</span>: <strong data-current-title>Lærling</strong></p>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
     <div>
-      <div class="hero-card">
-        <div class="lvl-title"><span data-current-title>Rookie</span> (Level <span data-current-level>0</span>)</div>
-        <div class="xp-track"><div class="xp-fill" data-xp-progress style="width:0%"></div></div>
-        <div style="margin-top:8px;font-size:12px;color:var(--dim);">
-          <span data-current-xp>0</span> XP total
+      <div class="card card-peach">
+        <h2 class="card-title">Din Fremgang</h2>
+        
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-val" data-total-cases>0</div>
+            <div class="stat-label">Saker</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val" data-total-mins>0</div>
+            <div class="stat-label">Minutter</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val"><span data-avg-time>0</span>m</div>
+            <div class="stat-label">Snitt/sak</div>
+          </div>
         </div>
+
+        <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 14px;">
+          <span>XP: <span data-current-xp>0</span></span>
+          <span style="color: var(--text-muted);">Neste nivå: <span data-next-xp>0</span> XP</span>
+        </div>
+        <div class="xp-track"><div class="xp-fill" data-xp-progress style="width:0%"></div></div>
       </div>
 
-      <div class="form-card">
-        <h3>Log a Case</h3>
-        <input id="case-minutes" type="number" min="1" max="1000" placeholder="Minutes spent (e.g. 15)" />
-        <button class="btn" id="log-case-button" style="width:100%;" onclick="logCase()">Submit Case</button>
+      <div class="card card-blue">
+        <h2 class="card-title">Registrer Tidsbruk</h2>
+        <div class="quick-add">
+          <button class="quick-btn" onclick="addMins(5)">+5 min</button>
+          <button class="quick-btn" onclick="addMins(15)">+15 min</button>
+          <button class="quick-btn" onclick="addMins(30)">+30 min</button>
+        </div>
+        <input id="case-minutes" type="number" min="1" max="1000" placeholder="0 minutter" />
+        <button class="btn-primary" style="width:100%; padding: 18px;" onclick="logCase()">Send inn sak →</button>
       </div>
     </div>
 
     <div>
-      <div class="panel-card">
-        <h3>Leaderboard</h3>
+      <div class="card card-white">
+        <h2 class="card-title">Ledertavle</h2>
         <div class="tabs">
-          <button class="tab-btn active" data-leaderboard-period="month">This Month</button>
-          <button class="tab-btn" data-leaderboard-period="lifetime">Lifetime</button>
+          <button class="tab-btn active" data-leaderboard-period="month">Denne Måneden</button>
+          <button class="tab-btn" data-leaderboard-period="lifetime">Totalt</button>
         </div>
         <div id="leaderboard"></div>
       </div>
 
-      <div class="panel-card">
-        <h3>Recent Cases</h3>
+      <div class="card card-white">
+        <h2 class="card-title">Siste Saker</h2>
         <div id="case-feed"></div>
       </div>
     </div>
-  </div>
+  </main>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast">Sak registrert!</div>
 
 <script>
   const API_BASE = "/caseboard/api";
   let currentUser = localStorage.getItem("caseboard-current-user") || "";
   let currentProfile = null;
+  let userCases = [];
 
+  // API Helper
   async function api(path, options = {}) {
     const res = await fetch(API_BASE + path, {
       ...options,
@@ -180,34 +280,43 @@
     return data;
   }
 
+  // UI Helpers
   function toast(msg) {
     const el = document.getElementById("toast");
     el.textContent = msg;
-    el.style.display = "block";
-    setTimeout(() => el.style.display = "none", 2500);
+    el.classList.add("show");
+    setTimeout(() => el.classList.remove("show"), 3000);
   }
 
+  function addMins(m) {
+    const input = document.getElementById("case-minutes");
+    const current = parseInt(input.value || 0);
+    input.value = current + m;
+  }
+
+  // Leveling System localized for IT-Drift
   function levelFromXp(xp) { return Math.floor(Math.sqrt(Math.max(0, xp) / 100)); }
   function xpForLevel(l) { return l * l * 100; }
   function titleForLevel(l) {
-    if (l >= 10) return "Senior Support";
-    if (l >= 5) return "Support Pro";
-    if (l >= 1) return "Rookie";
-    return "Newcomer";
+    if (l >= 20) return "Driftssjef";
+    if (l >= 10) return "Seniorrådgiver";
+    if (l >= 5) return "IT-konsulent";
+    return "Lærling";
   }
 
+  // Rendering
   async function renderLoginScreen() {
     const list = document.getElementById("profile-list");
     try {
       const users = await api("/users");
       list.innerHTML = users.map(u => `
         <button class="profile-chip" onclick="login('${u.username}')">
-          <span><strong>${u.username}</strong></span>
-          <span>Lvl ${levelFromXp(u.xp)} · ${u.xp} XP</span>
+          <span>${u.username}</span>
+          <span style="color: var(--text-muted); font-size: 13px;">Lvl ${levelFromXp(u.xp)} • ${u.xp} XP</span>
         </button>
-      `).join("") || '<div style="color:var(--dim)">No profiles yet.</div>';
+      `).join("") || '<div style="color:var(--text-muted); font-size:14px;">Ingen profiler enda. Opprett en nedenfor!</div>';
     } catch (err) {
-      list.innerHTML = 'Error connecting to server.';
+      list.innerHTML = '<div style="color:var(--uia-red)">Feil ved tilkobling til server.</div>';
     }
   }
 
@@ -222,12 +331,18 @@
 
   async function login(username) {
     try {
-      currentProfile = await api(`/users/${encodeURIComponent(username)}`);
+      currentProfile = await api(`/users`); // Get all to find total XP
+      const me = currentProfile.find(u => u.username === username) || { username, xp: 0 };
+      
+      // Fetch specific case history for stats
+      userCases = await api(`/cases/${encodeURIComponent(username)}`);
+      
       currentUser = username;
       localStorage.setItem("caseboard-current-user", username);
       document.getElementById("login-screen").classList.add("hidden");
       document.body.classList.add("app-ready");
-      renderAll();
+      
+      renderAll(me.xp);
     } catch (err) { toast(err.message); }
   }
 
@@ -239,38 +354,56 @@
     renderLoginScreen();
   }
 
-  function renderAll() {
-    if (!currentProfile) return;
-    const xp = currentProfile.xp || 0;
+  function renderAll(xp) {
     const level = levelFromXp(xp);
     const curLevelXp = xpForLevel(level);
     const nextLevelXp = xpForLevel(level + 1);
     const progress = Math.min(100, Math.max(0, ((xp - curLevelXp) / (nextLevelXp - curLevelXp)) * 100));
 
-    document.querySelectorAll("[data-current-user]").forEach(e => e.textContent = currentProfile.username);
+    // Stats calculations
+    const totalCases = userCases.length;
+    const totalMins = userCases.reduce((sum, c) => sum + c.minutes, 0);
+    const avgTime = totalCases > 0 ? Math.round(totalMins / totalCases) : 0;
+
+    // Update DOM
+    document.querySelectorAll("[data-current-user]").forEach(e => e.textContent = currentUser);
     document.querySelectorAll("[data-current-xp]").forEach(e => e.textContent = xp);
+    document.querySelectorAll("[data-next-xp]").forEach(e => e.textContent = nextLevelXp);
     document.querySelectorAll("[data-current-level]").forEach(e => e.textContent = level);
     document.querySelectorAll("[data-current-title]").forEach(e => e.textContent = titleForLevel(level));
     document.querySelector("[data-xp-progress]").style.width = progress + "%";
+    
+    document.querySelector("[data-total-cases]").textContent = totalCases;
+    document.querySelector("[data-total-mins]").textContent = totalMins;
+    document.querySelector("[data-avg-time]").textContent = avgTime;
 
+    // Recent Feed
     const feed = document.getElementById("case-feed");
-    feed.innerHTML = (currentProfile.cases || []).map(c => `
-      <div class="case-row">
-        <span>${c.minutes} min case</span>
-        <span style="color:var(--blue)">+${c.xp} XP</span>
+    feed.innerHTML = userCases.slice(0, 8).map(c => `
+      <div class="list-row">
+        <span>Sak (${c.minutes} min)</span>
+        <span style="color:var(--uia-red); font-weight:600;">+${c.xp} XP</span>
       </div>
-    `).join("") || "No cases yet.";
+    `).join("") || '<div style="color:var(--text-muted); font-size:14px;">Ingen saker loggført enda.</div>';
 
     renderLeaderboard("month");
   }
 
   async function renderLeaderboard(period) {
+    // Note: The backend route is currently just /users which gives total lifetime XP.
+    // If you don't have a /leaderboard/:period route in server.js yet, this will gracefully fallback to /users.
     try {
-      const rows = await api(`/leaderboard/${period}`);
+      let rows = [];
+      try { rows = await api(`/leaderboard/${period}`); } 
+      catch(e) { rows = await api(`/users`); } // Fallback to existing route
+      
       document.getElementById("leaderboard").innerHTML = rows.map((r, i) => `
-        <div class="leader-row ${r.username === currentUser ? 'is-me' : ''}">
-          <span>#${i+1} ${r.username}</span>
-          <span>${r.xp} XP</span>
+        <div class="list-row ${r.username === currentUser ? 'is-me' : ''}">
+          <div style="display:flex; align-items:center;">
+            <span class="rank-badge">${i+1}</span>
+            <span>${r.username}</span>
+          </div>
+          <span style="font-weight:600;">${r.xp} XP</span>
         </div>
       `).join("");
     } catch (_) {}
@@ -278,18 +411,23 @@
 
   async function logCase() {
     const mins = document.getElementById("case-minutes").value;
-    if (!mins) return;
+    if (!mins || mins <= 0) return;
+    
     try {
-      currentProfile = await api(`/users/${encodeURIComponent(currentUser)}/cases`, {
+      const newCase = await api(`/cases`, {
         method: "POST",
-        body: JSON.stringify({ minutes: mins })
+        body: JSON.stringify({ username: currentUser, minutes: mins })
       });
+      
       document.getElementById("case-minutes").value = "";
-      renderAll();
-      toast("Case logged!");
+      toast(`Sak lagret! +${newCase.xp} XP`);
+      
+      // Reload user data
+      login(currentUser);
     } catch (err) { toast(err.message); }
   }
 
+  // Event Listeners
   document.querySelectorAll("[data-leaderboard-period]").forEach(btn => {
     btn.onclick = () => {
       document.querySelectorAll("[data-leaderboard-period]").forEach(b => b.classList.remove("active"));
@@ -298,6 +436,7 @@
     };
   });
 
+  // Init
   if (currentUser) login(currentUser);
   else renderLoginScreen();
 </script>
