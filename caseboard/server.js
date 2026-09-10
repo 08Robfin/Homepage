@@ -43,8 +43,9 @@ function computeXp(minutes) {
 }
 
 // Serve static frontend
-app.use('/caseboard', express.static(path.join(__dirname, 'public')));
+// Serve static files for both root path and /caseboard path
 app.use('/', express.static(path.join(__dirname, 'public')));
+app.use('/caseboard', express.static(path.join(__dirname, 'public')));
 
 // --- API Routes ---
 
