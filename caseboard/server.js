@@ -1,36 +1,41 @@
 const express = require('express');
-const { open } = require('sqlite');
-const sqlite3 = require('sqlite3');
 const path = require('path');
+const sqlite3 = require('sqlite3');
+const { open } = require('sqlite-sqlite3'); // ensure you have 'sqlite' or 'sqlite3' wrapper set up
 
 const app = express();
-const PORT = process.env.PORT || 3010;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
 let db;
 
 async function initDb() {
-  db = await open({
-    filename: path.join(__dirname, 'caseboard.db'),
-    driver: sqlite3.Database
-  });
+  try {
+    db = await open({
+      filename: path.join(__dirname, 'caseboard.db'),
+      driver: sqlite3.Database
+    });
 
-  await db.exec(`
-    CREATE TABLE IF NOT EXISTS users (
-      username TEXT PRIMARY KEY,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
+    await db.exec(`
+      CREATE TABLE IF NOT EXISTS users (
+        username TEXT PRIMARY KEY,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
 
-    CREATE TABLE IF NOT EXISTS cases (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      username TEXT,
-      minutes INTEGER,
-      xp INTEGER,
-      ts DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY(username) REFERENCES users(username)
-    );
-  `);
+      CREATE TABLE IF NOT EXISTS cases (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT,
+        minutes INTEGER,
+        xp INTEGER,
+        ts DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY(username) REFERENCES users(username)
+      );
+    `);
+    console.log('Database initialized successfully.');
+  } catch (err) {
+    console.error('Failed to initialize database:', err);
+  }
 }
 
 function computeXp(minutes) {
@@ -41,18 +46,19 @@ function computeXp(minutes) {
 app.use('/caseboard', express.static(path.join(__dirname, 'public')));
 app.use('/', express.static(path.join(__dirname, 'public')));
 
-// API Routes
+// --- API Routes ---
+
+// Get all users and total XP
 app.get('/caseboard/api/users', async (req, res) => {
   try {
     const users = await db.all(`
       SELECT 
-        u.username,
-        COALESCE(SUM(c.xp), 0) as xp,
-        COUNT(c.id) as casesCount
-      FROM users u
-      LEFT JOIN cases c ON u.username = c.username
-      GROUP BY u.username
-      ORDER BY u.username ASC
+        u.username, 
+        COALESCE(SUM(c.xp), 0) as xp 
+      FROM users u 
+      LEFT JOIN cases c ON u.username = c.username 
+      GROUP BY u.username 
+      ORDER BY xp DESC
     `);
     res.json(users);
   } catch (err) {
@@ -60,125 +66,49 @@ app.get('/caseboard/api/users', async (req, res) => {
   }
 });
 
-app.post('/caseboard/api/users', async (req, res) => {
-  const { username } = req.body;
-  if (!username || typeof username !== 'string' || !username.trim()) {
-    return res.status(400).json({ error: 'Valid username required' });
-  }
-  const cleanName = username.trim();
+// Get case history for a specific user
+app.get('/caseboard/api/cases/:username', async (req, res) => {
   try {
-    await db.run('INSERT OR IGNORE INTO users (username) VALUES (?)', cleanName);
-    
-    const user = await db.get(`
-      SELECT 
-        u.username,
-        COALESCE(SUM(c.xp), 0) as xp,
-        COUNT(c.id) as casesCount
-      FROM users u
-      LEFT JOIN cases c ON u.username = c.username
-      WHERE u.username = ?
-      GROUP BY u.username
-    `, cleanName);
-
-    res.json(user || { username: cleanName, xp: 0, casesCount: 0 });
+    const { username } = req.params;
+    const cases = await db.all(
+      'SELECT * FROM cases WHERE username = ? ORDER BY ts DESC',
+      [username]
+    );
+    res.json(cases);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-app.get('/caseboard/api/users/:username', async (req, res) => {
-  const username = req.params.username;
+// Log a new case
+app.post('/caseboard/api/cases', async (req, res) => {
   try {
-    const user = await db.get('SELECT username FROM users WHERE username = ?', username);
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+    const { username, minutes } = req.body;
+    if (!username || !minutes) {
+      return res.status(400).json({ error: 'Username and minutes are required.' });
     }
 
-    const cases = await db.all('SELECT id, minutes, xp, ts FROM cases WHERE username = ? ORDER BY ts DESC', username);
-    const totalXp = cases.reduce((acc, item) => acc + item.xp, 0);
+    // Ensure user exists
+    await db.run(
+      'INSERT OR IGNORE INTO users (username) VALUES (?)',
+      [username]
+    );
 
-    res.json({
-      username: user.username,
-      xp: totalXp,
-      casesCount: cases.length,
-      cases: cases
-    });
+    const xp = computeXp(Number(minutes));
+    const result = await db.run(
+      'INSERT INTO cases (username, minutes, xp) VALUES (?, ?, ?)',
+      [username, minutes, xp]
+    );
+
+    res.json({ id: result.lastID, username, minutes, xp });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-app.post('/caseboard/api/users/:username/cases', async (req, res) => {
-  const username = req.params.username;
-  const { minutes } = req.body;
-
-  const parsedMins = parseInt(minutes, 10);
-  if (isNaN(parsedMins) || parsedMins <= 0 || parsedMins > 1000) {
-    return res.status(400).json({ error: 'Minutes must be a number between 1 and 1000' });
-  }
-
-  try {
-    const user = await db.get('SELECT username FROM users WHERE username = ?', username);
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    const xp = computeXp(parsedMins);
-    await db.run('INSERT INTO cases (username, minutes, xp) VALUES (?, ?, ?)', username, parsedMins, xp);
-
-    const cases = await db.all('SELECT id, minutes, xp, ts FROM cases WHERE username = ? ORDER BY ts DESC', username);
-    const totalXp = cases.reduce((acc, item) => acc + item.xp, 0);
-
-    res.json({
-      username: user.username,
-      xp: totalXp,
-      casesCount: cases.length,
-      cases: cases
-    });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-app.get('/caseboard/api/leaderboard/:period', async (req, res) => {
-  const period = req.params.period;
-  try {
-    let query = '';
-    if (period === 'month') {
-      query = `
-        SELECT 
-          u.username,
-          COALESCE(SUM(c.xp), 0) as xp,
-          COUNT(c.id) as casesCount
-        FROM users u
-        LEFT JOIN cases c ON u.username = c.username 
-          AND strftime('%Y-%m', c.ts) = strftime('%Y-%m', 'now')
-        GROUP BY u.username
-        ORDER BY xp DESC, casesCount DESC
-      `;
-    } else {
-      query = `
-        SELECT 
-          u.username,
-          COALESCE(SUM(c.xp), 0) as xp,
-          COUNT(c.id) as casesCount
-        FROM users u
-        LEFT JOIN cases c ON u.username = c.username
-        GROUP BY u.username
-        ORDER BY xp DESC, casesCount DESC
-      `;
-    }
-    const rows = await db.all(query);
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
+// Start DB and Express Server
 initDb().then(() => {
-  app.listen(PORT, '127.0.0.1', () => {
-    console.log(`CaseBoard listening on http://127.0.0.1:${PORT}`);
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
   });
-}).catch(err => {
-  console.error('Failed to initialize database:', err);
 });
