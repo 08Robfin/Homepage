@@ -2,7 +2,13 @@
 <html lang="no">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CaseBoard">
+<meta name="theme-color" content="#BA0C2F">
+<meta name="format-detection" content="telephone=no">
 <title>CaseBoard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -22,16 +28,18 @@
     --radius-pill: 999px;
   }
   
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { 
     margin: 0; padding: 0; 
     background: var(--uia-bg); 
     color: var(--text-main); 
     font-family: 'Inter', sans-serif; 
+    overflow-x: hidden;
+    width: 100%;
   }
   body { min-height: 100vh; display: flex; flex-direction: column; }
   .hidden { display: none !important; }
-  button { font-family: inherit; cursor: pointer; border: none; }
+  button { font-family: inherit; cursor: pointer; border: none; touch-action: manipulation; -webkit-touch-callout: none; user-select: none; }
   input { font-family: inherit; outline: none; }
 
   /* Clock In Screen */
@@ -155,6 +163,84 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 1000;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ---- Mobile / iOS "Add to Home Screen" smoothing (touch devices only) ---- */
+  @media (pointer: coarse) {
+    html, body {
+      overscroll-behavior-y: none;
+      overscroll-behavior-x: none;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  /* ---- Small screens (phones) ---- */
+  @media (max-width: 600px) {
+    #login-screen {
+      min-height: 100dvh;
+      padding: 16px;
+    }
+    .login-box { padding: 28px 22px; border-radius: 20px; }
+    .login-title { font-size: 26px; }
+    .login-sub { font-size: 14px; margin-bottom: 22px; }
+    .new-profile-row { flex-direction: column; }
+    #new-profile { font-size: 16px; padding: 14px 16px; }
+    .new-profile-row .btn-primary { width: 100%; }
+
+    .topbar {
+      padding: max(14px, env(safe-area-inset-top)) 16px 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .brand-text { font-size: 17px; }
+    .topbar-user-label { display: none; }
+    .switch-btn { padding: 7px 14px; font-size: 12px; }
+
+    .uia-hero {
+      padding: 24px 16px 40px;
+      border-bottom-left-radius: 32px;
+      margin-bottom: 24px;
+    }
+    .hero-title { font-size: 26px; }
+    .hero-subtitle { font-size: 15px; }
+
+    .layout { gap: 20px; padding: 0 16px 40px; }
+    .card { padding: 20px; margin-bottom: 20px; }
+    .card-title { font-size: 17px; margin-bottom: 14px; }
+
+    .stats-grid { gap: 10px; margin-bottom: 18px; }
+    .stat-box { padding: 12px 6px; }
+    .stat-val { font-size: 19px; }
+    .stat-label { font-size: 10px; }
+
+    .quick-add { gap: 8px; }
+    .quick-btn { padding: 10px 4px; font-size: 13px; }
+
+    #case-minutes { font-size: 16px; padding: 14px; }
+
+    .list-row { font-size: 14px; padding: 12px 0; }
+
+    .toast {
+      bottom: max(24px, calc(env(safe-area-inset-bottom) + 14px));
+      font-size: 13px;
+      padding: 12px 20px;
+      max-width: calc(100% - 40px);
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .quick-btn { font-size: 12px; padding: 8px 2px; }
+    .stat-val { font-size: 17px; }
+  }
 </style>
 </head>
 <body>
@@ -170,7 +256,7 @@
     </p>
 
     <div class="new-profile-row">
-      <input id="new-profile" type="text" placeholder="Ditt navn..." autocomplete="off" />
+      <input id="new-profile" type="text" placeholder="Ditt navn..." autocomplete="off" autocapitalize="words" autocorrect="off" />
       <button class="btn-primary" onclick="createProfile()">Clock in →</button>
     </div>
   </div>
@@ -187,7 +273,7 @@
       <span class="brand-text">CaseBoard</span>
     </div>
     <div style="display: flex; align-items: center; gap: 16px;">
-      <span style="font-weight: 600; font-size: 14px;">Innstemplet som: <span data-current-user style="color: #FFD2D9;"></span></span>
+      <span style="font-weight: 600; font-size: 14px;"><span class="topbar-user-label">Innstemplet som:</span> <span data-current-user style="color: #FFD2D9;"></span></span>
       <button class="switch-btn" onclick="logout()">Bytt bruker</button>
     </div>
   </div>
@@ -235,7 +321,7 @@
           <button class="quick-btn" onclick="addMins(15)">+15 min</button>
           <button class="quick-btn" onclick="addMins(30)">+30 min</button>
         </div>
-        <input id="case-minutes" type="number" min="1" max="1000" placeholder="0 minutter" />
+        <input id="case-minutes" type="number" min="1" max="1000" inputmode="numeric" pattern="[0-9]*" placeholder="0 minutter" />
         <button class="btn-primary" style="width:100%; padding: 18px;" onclick="logCase()">Send inn sak →</button>
       </div>
     </div>
