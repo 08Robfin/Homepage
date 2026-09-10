@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const sqlite3 = require('sqlite3');
-const { open } = require('sqlite-sqlite3'); // ensure you have 'sqlite' or 'sqlite3' wrapper set up
+const { open } = require('sqlite'); // ensure you have 'sqlite' or 'sqlite3' wrapper set up
 
 const app = express();
 const PORT = process.env.PORT || 3000;
