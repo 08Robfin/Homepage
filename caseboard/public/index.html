@@ -190,7 +190,7 @@
   <header class="uia-hero">
     <div class="hero-content">
       <div>
-        <h1 class="hero-title">Bli en del av et unikt fellesskap på IT-Drift!</h1>
+        <h1 class="hero-title">CaseBoard - Spillet som belønner deg for å jobbe</h1>
         <p class="hero-subtitle">Nivå <span data-current-level>0</span>: <strong data-current-title>Lærling</strong></p>
       </div>
     </div>
@@ -283,14 +283,24 @@
     input.value = current + m;
   }
 
-  function levelFromXp(xp) { return Math.floor(Math.sqrt(Math.max(0, xp) / 100)); }
-  function xpForLevel(l) { return l * l * 100; }
-  function titleForLevel(l) {
-    if (l >= 20) return "Driftssjef";
-    if (l >= 10) return "Seniorrådgiver";
-    if (l >= 5) return "IT-konsulent";
-    return "Lærling";
-  }
+// Ny og mye snillere level-formel (krever kun 25 XP for Level 1, 100 XP for Level 2, osv.)
+function levelFromXp(xp) { 
+  return Math.floor(Math.sqrt(Math.max(0, xp) / 25)); 
+}
+
+function xpForLevel(l) { 
+  return l * l * 25; 
+}
+
+function titleForLevel(l) {
+  if (l >= 15) return "No-lifer";
+  if (l >= 10) return "Case God";
+  if (l >= 7)  return "Case Master";
+  if (l >= 4)  return "Keyboard Warrior";
+  if (l >= 2)  return "Ticket Tinkerer";
+  if (l >= 1)  return "Case Rookie";
+  return "Ticket Noob";
+}
 
   async function renderLoginScreen() {
     const list = document.getElementById("profile-list");
