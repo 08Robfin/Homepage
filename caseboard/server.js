@@ -1,13 +1,10 @@
 const express = require('express');
 const path = require('path');
 const sqlite3 = require('sqlite3');
-const { open } = require('sqlite'); // ensure you have 'sqlite' or 'sqlite3' wrapper set up
+const { open } = require('sqlite');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Caseboard running on port ${PORT}`);
-});
 
 app.use(express.json());
 
@@ -46,22 +43,20 @@ function computeXp(minutes) {
 }
 
 // Serve static frontend
-// Serve static files for both root path and /caseboard path
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use('/caseboard', express.static(path.join(__dirname, 'public')));
 
 // --- API Routes ---
 
-// Get all users and total XP
 app.get('/caseboard/api/users', async (req, res) => {
   try {
     const users = await db.all(`
-      SELECT 
-        u.username, 
-        COALESCE(SUM(c.xp), 0) as xp 
-      FROM users u 
-      LEFT JOIN cases c ON u.username = c.username 
-      GROUP BY u.username 
+      SELECT
+        u.username,
+        COALESCE(SUM(c.xp), 0) as xp
+      FROM users u
+      LEFT JOIN cases c ON u.username = c.username
+      GROUP BY u.username
       ORDER BY xp DESC
     `);
     res.json(users);
@@ -70,7 +65,6 @@ app.get('/caseboard/api/users', async (req, res) => {
   }
 });
 
-// Get case history for a specific user
 app.get('/caseboard/api/cases/:username', async (req, res) => {
   try {
     const { username } = req.params;
@@ -84,7 +78,6 @@ app.get('/caseboard/api/cases/:username', async (req, res) => {
   }
 });
 
-// Log a new case
 app.post('/caseboard/api/cases', async (req, res) => {
   try {
     const { username, minutes } = req.body;
@@ -92,7 +85,6 @@ app.post('/caseboard/api/cases', async (req, res) => {
       return res.status(400).json({ error: 'Username and minutes are required.' });
     }
 
-    // Ensure user exists
     await db.run(
       'INSERT OR IGNORE INTO users (username) VALUES (?)',
       [username]
@@ -110,9 +102,9 @@ app.post('/caseboard/api/cases', async (req, res) => {
   }
 });
 
-// Start DB and Express Server
+// Start DB first, then start listening
 initDb().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Caseboard listening on port ${PORT}`);
   });
 });
