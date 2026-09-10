@@ -283,13 +283,14 @@
     input.value = current + m;
   }
 
-// Ny og mye snillere level-formel (krever kun 25 XP for Level 1, 100 XP for Level 2, osv.)
-function levelFromXp(xp) { 
-  return Math.floor(Math.sqrt(Math.max(0, xp) / 25)); 
+// Ny level-kurve basert primært på antall saker + minutter.
+// Med ~25 000 minutter fordelt over ca 150-200 saker vil man nå ~Level 15 (idek 👑).
+function levelFromXp(xp) {
+  return Math.floor(Math.sqrt(Math.max(0, xp) / 250));
 }
 
-function xpForLevel(l) { 
-  return l * l * 25; 
+function xpForLevel(l) {
+  return l * l * 250;
 }
 
 function titleForLevel(l) {

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel | CaseBoard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --uia-red: #BA0C2F;
+    --uia-bg: #FFFFFF;
+    --uia-blue: #E8F1FA;
+    --text-main: #1A1A1A;
+    --text-muted: #595959;
+    --line: #EAEAEA;
+    --radius-card: 16px;
+    --radius-pill: 999px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Inter', sans-serif; background: #F8F9FA; color: var(--text-main); }
+  
+  .header { background: var(--uia-red); color: white; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+  .header h1 { margin: 0; font-size: 22px; }
+  
+  .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+  
+  .login-card, .card { background: white; border-radius: var(--radius-card); padding: 30px; border: 1px solid var(--line); box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+  .login-card { max-width: 400px; margin: 80px auto; text-align: center; }
+  
+  input { width: 100%; padding: 12px 16px; border: 2px solid var(--line); border-radius: 8px; font-size: 15px; margin-bottom: 16px; outline: none; }
+  input:focus { border-color: var(--uia-red); }
+  
+  .btn { background: var(--uia-red); color: white; border: none; padding: 12px 20px; border-radius: var(--radius-pill); font-weight: 600; cursor: pointer; transition: 0.2s; }
+  .btn:hover { filter: brightness(1.1); }
+  .btn-danger { background: #d32f2f; padding: 6px 14px; font-size: 13px; }
+  
+  .user-grid { display: grid; grid-template-columns: 320px 1fr; gap: 24px; margin-top: 24px; }
+  .user-item { padding: 14px; border: 1px solid var(--line); border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; cursor: pointer; background: #FFF; }
+  .user-item.active { border-color: var(--uia-red); background: var(--uia-blue); }
+  
+  .case-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div id="auth-screen">
+  <div class="login-card">
+    <h2>Admin Innlogging</h2>
+    <input type="password" id="admin-pass" placeholder="Passord..." />
+    <button class="btn" style="width:100%" onclick="authenticate()">Lås opp Kontrollpanel</button>
+  </div>
+</div>
+
+<div id="admin-screen" class="hidden">
+  <div class="header">
+    <h1>CaseBoard Admin Panel</h1>
+    <a href="/caseboard" style="color:white; text-decoration:none; font-size:14px; font-weight:600;">← Tilbake til CaseBoard</a>
+  </div>
+
+  <div class="container">
+    <div class="user-grid">
+      <div>
+        <h3 style="margin-top:0;">Brukere</h3>
+        <div id="users-list"></div>
+      </div>
+
+      <div>
+        <h3 style="margin-top:0;">Saker for <span id="selected-username" style="color:var(--uia-red);">-</span></h3>
+        <div class="card">
+          <div id="cases-list"><p style="color:var(--text-muted);">Velg en bruker for å se og slette saker.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let adminPassword = "";
+  let selectedUser = null;
+
+  async function api(path, options = {}) {
+    const res = await fetch('/caseboard/api' + path, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-admin-password': adminPassword,
+        ...(options.headers || {})
+      }
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Feil ved forespørsel');
+    return data;
+  }
+
+  async function authenticate() {
+    adminPassword = document.getElementById("admin-pass").value;
+    try {
+      await loadUsers();
+      document.getElementById("auth-screen").classList.add("hidden");
+      document.getElementById("admin-screen").classList.remove("hidden");
+    } catch (err) {
+      alert("Feil passord!");
+    }
+  }
+
+  async function loadUsers() {
+    const users = await api('/users');
+    const container = document.getElementById("users-list");
+    container.innerHTML = users.map(u => `
+      <div class="user-item ${selectedUser === u.username ? 'active' : ''}" onclick="selectUser('${u.username}')">
+        <div>
+          <strong>${u.username}</strong><br>
+          <small style="color:var(--text-muted);">${u.casesCount} saker • ${u.xp} XP</small>
+        </div>
+        <button class="btn btn-danger" onclick="deleteUser(event, '${u.username}')">Slett</button>
+      </div>
+    `).join("") || '<p>Ingen brukere fundet.</p>';
+  }
+
+  async function selectUser(username) {
+    selectedUser = username;
+    document.getElementById("selected-username").textContent = username;
+    await loadUsers();
+    
+    const data = await api(`/users/${encodeURIComponent(username)}`);
+    const container = document.getElementById("cases-list");
+    
+    container.innerHTML = data.cases.map(c => `
+      <div class="case-item">
+        <div>
+          <strong>${c.minutes} minutter</strong> (+${c.xp} XP)<br>
+          <small style="color:var(--text-muted);">${new Date(c.ts).toLocaleString('no-NO')}</small>
+        </div>
+        <button class="btn btn-danger" onclick="deleteCase(${c.id})">Slett sak</button>
+      </div>
+    `).join("") || '<p style="color:var(--text-muted);">Brukeren har ingen registrerte saker.</p>';
+  }
+
+  async function deleteUser(e, username) {
+    e.stopPropagation();
+    if (!confirm(`Er du sikker på at du vil slette brukeren "${username}" og alle tilhørende saker?`)) return;
+    try {
+      await api(`/admin/users/${encodeURIComponent(username)}`, { method: 'DELETE' });
+      if (selectedUser === username) {
+        selectedUser = null;
+        document.getElementById("selected-username").textContent = "-";
+        document.getElementById("cases-list").innerHTML = '<p style="color:var(--text-muted);">Velg en bruker for å se og slette saker.</p>';
+      }
+      await loadUsers();
+    } catch (err) { alert(err.message); }
+  }
+
+  async function deleteCase(id) {
+    if (!confirm("Slette denne saken?")) return;
+    try {
+      await api(`/admin/cases/${id}`, { method: 'DELETE' });
+      await selectUser(selectedUser);
+    } catch (err) { alert(err.message); }
+  }
+
+  document.getElementById("admin-pass").addEventListener("keydown", e => {
+    if (e.key === "Enter") authenticate();
+  });
+</script>
+</body>
+</html>

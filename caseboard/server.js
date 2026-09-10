@@ -5,6 +5,7 @@ const { open } = require('sqlite');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const ADMIN_PASSWORD = '1234';
 
 app.use(express.json());
 
@@ -38,17 +39,31 @@ async function initDb() {
   }
 }
 
+// Gives high weight to logging cases (150 base XP per case) + time scaling
 function computeXp(minutes) {
-  return Math.max(1, Math.round(20 + 15 * Math.sqrt(minutes / 10)));
+  return Math.max(1, Math.round(150 + 12 * Math.sqrt(minutes)));
 }
 
-// Serve static files
+// Middleware to verify admin password
+function requireAdmin(req, res, next) {
+  const authHeader = req.headers['x-admin-password'] || req.headers['authorization'];
+  if (authHeader !== ADMIN_PASSWORD) {
+    return res.status(401).json({ error: 'Ugyldig admin-passord.' });
+  }
+  next();
+}
+
+// Serve static app
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use('/caseboard', express.static(path.join(__dirname, 'public')));
 
+// Admin UI route
+app.get('/caseboard/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
 // --- API Routes ---
 
-// 1. Get all users
 app.get('/caseboard/api/users', async (req, res) => {
   try {
     const users = await db.all(`
@@ -67,7 +82,6 @@ app.get('/caseboard/api/users', async (req, res) => {
   }
 });
 
-// 2. Get single user profile + cases
 app.get('/caseboard/api/users/:username', async (req, res) => {
   try {
     const { username } = req.params;
@@ -86,7 +100,6 @@ app.get('/caseboard/api/users/:username', async (req, res) => {
   }
 });
 
-// 3. Create user
 app.post('/caseboard/api/users', async (req, res) => {
   try {
     const { username } = req.body;
@@ -101,7 +114,6 @@ app.post('/caseboard/api/users', async (req, res) => {
   }
 });
 
-// 4. Log a case (Supports both endpoint formats)
 app.post(['/caseboard/api/users/:username/cases', '/caseboard/api/cases'], async (req, res) => {
   try {
     const username = req.params.username || req.body.username;
@@ -131,7 +143,6 @@ app.post(['/caseboard/api/users/:username/cases', '/caseboard/api/cases'], async
   }
 });
 
-// 5. Get leaderboard by period (month or lifetime)
 app.get('/caseboard/api/leaderboard/:period', async (req, res) => {
   try {
     const { period } = req.params;
@@ -151,6 +162,29 @@ app.get('/caseboard/api/leaderboard/:period', async (req, res) => {
       ORDER BY xp DESC
     `);
     res.json(leaderboard);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// --- Admin API Endpoints ---
+
+app.delete('/caseboard/api/admin/users/:username', requireAdmin, async (req, res) => {
+  try {
+    const { username } = req.params;
+    await db.run('DELETE FROM cases WHERE username = ?', [username]);
+    await db.run('DELETE FROM users WHERE username = ?', [username]);
+    res.json({ success: true, message: `Bruker ${username} og alle saker ble slettet.` });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.delete('/caseboard/api/admin/cases/:id', requireAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.run('DELETE FROM cases WHERE id = ?', [id]);
+    res.json({ success: true, message: `Sak #${id} slettet.` });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
