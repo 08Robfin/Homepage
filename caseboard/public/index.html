@@ -20,36 +20,30 @@
     --red-tint:#FBE7EA;
     --blue:#2E6B9E;
     --blue-tint:#E7F0FB;
-    --danger:#B3261E;
     --radius-hero:20px;
     --radius-card:14px;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;}
   body{min-height:100vh;}
-  .mono{font-family:'IBM Plex Mono',monospace;}
-  .display{font-family:'Space Grotesk',sans-serif;}
+  .hidden{display:none !important;}
   button{font-family:inherit;cursor:pointer;}
   input{font-family:inherit;}
 
-  /* ---------- LOGIN ---------- */
   #login-screen{
     min-height:100vh;display:flex;align-items:center;justify-content:center;
-    padding:32px 20px;
-    background:var(--red);
-    background-image:radial-gradient(circle at 85% 15%, rgba(255,255,255,0.08), transparent 55%);
+    padding:32px 20px;background:var(--red);
   }
   .login-box{width:100%;max-width:420px;background:var(--panel);border-radius:var(--radius-hero);padding:34px 32px;box-shadow:0 18px 40px rgba(0,0,0,0.18);}
-  .login-title{font-family:'Space Grotesk';font-weight:700;font-size:32px;margin:0 0 6px 0;letter-spacing:-0.5px;color:var(--red);}
+  .login-title{font-family:'Space Grotesk';font-weight:700;font-size:32px;margin:0 0 6px 0;color:var(--red);}
   .login-sub{color:var(--dim);font-size:14px;margin:0 0 26px 0;line-height:1.55;}
-  .profile-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;}
+  .profile-list{display:flex;flex-direction:column;gap:8px;margin-bottom:22px;max-height:240px;overflow-y:auto;}
   .profile-chip{
-    background:var(--tint);border:1px solid var(--line);border-radius:999px;
-    padding:9px 16px;font-size:14px;color:var(--text);display:flex;align-items:center;gap:8px;
-    transition:border-color .15s,background .15s;
+    background:var(--tint);border:1px solid var(--line);border-radius:10px;
+    padding:10px 14px;font-size:14px;color:var(--text);display:flex;align-items:center;justify-content:space-between;
+    transition:border-color .15s,background .15s;text-align:left;
   }
   .profile-chip:hover{border-color:var(--red);background:var(--red-tint);}
-  .profile-chip .lvl-tag{color:var(--red);font-family:'IBM Plex Mono';font-size:12px;font-weight:600;}
   .new-profile-row{display:flex;gap:8px;}
   #new-username{
     flex:1;background:var(--panel);border:1px solid var(--line);border-radius:999px;
@@ -58,222 +52,112 @@
   #new-username:focus{border-color:var(--red);}
   .btn{
     border:none;border-radius:999px;padding:12px 20px;font-size:14px;font-weight:600;
-    background:var(--red);color:#FFFFFF;transition:filter .15s, transform .05s;
+    background:var(--red);color:#FFFFFF;transition:filter .15s;
   }
   .btn:hover{filter:brightness(1.12);}
-  .btn:active{transform:scale(0.98);}
   .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text);}
-  .login-empty{color:var(--dim);font-size:13px;margin-bottom:18px;}
 
-  /* ---------- APP SHELL ---------- */
   #app-screen{display:none;min-height:100vh;}
+  body.app-ready #app-screen{display:block;}
   .topbar{
     display:flex;align-items:center;justify-content:space-between;
-    padding:16px 26px;border-bottom:none;background:var(--red);color:#fff;
+    padding:16px 26px;background:var(--red);color:#fff;
   }
-  .brand{display:flex;align-items:center;gap:10px;}
-  .brand-mark{width:30px;height:30px;border-radius:8px;background:#FFFFFF;flex-shrink:0;position:relative;}
-  .brand-mark::after{content:"";position:absolute;inset:7px;border-radius:4px;background:var(--red);}
-  .brand-name{font-family:'Space Grotesk';font-weight:700;font-size:18px;letter-spacing:-0.3px;color:#fff;}
-  .who{display:flex;align-items:center;gap:12px;}
-  .who-name{font-size:14px;font-weight:600;color:#fff;}
-  .who-title{font-size:12px;color:#FBD9DF;}
-  .switch-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.35);color:#fff;border-radius:999px;padding:7px 14px;font-size:12px;}
-  .switch-btn:hover{background:rgba(255,255,255,0.22);}
+  .brand-name{font-family:'Space Grotesk';font-weight:700;font-size:18px;color:#fff;}
+  .switch-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.35);color:#fff;border-radius:999px;padding:7px 14px;font-size:12px;}
 
   .layout{
     display:grid;grid-template-columns:340px 1fr;gap:22px;padding:24px 26px 60px;max-width:1180px;margin:0 auto;
   }
   @media (max-width: 860px){ .layout{grid-template-columns:1fr;} }
 
-  /* level hero card */
   .hero-card{
     background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-hero);
     padding:26px;margin-bottom:20px;
   }
-  .ring-wrap{display:flex;align-items:center;gap:18px;}
-  .badge-row{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;}
-  .badge-pill{font-size:11px;background:var(--blue-tint);border:1px solid var(--line);border-radius:999px;padding:3px 9px;color:var(--blue);}
-  .lvl-num{font-family:'Space Grotesk';font-size:30px;font-weight:700;}
-  .lvl-title{color:var(--red);font-size:13px;font-weight:600;margin-top:2px;}
-  .xp-line{margin-top:16px;}
-  .xp-track{height:8px;background:var(--panel-raised);border-radius:999px;overflow:hidden;margin-top:6px;}
-  .xp-fill{height:100%;background:linear-gradient(90deg,var(--red-dark),var(--red));border-radius:999px;transition:width .4s ease;}
-  .xp-caption{display:flex;justify-content:space-between;font-size:11px;color:var(--dim);margin-top:6px;}
+  .lvl-title{color:var(--red);font-size:14px;font-weight:600;}
+  .xp-track{height:8px;background:var(--panel-raised);border-radius:999px;overflow:hidden;margin-top:8px;}
+  .xp-fill{height:100%;background:linear-gradient(90deg,var(--red-dark),var(--red));border-radius:999px;}
 
-  .stat-row{display:flex;gap:14px;margin-top:18px;}
-  .stat-box{flex:1;background:var(--tint);border-radius:var(--radius-card);padding:12px;}
-  .stat-num{font-family:'IBM Plex Mono';font-size:19px;font-weight:600;color:var(--red);}
-  .stat-label{font-size:11px;color:var(--dim);margin-top:2px;}
-
-  /* log form */
   .form-card{
     background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-card);padding:22px;
   }
-  .form-card h3{margin:0 0 3px 0;font-family:'Space Grotesk';font-size:16px;}
-  .form-card .help{color:var(--dim);font-size:12px;margin:0 0 16px 0;}
-  .field-label{font-size:12px;color:var(--dim);margin-bottom:6px;display:block;}
-  .field{margin-bottom:14px;}
-  .duration-input-row{display:flex;gap:8px;align-items:center;}
-  #minutes-input{
+  #case-minutes{
     width:100%;background:var(--panel);border:1px solid var(--line);border-radius:10px;
-    padding:11px 12px;color:var(--text);font-size:15px;font-family:'IBM Plex Mono';outline:none;
+    padding:11px 12px;color:var(--text);font-size:15px;outline:none;margin-bottom:12px;
   }
-  #minutes-input:focus{border-color:var(--red);}
-  .quick-mins{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
-  .quick-btn{
-    background:var(--tint);border:1px solid var(--line);color:var(--dim);
-    border-radius:999px;padding:6px 12px;font-size:12px;
-  }
-  .quick-btn:hover{color:var(--red);border-color:var(--red);}
-  .xp-preview{
-    font-size:13px;color:var(--blue);margin-top:10px;font-family:'IBM Plex Mono';font-weight:600;
-  }
-  .log-btn{width:100%;padding:13px;font-size:14px;margin-top:6px;}
-  .log-btn:disabled{opacity:.5;cursor:default;}
-
-  /* right column */
   .panel-card{
     background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-card);
-    padding:0;overflow:hidden;margin-bottom:20px;
+    padding:20px;margin-bottom:20px;
   }
-  .panel-head{padding:18px 20px 0 20px;}
-  .panel-head h3{margin:0;font-family:'Space Grotesk';font-size:16px;}
-  .tabs{display:flex;gap:4px;padding:14px 20px 0 20px;}
-  .tab-btn{
-    background:transparent;border:none;border-bottom:2px solid transparent;color:var(--dim);
-    padding:8px 4px;font-size:13px;font-weight:600;margin-right:18px;
+  .tabs{display:flex;gap:12px;margin-bottom:16px;}
+  .tab-btn{background:none;border:none;font-weight:600;color:var(--dim);padding:4px 0;}
+  .tab-btn.active{color:var(--red);border-bottom:2px solid var(--red);}
+  
+  .leader-row, .case-row{
+    display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);
   }
-  .tab-btn.active{color:var(--red);border-color:var(--red);}
-  .lb-table{width:100%;border-collapse:collapse;margin-top:6px;}
-  .lb-table tr{border-top:1px solid var(--line);}
-  .lb-table td{padding:11px 20px;font-size:13px;vertical-align:middle;}
-  .lb-rank{color:var(--dim);width:26px;font-family:'IBM Plex Mono';font-size:12px;}
-  .lb-name{font-weight:600;}
-  .lb-name.me{color:var(--red);}
-  .lb-xp{text-align:right;font-family:'IBM Plex Mono';color:var(--blue);white-space:nowrap;font-weight:600;}
-  .lb-empty{padding:20px;color:var(--dim);font-size:13px;}
-
-  .feed-item{
-    display:flex;justify-content:space-between;padding:12px 20px;border-top:1px solid var(--line);font-size:13px;
-  }
-  .feed-mins{color:var(--dim);}
-  .feed-xp{color:var(--blue);font-family:'IBM Plex Mono';font-weight:600;}
-  .feed-empty{padding:20px;color:var(--dim);font-size:13px;}
-
+  .leader-row.is-me{font-weight:bold;color:var(--red);}
   .toast{
-    position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(10px);
-    background:var(--text);border:1px solid var(--text);color:#fff;
-    padding:12px 20px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;
-    transition:opacity .2s, transform .2s;z-index:50;
+    position:fixed;bottom:22px;left:50%;transform:translateX(-50%);
+    background:var(--text);color:#fff;padding:10px 20px;border-radius:999px;font-size:13px;
+    display:none;
   }
-  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-  .loading-dot{color:var(--dim);font-size:13px;padding:20px;}
 </style>
 </head>
 <body>
 
-<!-- ============ LOGIN ============ -->
 <div id="login-screen">
   <div class="login-box">
-    <p class="display login-title">CaseBoard</p>
-    <p class="login-sub">Log how many cases you close, how long they took, and see where you land against the rest of the team — this month and all-time.</p>
-
+    <div class="login-title">CaseBoard</div>
+    <div class="login-sub">Select your profile or create a new one to start logging cases.</div>
     <div id="profile-list" class="profile-list"></div>
-    <p id="profile-empty" class="login-empty" style="display:none;">No profiles yet — be the first to clock in.</p>
-
     <div class="new-profile-row">
-      <input id="new-username" type="text" maxlength="20" placeholder="Pick a name..." />
-      <button class="btn" id="create-btn">Clock in</button>
+      <input id="new-profile" type="text" placeholder="Your name..." />
+      <button class="btn" onclick="createProfile()">Clock In</button>
     </div>
   </div>
 </div>
 
-<!-- ============ APP ============ -->
 <div id="app-screen">
   <div class="topbar">
-    <div class="brand">
-      <div class="brand-mark"></div>
-      <span class="brand-name display">CaseBoard</span>
-    </div>
-    <div class="who">
-      <div style="text-align:right;">
-        <div class="who-name" id="who-name"></div>
-        <div class="who-title" id="who-title"></div>
-      </div>
-      <button class="switch-btn" id="switch-btn">Switch profile</button>
+    <div class="brand-name">CaseBoard</div>
+    <div>
+      <span data-current-user style="font-weight:bold;margin-right:12px;"></span>
+      <button class="switch-btn" onclick="logout()">Switch Profile</button>
     </div>
   </div>
 
   <div class="layout">
-    <!-- LEFT COLUMN -->
     <div>
       <div class="hero-card">
-        <div class="ring-wrap">
-          <svg width="72" height="72" viewBox="0 0 72 72">
-            <circle cx="36" cy="36" r="30" fill="none" stroke="#EFEAE3" stroke-width="8"/>
-            <circle id="ring-progress" cx="36" cy="36" r="30" fill="none" stroke="#BA0C2F" stroke-width="8"
-              stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="188.5"
-              transform="rotate(-90 36 36)"/>
-            <text id="ring-level" x="36" y="41" text-anchor="middle" font-family="IBM Plex Mono" font-size="20" font-weight="600" fill="#1A1A1A">1</text>
-          </svg>
-          <div>
-            <div class="lvl-title" id="lvl-title-text">Rookie</div>
-            <div class="badge-row" id="badge-row"></div>
-          </div>
-        </div>
-        <div class="xp-line">
-          <div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
-          <div class="xp-caption"><span id="xp-into">0 XP</span><span id="xp-need">0 XP to next level</span></div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-box">
-            <div class="stat-num" id="stat-cases">0</div>
-            <div class="stat-label">cases logged</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-num" id="stat-total-xp">0</div>
-            <div class="stat-label">lifetime XP</div>
-          </div>
+        <div class="lvl-title"><span data-current-title>Rookie</span> (Level <span data-current-level>0</span>)</div>
+        <div class="xp-track"><div class="xp-fill" data-xp-progress style="width:0%"></div></div>
+        <div style="margin-top:8px;font-size:12px;color:var(--dim);">
+          <span data-current-xp>0</span> XP total
         </div>
       </div>
 
       <div class="form-card">
-        <h3>Log a case</h3>
-        <p class="help">Longer cases earn a bit more XP, but not proportionally — clearing quick ones fast still pays off.</p>
-        <div class="field">
-          <label class="field-label">Time spent (minutes)</label>
-          <div class="duration-input-row">
-            <input id="minutes-input" type="number" min="1" max="600" placeholder="e.g. 25" />
-          </div>
-          <div class="quick-mins">
-            <button class="quick-btn" data-mins="5">5m</button>
-            <button class="quick-btn" data-mins="15">15m</button>
-            <button class="quick-btn" data-mins="30">30m</button>
-            <button class="quick-btn" data-mins="60">1h</button>
-            <button class="quick-btn" data-mins="120">2h</button>
-            <button class="quick-btn" data-mins="240">4h</button>
-          </div>
-          <div class="xp-preview" id="xp-preview">+20 XP</div>
-        </div>
-        <button class="btn log-btn" id="log-btn">Log case</button>
+        <h3>Log a Case</h3>
+        <input id="case-minutes" type="number" min="1" max="1000" placeholder="Minutes spent (e.g. 15)" />
+        <button class="btn" id="log-case-button" style="width:100%;" onclick="logCase()">Submit Case</button>
       </div>
     </div>
 
-    <!-- RIGHT COLUMN -->
     <div>
       <div class="panel-card">
-        <div class="panel-head"><h3>Leaderboard</h3></div>
+        <h3>Leaderboard</h3>
         <div class="tabs">
-          <button class="tab-btn active" data-tab="monthly">This month</button>
-          <button class="tab-btn" data-tab="lifetime">Lifetime</button>
+          <button class="tab-btn active" data-leaderboard-period="month">This Month</button>
+          <button class="tab-btn" data-leaderboard-period="lifetime">Lifetime</button>
         </div>
-        <div id="lb-body"><div class="loading-dot">Loading standings...</div></div>
+        <div id="leaderboard"></div>
       </div>
 
       <div class="panel-card">
-        <div class="panel-head"><h3>Your recent cases</h3></div>
-        <div id="feed-body" style="margin-top:6px;"><div class="loading-dot">Loading...</div></div>
+        <h3>Recent Cases</h3>
+        <div id="case-feed"></div>
       </div>
     </div>
   </div>
@@ -282,388 +166,140 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  // ---------- API / session ----------
   const API_BASE = "/caseboard/api";
-  let currentUser = null;
+  let currentUser = localStorage.getItem("caseboard-current-user") || "";
   let currentProfile = null;
 
   async function api(path, options = {}) {
-    const response = await fetch(API_BASE + path, {
+    const res = await fetch(API_BASE + path, {
       ...options,
-      headers: {
-        "Content-Type": "application/json",
-        ...(options.headers || {})
-      }
+      headers: { "Content-Type": "application/json", ...(options.headers || {}) }
     });
-
-    let data = null;
-    try {
-      data = await response.json();
-    } catch (_) {}
-
-    if (!response.ok) {
-      throw new Error(data?.error || `Request failed (${response.status})`);
-    }
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || "API Error");
     return data;
   }
 
-  function escapeHtml(value) {
-    return String(value ?? "").replace(/[&<>"']/g, ch => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-    }[ch]));
+  function toast(msg) {
+    const el = document.getElementById("toast");
+    el.textContent = msg;
+    el.style.display = "block";
+    setTimeout(() => el.style.display = "none", 2500);
   }
 
-  function computeXp(minutes) {
-    return Math.max(1, Math.round(20 + 15 * Math.sqrt(minutes / 10)));
-  }
-
-  function levelFromXp(xp) {
-    return Math.floor(Math.sqrt(Math.max(0, xp) / 100));
-  }
-
-  function xpForLevel(level) {
-    return level * level * 100;
-  }
-
-  function titleForLevel(level) {
-    if (level >= 20) return "CaseBoard Legend";
-    if (level >= 15) return "IT Wizard";
-    if (level >= 10) return "Senior Support";
-    if (level >= 7) return "Problem Solver";
-    if (level >= 5) return "Support Pro";
-    if (level >= 3) return "Tech Helper";
-    if (level >= 1) return "Rookie";
+  function levelFromXp(xp) { return Math.floor(Math.sqrt(Math.max(0, xp) / 100)); }
+  function xpForLevel(l) { return l * l * 100; }
+  function titleForLevel(l) {
+    if (l >= 10) return "Senior Support";
+    if (l >= 5) return "Support Pro";
+    if (l >= 1) return "Rookie";
     return "Newcomer";
   }
 
-  function getCurrentUser() {
-    return localStorage.getItem("caseboard-current-user") || "";
-  }
-
-  function setCurrentUser(username) {
-    if (username) localStorage.setItem("caseboard-current-user", username);
-    else localStorage.removeItem("caseboard-current-user");
-  }
-
-  async function getProfile(username) {
-    return api(`/users/${encodeURIComponent(username)}`);
-  }
-
-  async function listUsers() {
-    return api("/users");
-  }
-
-  // ---------- toast ----------
-  function toast(message, type = "info") {
-    const el = document.getElementById("toast");
-    if (!el) return;
-    el.textContent = message;
-    el.className = `toast ${type} show`;
-    clearTimeout(window.__toastTimer);
-    window.__toastTimer = setTimeout(() => {
-      el.classList.remove("show");
-    }, 2600);
-  }
-
-  // ---------- login screen ----------
   async function renderLoginScreen() {
-    document.body.classList.remove("app-ready");
-    const login = document.getElementById("login-screen");
-    if (login) login.classList.remove("hidden");
-
     const list = document.getElementById("profile-list");
-    if (!list) return;
-
-    list.innerHTML = `<div class="muted">Loading profiles...</div>`;
-
     try {
-      const users = await listUsers();
-
-      if (!users.length) {
-        list.innerHTML = `<div class="muted">No profiles yet. Create the first one.</div>`;
-        return;
-      }
-
-      list.innerHTML = users.map(user => {
-        const xp = Number(user.xp) || 0;
-        const level = levelFromXp(xp);
-        return `
-          <button class="profile-chip" onclick="login('${escapeHtml(user.username).replace(/'/g, "\\'")}')">
-            <span class="profile-avatar">${escapeHtml(user.username).slice(0, 1).toUpperCase()}</span>
-            <span class="profile-info">
-              <strong>${escapeHtml(user.username)}</strong>
-              <small>Level ${level} · ${xp} XP · ${Number(user.casesCount) || 0} cases</small>
-            </span>
-          </button>
-        `;
-      }).join("");
-    } catch (error) {
-      list.innerHTML = `<div class="muted">Could not reach CaseBoard server.</div>`;
-      toast(error.message, "error");
+      const users = await api("/users");
+      list.innerHTML = users.map(u => `
+        <button class="profile-chip" onclick="login('${u.username}')">
+          <span><strong>${u.username}</strong></span>
+          <span>Lvl ${levelFromXp(u.xp)} · ${u.xp} XP</span>
+        </button>
+      `).join("") || '<div style="color:var(--dim)">No profiles yet.</div>';
+    } catch (err) {
+      list.innerHTML = 'Error connecting to server.';
     }
   }
 
   async function createProfile() {
-    const input = document.getElementById("new-profile");
-    const username = input?.value.trim();
-
-    if (!username) {
-      toast("Enter a name first.", "error");
-      return;
-    }
-
-    if (username.length > 32) {
-      toast("Name must be 32 characters or less.", "error");
-      return;
-    }
-
+    const name = document.getElementById("new-profile").value.trim();
+    if (!name) return;
     try {
-      const profile = await api("/users", {
-        method: "POST",
-        body: JSON.stringify({ username })
-      });
-
-      await login(profile.username);
-      if (input) input.value = "";
-    } catch (error) {
-      toast(error.message, "error");
-    }
+      await api("/users", { method: "POST", body: JSON.stringify({ username: name }) });
+      await login(name);
+    } catch (err) { toast(err.message); }
   }
 
   async function login(username) {
     try {
-      const profile = await getProfile(username);
-      currentUser = profile.username;
-      currentProfile = profile;
-      setCurrentUser(currentUser);
-
-      document.getElementById("login-screen")?.classList.add("hidden");
+      currentProfile = await api(`/users/${encodeURIComponent(username)}`);
+      currentUser = username;
+      localStorage.setItem("caseboard-current-user", username);
+      document.getElementById("login-screen").classList.add("hidden");
       document.body.classList.add("app-ready");
-
       renderAll();
-      toast(`Logged in as ${currentUser}`, "success");
-    } catch (error) {
-      toast(error.message, "error");
-      await renderLoginScreen();
-    }
+    } catch (err) { toast(err.message); }
   }
 
   function logout() {
-    currentUser = null;
-    currentProfile = null;
-    setCurrentUser("");
+    currentUser = "";
+    localStorage.removeItem("caseboard-current-user");
     document.body.classList.remove("app-ready");
-    document.getElementById("login-screen")?.classList.remove("hidden");
+    document.getElementById("login-screen").classList.remove("hidden");
     renderLoginScreen();
   }
 
-  // ---------- rendering ----------
-  function renderHero() {
-    if (!currentProfile) return;
-
-    const xp = Number(currentProfile.xp) || 0;
-    const level = levelFromXp(xp);
-    const currentLevelXp = xpForLevel(level);
-    const nextLevelXp = xpForLevel(level + 1);
-    const progress = nextLevelXp > currentLevelXp
-      ? Math.min(100, Math.max(0, ((xp - currentLevelXp) / (nextLevelXp - currentLevelXp)) * 100))
-      : 100;
-
-    const nameEls = document.querySelectorAll("[data-current-user]");
-    nameEls.forEach(el => el.textContent = currentProfile.username);
-
-    const xpEls = document.querySelectorAll("[data-current-xp]");
-    xpEls.forEach(el => el.textContent = xp.toLocaleString());
-
-    const levelEls = document.querySelectorAll("[data-current-level]");
-    levelEls.forEach(el => el.textContent = level);
-
-    const titleEls = document.querySelectorAll("[data-current-title]");
-    titleEls.forEach(el => el.textContent = titleForLevel(level));
-
-    const bar = document.querySelector("[data-xp-progress]");
-    if (bar) bar.style.width = `${progress}%`;
-
-    const next = document.querySelector("[data-next-level]");
-    if (next) next.textContent = nextLevelXp.toLocaleString();
-
-    const avatar = document.querySelector("[data-current-avatar]");
-    if (avatar) avatar.textContent = currentProfile.username.slice(0, 1).toUpperCase();
-  }
-
-  function renderFeed() {
-    const feed = document.getElementById("case-feed");
-    if (!feed || !currentProfile) return;
-
-    const cases = Array.isArray(currentProfile.cases)
-      ? [...currentProfile.cases].sort((a, b) => new Date(b.ts) - new Date(a.ts))
-      : [];
-
-    if (!cases.length) {
-      feed.innerHTML = `<div class="empty-state">No cases logged yet. Go fix something 😌</div>`;
-      return;
-    }
-
-    feed.innerHTML = cases.map(item => `
-      <div class="case-row">
-        <div class="case-main">
-          <strong>${Number(item.minutes) || 0} min case</strong>
-          <small>${new Date(item.ts).toLocaleString()}</small>
-        </div>
-        <span class="case-xp">+${Number(item.xp) || 0} XP</span>
-      </div>
-    `).join("");
-  }
-
-  async function renderLeaderboard(period = "month") {
-    const container = document.getElementById("leaderboard");
-    if (!container) return;
-
-    try {
-      const rows = await api(`/leaderboard/${encodeURIComponent(period)}`);
-
-      if (!rows.length) {
-        container.innerHTML = `<div class="empty-state">No cases logged yet.</div>`;
-        return;
-      }
-
-      container.innerHTML = rows.map((row, index) => {
-        const xp = Number(row.xp) || 0;
-        const level = levelFromXp(xp);
-        return `
-          <div class="leader-row ${row.username === currentUser ? "is-me" : ""}">
-            <span class="leader-rank">${index + 1}</span>
-            <span class="leader-avatar">${escapeHtml(row.username).slice(0, 1).toUpperCase()}</span>
-            <span class="leader-name">
-              <strong>${escapeHtml(row.username)}</strong>
-              <small>Level ${level}</small>
-            </span>
-            <span class="leader-xp">${xp.toLocaleString()} XP</span>
-          </div>
-        `;
-      }).join("");
-    } catch (error) {
-      container.innerHTML = `<div class="empty-state">Could not load leaderboard.</div>`;
-    }
-  }
-
   function renderAll() {
-    renderHero();
-    renderFeed();
-    const period = document.querySelector("[data-leaderboard-period].active")?.dataset.leaderboardPeriod || "month";
-    renderLeaderboard(period);
+    if (!currentProfile) return;
+    const xp = currentProfile.xp || 0;
+    const level = levelFromXp(xp);
+    const curLevelXp = xpForLevel(level);
+    const nextLevelXp = xpForLevel(level + 1);
+    const progress = Math.min(100, Math.max(0, ((xp - curLevelXp) / (nextLevelXp - curLevelXp)) * 100));
+
+    document.querySelectorAll("[data-current-user]").forEach(e => e.textContent = currentProfile.username);
+    document.querySelectorAll("[data-current-xp]").forEach(e => e.textContent = xp);
+    document.querySelectorAll("[data-current-level]").forEach(e => e.textContent = level);
+    document.querySelectorAll("[data-current-title]").forEach(e => e.textContent = titleForLevel(level));
+    document.querySelector("[data-xp-progress]").style.width = progress + "%";
+
+    const feed = document.getElementById("case-feed");
+    feed.innerHTML = (currentProfile.cases || []).map(c => `
+      <div class="case-row">
+        <span>${c.minutes} min case</span>
+        <span style="color:var(--blue)">+${c.xp} XP</span>
+      </div>
+    `).join("") || "No cases yet.";
+
+    renderLeaderboard("month");
   }
 
-  async function refreshCurrentProfile() {
-    if (!currentUser) return;
-
+  async function renderLeaderboard(period) {
     try {
-      currentProfile = await getProfile(currentUser);
-      renderHero();
-      renderFeed();
-    } catch (_) {
-      // Don't kick the user out just because a background refresh failed.
-    }
+      const rows = await api(`/leaderboard/${period}`);
+      document.getElementById("leaderboard").innerHTML = rows.map((r, i) => `
+        <div class="leader-row ${r.username === currentUser ? 'is-me' : ''}">
+          <span>#${i+1} ${r.username}</span>
+          <span>${r.xp} XP</span>
+        </div>
+      `).join("");
+    } catch (_) {}
   }
 
-  // ---------- logging ----------
   async function logCase() {
-    if (!currentUser) {
-      toast("Log in first.", "error");
-      return;
-    }
-
-    const input = document.getElementById("case-minutes");
-    const minutes = Number(input?.value);
-
-    if (!Number.isFinite(minutes) || minutes <= 0) {
-      toast("Enter a valid number of minutes.", "error");
-      return;
-    }
-
-    if (minutes > 1000) {
-      toast("Maximum is 1000 minutes.", "error");
-      return;
-    }
-
+    const mins = document.getElementById("case-minutes").value;
+    if (!mins) return;
     try {
-      const button = document.getElementById("log-case-button");
-      if (button) button.disabled = true;
-
       currentProfile = await api(`/users/${encodeURIComponent(currentUser)}/cases`, {
         method: "POST",
-        body: JSON.stringify({ minutes })
+        body: JSON.stringify({ minutes: mins })
       });
-
-      if (input) input.value = "";
-
-      renderHero();
-      renderFeed();
-      await renderLeaderboard(
-        document.querySelector("[data-leaderboard-period].active")?.dataset.leaderboardPeriod || "month"
-      );
-
-      toast(`Case logged! +${computeXp(minutes)} XP`, "success");
-    } catch (error) {
-      toast(error.message, "error");
-    } finally {
-      const button = document.getElementById("log-case-button");
-      if (button) button.disabled = false;
-    }
+      document.getElementById("case-minutes").value = "";
+      renderAll();
+      toast("Case logged!");
+    } catch (err) { toast(err.message); }
   }
 
-  // ---------- UI events ----------
-  document.addEventListener("click", event => {
-    const periodButton = event.target.closest("[data-leaderboard-period]");
-    if (periodButton) {
-      document.querySelectorAll("[data-leaderboard-period]").forEach(el => el.classList.remove("active"));
-      periodButton.classList.add("active");
-      renderLeaderboard(periodButton.dataset.leaderboardPeriod || "month");
-    }
+  document.querySelectorAll("[data-leaderboard-period]").forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll("[data-leaderboard-period]").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderLeaderboard(btn.dataset.leaderboardPeriod);
+    };
   });
 
-  document.addEventListener("keydown", event => {
-    if (event.key === "Enter" && document.activeElement?.id === "new-profile") {
-      createProfile();
-    }
-    if (event.key === "Enter" && document.activeElement?.id === "case-minutes") {
-      logCase();
-    }
-  });
-
-  // Refresh shared data so changes made on another device appear automatically.
-  setInterval(async () => {
-    if (!currentUser) return;
-    await refreshCurrentProfile();
-    const period = document.querySelector("[data-leaderboard-period].active")?.dataset.leaderboardPeriod || "month";
-    await renderLeaderboard(period);
-  }, 15000);
-
-  // ---------- boot ----------
-  (async function boot() {
-    currentUser = getCurrentUser();
-
-    if (currentUser) {
-      try {
-        currentProfile = await getProfile(currentUser);
-        document.getElementById("login-screen")?.classList.add("hidden");
-        document.body.classList.add("app-ready");
-        renderAll();
-      } catch (_) {
-        // Saved browser session no longer exists on the server.
-        currentUser = null;
-        currentProfile = null;
-        setCurrentUser("");
-        await renderLoginScreen();
-      }
-    } else {
-      await renderLoginScreen();
-    }
-  })();
+  if (currentUser) login(currentUser);
+  else renderLoginScreen();
 </script>
 </body>
 </html>

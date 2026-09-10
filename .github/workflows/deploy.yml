@@ -18,15 +18,33 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
 
-      - name: Sync files to server
+      - name: Deploy discord-live-status
         run: |
           SERVER_USER="robfin"
           SERVER_HOST="www.robfin.no"
           TARGET_DIR="/home/robfin/Homepage/discord-live-status/public"
-
-          # Only copy from the built 'public' folder inside your repo:
           SRC_DIR="discord-live-status/public"
 
           rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" \
             "$SRC_DIR/" \
             "$SERVER_USER@$SERVER_HOST:$TARGET_DIR/"
+
+      - name: Deploy CaseBoard
+        run: |
+          SERVER_USER="robfin"
+          SERVER_HOST="www.robfin.no"
+          TARGET_DIR="/home/robfin/Homepage/caseboard"
+
+          # Sync CaseBoard code while protecting node_modules and caseboard.db
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
+            --exclude='node_modules' \
+            --exclude='caseboard.db' \
+            caseboard/ \
+            "$SERVER_USER@$SERVER_HOST:$TARGET_DIR/"
+
+          # Install any new dependencies and restart PM2
+          ssh -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_HOST" "
+            cd $TARGET_DIR && \
+            npm install --omit=dev && \
+            pm2 restart caseboard
+          "
