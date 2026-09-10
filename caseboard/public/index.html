@@ -428,8 +428,11 @@ function titleForLevel(l) {
     if (e.key === "Enter") logCase();
   });
 
-  if (currentUser) login(currentUser);
-  else renderLoginScreen();
+async function initApp() {
+  await renderLoginScreen();
+}
+
+initApp();
 </script>
 </body>
 </html>
