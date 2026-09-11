@@ -48,6 +48,11 @@ function computeXp(minutes) {
   return Math.max(1, Math.round(100 + 8 * Math.sqrt(minutes)));
 }
 
+// Kun bokstaver (a-z, A-Z) og tall er tillatt i brukernavn
+function isValidUsername(username) {
+  return /^[a-zA-Z0-9]+$/.test(username);
+}
+
 // Middleware to verify admin password
 function requireAdmin(req, res, next) {
   const authHeader = req.headers['x-admin-password'] || req.headers['authorization'];
@@ -111,6 +116,9 @@ app.post('/caseboard/api/users', async (req, res) => {
       return res.status(400).json({ error: 'Username is required.' });
     }
     const cleanName = username.trim();
+    if (!isValidUsername(cleanName)) {
+      return res.status(400).json({ error: 'Kun bokstaver og tall er tillatt i brukernavn.' });
+    }
     await db.run('INSERT OR IGNORE INTO users (username) VALUES (?)', [cleanName]);
     res.json({ username: cleanName, xp: 0, cases: [] });
   } catch (err) {
@@ -125,6 +133,9 @@ app.post(['/caseboard/api/users/:username/cases', '/caseboard/api/cases'], async
 
     if (!username || !minutes || minutes <= 0) {
       return res.status(400).json({ error: 'Valid username and minutes are required.' });
+    }
+    if (!isValidUsername(username)) {
+      return res.status(400).json({ error: 'Kun bokstaver og tall er tillatt i brukernavn.' });
     }
 
     await db.run('INSERT OR IGNORE INTO users (username) VALUES (?)', [username]);
