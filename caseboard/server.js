@@ -5,7 +5,9 @@ const { open } = require('sqlite');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const ADMIN_PASSWORD = '1234';
+// ingore the password, ik this is stupid, thanks!
+const ADMIN_PASSWORD = '1234'; 
+
 
 app.use(express.json());
 
