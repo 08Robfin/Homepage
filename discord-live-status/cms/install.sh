@@ -30,7 +30,7 @@ rollback() {
   fi
   cd "$APP"
   npm ci --omit=dev || true
-  pm2 restart robfin-app
+  docker restart discord-status
   if [ -f cms/ecosystem.config.cjs ]; then
     pm2 startOrRestart cms/ecosystem.config.cjs --update-env
   else
@@ -40,7 +40,8 @@ rollback() {
   exit 1
 }
 trap rollback ERR
-pm2 stop robfin-app --watch
+docker stop discord-status
+pm2 stop robfin-app --watch >/dev/null 2>&1 || true
 rsync -rlt --delete --exclude=.env --exclude=__pycache__/ "$STAGE/" "$APP/"
 cd "$APP"
 bash cms/deploy.sh

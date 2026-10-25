@@ -1,6 +1,3 @@
-const path = require('node:path');
-module.exports={apps:[{
-  name:'robfin-app',script:path.join(__dirname,'../server.js'),cwd:path.join(__dirname,'..'),
-  watch:false,autorestart:true,restart_delay:1000,
-  env:{CMS_DATA_DIR:'/home/robfin/.local/share/robfin-cms'}
-}]};
+// Production website is the discord-status Docker container behind NPM.
+// Only the private editor is managed by PM2; see ecosystem.config.cjs.
+module.exports = {apps: []};

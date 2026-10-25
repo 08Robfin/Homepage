@@ -1,0 +1,21 @@
+# Recovery/reference definition for the public site. NPM is managed separately.
+# Dependencies are installed on the host by install.sh, never as container root.
+services:
+  website:
+    image: node:20-bullseye
+    container_name: discord-status
+    user: "1000:1000"
+    working_dir: /app
+    command: ["node", "index.js"]
+    restart: unless-stopped
+    environment:
+      CMS_DATA_DIR: /cms-data
+    volumes:
+      - /home/robfin/Homepage/discord-live-status:/app:ro
+      - /home/robfin/.local/share/robfin-cms/published:/cms-data/published:ro
+      - /home/robfin/.local/share/robfin-cms/uploads:/cms-data/uploads:ro
+    networks:
+      - npm_default
+networks:
+  npm_default:
+    external: true

@@ -31,21 +31,24 @@ The editor does not accept arbitrary HTML, JavaScript, CSS, SQL, commands, or se
 | SQLite | Persistent structured draft/published content, revision counter, and published history |
 | HTML/CSS/vanilla JavaScript | Responsive admin forms, images, translations, preview, and publish |
 | HTML templates | Existing site appearance with escaped database content |
-| PM2 | Website/editor process supervision and restart after reboot |
-| NGINX + existing TLS | Public domain and HTTPS; no admin proxy |
+| Docker (`node:20-bullseye`) | Public `discord-status` container, running as UID/GID 1000 with read-only source/published-content mounts |
+| PM2 | Private editor supervision and restart after reboot |
+| NGINX Proxy Manager + existing TLS | Public domain forwards to `discord-status:3000` on Docker network `npm_default`; no admin proxy |
 | GitHub Actions + SSH + rsync | Tests, code backups, deployment, and service restarts |
 | Existing Tailscale subnet routing | Private remote access to the VM's LAN address |
 
 Publishing renders all four pages into a new version folder, then atomically changes a `CURRENT` pointer. Express serves that published snapshot before fallback static HTML. The public website continues serving the published content if the private editor stops. Publishing does not restart Discord or Node.
 
-The Discord integration and website share one HTTP server. `server.js` remains the PM2 compatibility entry point; `index.js` owns HTTP and Socket.IO.
+The Discord integration and website share one HTTP server in Docker. `index.js` owns HTTP and Socket.IO; `server.js` remains a compatibility entry point for local use. The duplicate legacy PM2 website process is removed to avoid running the bot twice. NGINX Proxy Manager's public host settings and CaseBoard location remain unchanged.
+
+The public container can read only the source, published snapshots, and uploaded public images. Its mounts do not include the SQLite database, draft content, or backups. It runs `node index.js` without installing dependencies as root. Dependency installation happens on the host during deployment, avoiding the old root-owned `node_modules` problem.
 
 ## Files and storage
 
 ```text
 discord-live-status/
   index.js                        # HTTP server, Discord bot, Socket.IO
-  server.js                       # Existing PM2 entry point
+  server.js                       # Compatibility entry point for local use
   public/                         # Public assets and fallback HTML
   cms/
     server.py                     # Private HTTP API, SQLite, validation, rendering
@@ -55,7 +58,8 @@ discord-live-status/
     public-middleware.js          # Published HTML and uploaded public images
     public-client.js              # Aligns hosting slider with editable tiers
     ecosystem.config.cjs          # Editor PM2 configuration
-    site.ecosystem.config.cjs     # Website PM2 configuration
+    docker-compose.site.yml       # Public container recovery/reference configuration
+    site.ecosystem.config.cjs      # Empty compatibility file; website is in Docker
     deploy.sh                     # Initialize, rebuild snapshots, restart, health check
     test_backend.py               # HTTP, database, validation, and access tests
 ```
@@ -76,7 +80,7 @@ Code deployment backups live under `/home/robfin/.local/share/robfin-deploy-back
 
 ## Editing code in GitHub
 
-Pushing `main` still auto-deploys. The workflow tests the editor, stages source outside the live folder, backs up existing code, preserves `.env` and persistent content, installs Node dependencies, synchronizes source, renders the saved database using the current templates, and restarts PM2. CaseBoard retains its separate deployment step.
+Pushing `main` still auto-deploys. The workflow tests the editor, stages source outside the live folder, backs up existing code, preserves `.env` and persistent content, installs Node dependencies, synchronizes source, renders the saved database using the current templates, restarts the public Docker container and private PM2 editor, and health-checks the actual Docker upstream through NGINX Proxy Manager. CaseBoard retains its separate deployment step.
 
 **Edit `cms/templates/*.html` to change the managed site's layout.** The old `public/*/index.html` files are fallback pages; their text does not override SQLite. Existing placeholder IDs must remain stable. Change content using the editor; change CSS, markup, and behavior in templates/source.
 
@@ -86,14 +90,17 @@ Other markers: `@@CMS_translations@@`, `@@CMS_positions@@`, `@@CMS_tierData@@`, 
 
 ## Setup and operations
 
-Requirements: compatible Node.js/npm, Python 3.12+, PM2, rsync, and the existing NGINX/TLS configuration. Run as `robfin`:
+Requirements: compatible host Node.js/npm, Python 3.12+, PM2, rsync, Docker access for `robfin`, and the existing NGINX Proxy Manager/TLS setup. The public container uses the installed Node 20 image. Run as `robfin`:
 
 ```bash
 cd /home/robfin/Homepage/discord-live-status
 npm ci --omit=dev
 bash cms/deploy.sh
 pm2 list
+docker ps
 ```
+
+`cms/docker-compose.site.yml` records the public container definition for recovery. The live container is already configured; do not start a second copy with the same name. For recreation, first retain/rename the old `discord-status` container, then use the reference Compose definition. Keep the existing `npm_default` Docker network and NPM host pointing at `discord-status:3000`. Original container configuration is backed up privately under the deployment-backups directory; it can contain environment secrets and must stay off GitHub.
 
 One-time Ubuntu firewall rule (enter the Ubuntu password locally):
 

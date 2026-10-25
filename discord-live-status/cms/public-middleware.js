@@ -18,6 +18,7 @@ module.exports = function contentMiddleware(app, express) {
       fs.readFile(file,(error,body) => {
         if (error) return next();
         res.set('Cache-Control','no-store');
+        res.set('X-Content-Version',version.trim());
         res.set('X-Content-Type-Options','nosniff');
         res.type('html').send(body);
       });
