@@ -406,7 +406,7 @@
       priceEl.textContent   = t.price;
       ramEl.textContent     = t.ram + ' RAM';
       playersEl.textContent = t.players;
-      const pct = (slider.value / slider.max) * 100;
+      const pct = Number(slider.max) > 0 ? (slider.value / slider.max) * 100 : 100;
       slider.style.background = `linear-gradient(to right, rgba(255,255,255,0.7) ${pct}%, rgba(255,255,255,0.2) ${pct}%)`;
     }
 

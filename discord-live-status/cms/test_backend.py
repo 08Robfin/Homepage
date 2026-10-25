@@ -94,4 +94,12 @@ class ContentTests(unittest.TestCase):
             self.post('/api/upload',{'data':'PHN2Zz48L3N2Zz4='})
         self.assertEqual(error.exception.code,400)
 
+    def test_06_real_peer_address_is_required(self):
+        handler=object.__new__(cms.Handler)
+        handler.client_address=('203.0.113.10',12345)
+        handler.headers={'Host':f'127.0.0.1:{cms.PORT}','X-Forwarded-For':'10.0.0.10'}
+        with self.assertRaises(PermissionError): handler.check_access()
+        handler.client_address=('10.0.0.109',12345)
+        handler.check_access()
+
 if __name__=='__main__': unittest.main(verbosity=2)
