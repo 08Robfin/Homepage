@@ -1,0 +1,1457 @@
+{
+  "version": 1,
+  "pages": {
+    "home": {
+      "title": "Homepage",
+      "fields": {
+        "f1": {
+          "label": "Robin Finnestad · Discord status",
+          "type": "text",
+          "value": "Discord status"
+        },
+        "f2": {
+          "label": "Robin Finnestad · Robin Finnestad",
+          "type": "text",
+          "value": "Robin Finnestad"
+        },
+        "f3": {
+          "label": "🖥️ Server Hosting · ⚡",
+          "type": "text",
+          "value": "⚡"
+        },
+        "f4": {
+          "label": "🖥️ Server Hosting · 🎮",
+          "type": "text",
+          "value": "🎮"
+        },
+        "f5": {
+          "label": "🖥️ Server Hosting · 🔧",
+          "type": "text",
+          "value": "🔧"
+        },
+        "f6": {
+          "label": "🖨️ 3D Printing · 📦",
+          "type": "text",
+          "value": "📦"
+        },
+        "f7": {
+          "label": "🖨️ 3D Printing · 🔒",
+          "type": "text",
+          "value": "🔒"
+        },
+        "f8": {
+          "label": "🖨️ 3D Printing · ⭐",
+          "type": "text",
+          "value": "⭐"
+        },
+        "f9": {
+          "label": "Certifications · Google IT Support",
+          "type": "text",
+          "value": "Google IT Support"
+        },
+        "f10": {
+          "label": "Certifications · Google — Coursera · 6 Courses",
+          "type": "text",
+          "value": "Google — Coursera · 6 Courses"
+        },
+        "f11": {
+          "label": "Page · ©",
+          "type": "text",
+          "value": "©"
+        },
+        "f12": {
+          "label": "Page · Robin Finnestad —",
+          "type": "text",
+          "value": "Robin Finnestad —"
+        },
+        "f13": {
+          "label": "Robin Finnestad · Image",
+          "type": "image",
+          "value": "https://github.com/08Robfin/Homepage/blob/main/images/robfin-pfp.png?raw=true"
+        },
+        "f14": {
+          "label": "🖥️ Server Hosting · Link",
+          "type": "url",
+          "value": "/Hosting"
+        },
+        "f15": {
+          "label": "🖨️ 3D Printing · Link",
+          "type": "url",
+          "value": "/3dprint"
+        },
+        "f16": {
+          "label": "Certifications · Image",
+          "type": "image",
+          "value": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/250px-Google_Favicon_2025.svg.png"
+        },
+        "f17": {
+          "label": "Certifications · Link",
+          "type": "url",
+          "value": "https://coursera.org/verify/professional-cert/KY33EM8TPDOE"
+        },
+        "f18": {
+          "label": "🖥️ PC Setup · Link",
+          "type": "url",
+          "value": "/setup"
+        },
+        "f19": {
+          "label": "🎮 Twitch · Link",
+          "type": "url",
+          "value": "https://www.twitch.tv/robfinttv"
+        },
+        "f20": {
+          "label": "🔗 GitHub · Link",
+          "type": "url",
+          "value": "https://github.com/08Robfin"
+        },
+        "f21": {
+          "label": "💬 Discord · Link",
+          "type": "url",
+          "value": "https://discord.gg/7XVMssR9Be"
+        },
+        "f22": {
+          "label": "🐝 Honeygain · Link",
+          "type": "url",
+          "value": "https://join.honeygain.com/FINNE5EBF2"
+        },
+        "f23": {
+          "label": "📣 Leadership & Advocacy · Level (%)",
+          "type": "percent",
+          "value": 85
+        },
+        "f24": {
+          "label": "🌍 Political Organizing · Level (%)",
+          "type": "percent",
+          "value": 75
+        },
+        "f25": {
+          "label": "🖥️ Homelab & Infrastructure · Level (%)",
+          "type": "percent",
+          "value": 75
+        },
+        "f26": {
+          "label": "🌐 System Admin & Networking · Level (%)",
+          "type": "percent",
+          "value": 65
+        },
+        "f27": {
+          "label": "⚙️ CI/CD & Automation · Level (%)",
+          "type": "percent",
+          "value": 60
+        },
+        "f28": {
+          "label": "💻 Web Development · Level (%)",
+          "type": "percent",
+          "value": 55
+        },
+        "f29": {
+          "label": "🐍 Python & API Integration · Level (%)",
+          "type": "percent",
+          "value": 48
+        },
+        "f30": {
+          "label": "🇳🇴 Norwegian (Native) · Level (%)",
+          "type": "percent",
+          "value": 100
+        },
+        "f31": {
+          "label": "🇬🇧 English (Fluent) · Level (%)",
+          "type": "percent",
+          "value": 95
+        },
+        "f32": {
+          "label": "🇸🇪 Swedish (Proficient) · Level (%)",
+          "type": "percent",
+          "value": 50
+        },
+        "f33": {
+          "label": "Robin Finnestad · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f34": {
+          "label": "🖥️ Server Hosting · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f35": {
+          "label": "🖨️ 3D Printing · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f36": {
+          "label": "Certifications · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f37": {
+          "label": "Experience · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f38": {
+          "label": "Core Skills · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f39": {
+          "label": "Values · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f40": {
+          "label": "Key Issues · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f41": {
+          "label": "Languages · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f42": {
+          "label": "🖥️ PC Setup · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f43": {
+          "label": "🎮 Twitch · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f44": {
+          "label": "🔗 GitHub · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f45": {
+          "label": "💬 Discord · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f46": {
+          "label": "🐝 Honeygain · Show card",
+          "type": "boolean",
+          "value": true
+        }
+      },
+      "translations": {
+        "en": {
+          "subtitle": "IT Apprentice & Political Activist",
+          "experience-title": "Experience",
+          "skills-title": "Core Skills",
+          "skill-leadership": "📣 Leadership & Advocacy",
+          "skill-polsci": "🌍 Political Organizing",
+          "skill-sysadmin": "🖥️ Homelab & Infrastructure",
+          "skill-networking": "🌐 System Admin & Networking",
+          "skill-cicd": "⚙️ CI/CD & Automation",
+          "skill-webdev": "💻 Web Development",
+          "skill-python": "🐍 Python & API Integration",
+          "languages-title": "Languages",
+          "lang-no": "🇳🇴 Norwegian (Native)",
+          "lang-en": "🇬🇧 English (Fluent)",
+          "lang-sv": "🇸🇪 Swedish (Proficient)",
+          "values-title": "Values",
+          "values-subtitle": "Core political alignment",
+          "val-dem-socialism": "✊ Democratic Socialism",
+          "val-dem-socialism-tt": "People's needs over profit. I believe the economy must serve everyone, not just the wealthy few.",
+          "val-climate": "🌍 Climate Justice",
+          "val-climate-tt": "The climate crisis hits the poorest hardest. I push for a fast, fair green transition that doesn't leave workers behind.",
+          "val-feminism": "♀️ Feminism",
+          "val-feminism-tt": "Equal pay, free abortion, safety from violence. I fight for full gender equality in law and in practice.",
+          "val-social-dem": "🌹 Social Democracy",
+          "val-social-dem-tt": "Strong welfare, free education and healthcare for all. I support broad social-democratic reforms as a step toward deeper change.",
+          "issues-title": "Key Issues",
+          "issues-subtitle": "Policy priorities",
+          "issue-health": "🧑‍⚕️ Universal Healthcare",
+          "issue-health-tt": "I want all healthcare fully public and free at point of use — no private queue-jumping.",
+          "issue-repro": "👩‍⚖️ Reproductive Rights",
+          "issue-repro-tt": "I defend and want to expand the right to abortion, free from shame and barriers.",
+          "issue-edu": "📚 Public Education",
+          "issue-edu-tt": "Free schools and universities for everyone. I oppose private schools that increase inequality.",
+          "issue-lgbtq": "🏳️‍🌈 LGBTQ+ Rights",
+          "issue-lgbtq-tt": "Full legal and social equality for all, regardless of gender identity or sexual orientation.",
+          "issue-public-sector": "🏦 Public Sector Strengthening",
+          "issue-public-sector-tt": "I fight privatisation of welfare — care, schools and transport should serve people, not profit.",
+          "issue-green": "🌱 Green Transition",
+          "issue-green-tt": "Rapid shift away from fossil fuels with a just transition that protects jobs and communities.",
+          "issue-econ": "⚖️ Economic Justice",
+          "issue-econ-tt": "Tax the wealthy, raise minimum wages, reduce the gap between rich and poor.",
+          "issue-digital": "🔒 Digital Rights & Privacy",
+          "issue-digital-tt": "I oppose mass surveillance and fight for strong data privacy and open digital infrastructure.",
+          "links-title": "Links",
+          "setup-title": "🖥️ PC Setup",
+          "twitch-title": "🎮 Twitch",
+          "github-title": "🔗 GitHub",
+          "discord-title": "💬 Discord",
+          "github-desc": "Code repositories & projects.",
+          "twitch-desc": "Live streaming.",
+          "discord-desc": "Join the server.",
+          "view-btn": "View →",
+          "watch-btn": "Watch →",
+          "join-btn": "Join →",
+          "referrals-title": "Referral Links",
+          "referrals-subtitle": "Support links with bonuses.",
+          "honeygain-desc": "Passive income by sharing bandwidth. Includes $3 welcome gift.",
+          "referral-disclaimer": "* Referral link",
+          "present": "Present",
+          "just-started": "Just started",
+          "footer-hosted": "Self-hosted on private infrastructure.",
+          "certs-title": "Certifications",
+          "cert-google-date": "Nov 24, 2025",
+          "cert-verify-btn": "Verify →",
+          "section-services": "Services",
+          "section-about": "About me",
+          "section-links": "Links",
+          "srv-title": "🖥️ Server Hosting",
+          "srv-subtitle": "Affordable game server hosting, self-managed on private infrastructure.",
+          "srv-li1": "Low-latency servers hosted in Norway",
+          "srv-li2": "Minecraft & more — from 24.99 kr/month",
+          "srv-li3": "Full panel access via PufferPanel",
+          "srv-btn": "View hosting →",
+          "print-title": "🖨️ 3D Printing",
+          "print-subtitle": "Custom 3D printed models, printed and shipped to your door. Available in Norway only.",
+          "print-li1": "Send me any model and get a price estimate",
+          "print-li2": "Secure payment through Finn.no Fiks Ferdig",
+          "print-li3": "10/10 rating on Finn.no",
+          "print-btn": "View service →",
+          "setup-desc": "My current specs and upgrade plans."
+        },
+        "no": {
+          "subtitle": "IT-lærling & politisk aktivist",
+          "experience-title": "Erfaring",
+          "skills-title": "Kjernekompetanse",
+          "skill-leadership": "📣 Lederskap & Påvirkning",
+          "skill-polsci": "🌍 Politisk organisering",
+          "skill-sysadmin": "🖥️ Homelab & Infrastruktur",
+          "skill-networking": "🌐 Systemadmin & Nettverk",
+          "skill-cicd": "⚙️ CI/CD & Automatisering",
+          "skill-webdev": "💻 Webutvikling",
+          "skill-python": "🐍 Python & API-integrasjon",
+          "languages-title": "Språk",
+          "lang-no": "🇳🇴 Norsk (morsmål)",
+          "lang-en": "🇬🇧 Engelsk (flytende)",
+          "lang-sv": "🇸🇪 Svensk (godt nivå)",
+          "values-title": "Verdier",
+          "values-subtitle": "Politisk ståsted",
+          "val-dem-socialism": "✊ Demokratisk sosialisme",
+          "val-dem-socialism-tt": "Folks behov før profitt. Jeg mener at økonomien må tjene alle, ikke bare de velstående få.",
+          "val-climate": "🌍 Klimarettferdighet",
+          "val-climate-tt": "Klimakrisen rammer de fattigste hardest. Jeg kjemper for en rask, rettferdig grønn omstilling som ikke forlater arbeiderne.",
+          "val-feminism": "♀️ Feminisme",
+          "val-feminism-tt": "Lik lønn, fri abort, trygghet mot vold. Jeg kjemper for full likestilling i lov og i praksis.",
+          "val-social-dem": "🌹 Sosialdemokrati",
+          "val-social-dem-tt": "Sterk velferd, gratis utdanning og helsevesen for alle. Jeg støtter sosialdemokratiske reformer som et skritt mot dypere endring.",
+          "issues-title": "Hjertesaker",
+          "issues-subtitle": "Politiske prioriteringer",
+          "issue-health": "🧑‍⚕️ Universell helsetjeneste",
+          "issue-health-tt": "Jeg vil ha all helsehjelp fullt offentlig og gratis ved behov – ingen privat køfrihet.",
+          "issue-repro": "👩‍⚖️ Reproduktive rettigheter",
+          "issue-repro-tt": "Jeg forsvarer og vil utvide retten til abort, fri fra skam og hindringer.",
+          "issue-edu": "📚 Offentlig utdanning",
+          "issue-edu-tt": "Gratis skoler og universiteter for alle. Jeg er imot privatskoler som øker ulikheten.",
+          "issue-lgbtq": "🏳️‍🌈 LHBT+-rettigheter",
+          "issue-lgbtq-tt": "Full juridisk og sosial likhet for alle, uavhengig av kjønnsidentitet eller seksuell orientering.",
+          "issue-public-sector": "🏦 Styrking av offentlig sektor",
+          "issue-public-sector-tt": "Jeg kjemper mot privatisering av velferd – omsorg, skoler og transport skal tjene folk, ikke profitt.",
+          "issue-green": "🌱 Grønn omstilling",
+          "issue-green-tt": "Rask overgang bort fra fossile brensler med en rettferdig omstilling som beskytter jobber og lokalsamfunn.",
+          "issue-econ": "⚖️ Økonomisk rettferdighet",
+          "issue-econ-tt": "Skattlegg de rike, hev minstelønn, reduser kløften mellom rik og fattig.",
+          "issue-digital": "🔒 Digitale rettigheter & personvern",
+          "issue-digital-tt": "Jeg er imot masseovervåking og kjemper for sterkt personvern og åpen digital infrastruktur.",
+          "links-title": "Lenker",
+          "setup-title": "🖥️ PC-oppsett",
+          "twitch-title": "🎮 Twitch",
+          "github-title": "🔗 GitHub",
+          "discord-title": "💬 Discord",
+          "github-desc": "Kodelagre & prosjekter.",
+          "twitch-desc": "Direktesending.",
+          "discord-desc": "Bli med på serveren.",
+          "view-btn": "Se →",
+          "watch-btn": "Se →",
+          "join-btn": "Bli med →",
+          "referrals-title": "Referanselenker",
+          "referrals-subtitle": "Støttelenker med bonuser.",
+          "honeygain-desc": "Passiv inntekt ved deling av båndbredde. Inkluderer $3 velkomstgave.",
+          "referral-disclaimer": "* Referanselenke",
+          "present": "Nå",
+          "just-started": "Nettopp startet",
+          "footer-hosted": "Egendriftet på privat infrastruktur.",
+          "certs-title": "Sertifiseringer",
+          "cert-google-date": "24. nov 2025",
+          "cert-verify-btn": "Verifiser →",
+          "section-services": "Tjenester",
+          "section-about": "Om meg",
+          "section-links": "Lenker",
+          "srv-title": "🖥️ Serverhosting",
+          "srv-subtitle": "Rimelig spillserverhosting, selvdriftet på privat infrastruktur.",
+          "srv-li1": "Lavlatensservere i Norge",
+          "srv-li2": "Minecraft og mer – fra 24,99 kr/måned",
+          "srv-li3": "Full paneltilgang via PufferPanel",
+          "srv-btn": "Se hosting →",
+          "print-title": "🖨️ 3D-printing",
+          "print-subtitle": "Egendefinerte 3D-printede modeller, printet og sendt til deg. Kun tilgjengelig i Norge.",
+          "print-li1": "Send meg en modell og få et prisestimat",
+          "print-li2": "Trygg betaling via Finn.no Fiks Ferdig",
+          "print-li3": "10/10 vurdering på Finn.no",
+          "print-btn": "Se tjeneste →",
+          "setup-desc": "Navaerende spesifikasjoner og oppgraderingsplan."
+        },
+        "sv": {
+          "subtitle": "IT-lärling & politisk aktivist",
+          "experience-title": "Erfarenhet",
+          "skills-title": "Kärnkompetens",
+          "skill-leadership": "📣 Ledarskap & Påverkan",
+          "skill-polsci": "🌍 Politisk organisering",
+          "skill-sysadmin": "🖥️ Homelab & Infrastruktur",
+          "skill-networking": "🌐 Systemadmin & Nätverk",
+          "skill-cicd": "⚙️ CI/CD & Automatisering",
+          "skill-webdev": "💻 Webbutveckling",
+          "skill-python": "🐍 Python & API-integration",
+          "languages-title": "Språk",
+          "lang-no": "🇳🇴 Norska (modersmål)",
+          "lang-en": "🇬🇧 Engelska (flytande)",
+          "lang-sv": "🇸🇪 Svenska (god nivå)",
+          "values-title": "Värderingar",
+          "values-subtitle": "Politisk inriktning",
+          "val-dem-socialism": "✊ Demokratisk socialism",
+          "val-dem-socialism-tt": "Folkets behov framför vinst. Jag anser att ekonomin måste tjäna alla, inte bara de förmögna få.",
+          "val-climate": "🌍 Klimaträttvisa",
+          "val-climate-tt": "Klimatkrisen drabbar de fattigaste hårdast. Jag kämpar för en snabb, rättvis grön omställning som inte lämnar arbetstagare bakom.",
+          "val-feminism": "♀️ Feminism",
+          "val-feminism-tt": "Lika lön, fri abort, trygghet från våld. Jag kämpar för full jämställdhet i lag och i praktiken.",
+          "val-social-dem": "🌹 Socialdemokrati",
+          "val-social-dem-tt": "Stark välfärd, gratis utbildning och sjukvård för alla. Jag stödjer socialdemokratiska reformer som ett steg mot djupare förändring.",
+          "issues-title": "Hjärtefrågor",
+          "issues-subtitle": "Politiska prioriteringar",
+          "issue-health": "🧑‍⚕️ Universell sjukvård",
+          "issue-health-tt": "Jag vill ha all sjukvård helt offentlig och gratis vid behov – ingen privat köfri vård.",
+          "issue-repro": "👩‍⚖️ Reproduktiva rättigheter",
+          "issue-repro-tt": "Jag försvarar och vill utvidga rätten till abort, fri från skam och hinder.",
+          "issue-edu": "📚 Offentlig utbildning",
+          "issue-edu-tt": "Gratis skolor och universitet för alla. Jag är emot fristående skolor som ökar ojämlikheten.",
+          "issue-lgbtq": "🏳️‍🌈 HBTQ+-rättigheter",
+          "issue-lgbtq-tt": "Full rättslig och social jämlikhet för alla, oavsett könsidentitet eller sexuell läggning.",
+          "issue-public-sector": "🏦 Stärkning av offentlig sektor",
+          "issue-public-sector-tt": "Jag kämpar mot privatisering av välfärden – vård, skolor och kollektivtrafik ska tjäna folk, inte vinst.",
+          "issue-green": "🌱 Grön omställning",
+          "issue-green-tt": "Snabb övergång från fossila bränslen med en rättvis omställning som skyddar jobb och samhällen.",
+          "issue-econ": "⚖️ Ekonomisk rättvisa",
+          "issue-econ-tt": "Beskatta de rika, höj minimilöner, minska klyftan mellan rik och fattig.",
+          "issue-digital": "🔒 Digitala rättigheter & integritet",
+          "issue-digital-tt": "Jag är emot massövervakning och kämpar för stark dataintegritet och öppen digital infrastruktur.",
+          "links-title": "Länkar",
+          "setup-title": "🖥️ PC-setup",
+          "twitch-title": "🎮 Twitch",
+          "github-title": "🔗 GitHub",
+          "discord-title": "💬 Discord",
+          "github-desc": "Kodarkiv & projekt.",
+          "twitch-desc": "Direktsändning.",
+          "discord-desc": "Gå med i servern.",
+          "view-btn": "Visa →",
+          "watch-btn": "Se →",
+          "join-btn": "Gå med →",
+          "referrals-title": "Referenslänkar",
+          "referrals-subtitle": "Supportlänkar med bonusar.",
+          "honeygain-desc": "Passiv inkomst via delning av bandbredd. Inkluderar $3 välkomstgåva.",
+          "referral-disclaimer": "* Referenslänk",
+          "present": "Nu",
+          "just-started": "Precis börjat",
+          "footer-hosted": "Självhostad på privat infrastruktur.",
+          "certs-title": "Certifieringar",
+          "cert-google-date": "24 nov 2025",
+          "cert-verify-btn": "Verifiera →",
+          "section-services": "Tjänster",
+          "section-about": "Om mig",
+          "section-links": "Länkar",
+          "srv-title": "🖥️ Serverhosting",
+          "srv-subtitle": "Prisvärd spelserverhosting, självdrift på privat infrastruktur.",
+          "srv-li1": "Låglatensservrar i Norge",
+          "srv-li2": "Minecraft och mer – från 24,99 kr/månad",
+          "srv-li3": "Full panelåtkomst via PufferPanel",
+          "srv-btn": "Se hosting →",
+          "print-title": "🖨️ 3D-utskrift",
+          "print-subtitle": "Anpassade 3D-utskrivna modeller, utskrivna och skickade till dig. Endast tillgängligt i Norge.",
+          "print-li1": "Skicka mig en modell och få en prisuppskattning",
+          "print-li2": "Säker betalning via Finn.no Fiks Ferdig",
+          "print-li3": "10/10-betyg på Finn.no",
+          "print-btn": "Se tjänst →",
+          "setup-desc": "Nuvarande specifikationer och uppgraderingsplan."
+        }
+      },
+      "positions": [
+        {
+          "title": "🧑‍💼 IT Worker, University of Agder (UiA)",
+          "start": "2026-08-03"
+        },
+        {
+          "title": "⚒️ County Leader, Agder Socialist Youth",
+          "start": "2026-01-24"
+        },
+        {
+          "title": "🌹 Local Leader, Vennesla Socialist Youth",
+          "start": "2024-09-01",
+          "end": "2026-02-01"
+        },
+        {
+          "title": "🌍 Financial Manager, Norwegian People's Aid Solidarity Youth Kristiansand",
+          "start": "2025-02-01",
+          "end": "2026-02-01"
+        }
+      ],
+      "tiers": null,
+      "cards": []
+    },
+    "setup": {
+      "title": "PC setup",
+      "fields": {
+        "f1": {
+          "label": "PC Setup · 🖥️",
+          "type": "text",
+          "value": "🖥️"
+        },
+        "f2": {
+          "label": "CPU · Intel Core i5-12400F",
+          "type": "text",
+          "value": "Intel Core i5-12400F"
+        },
+        "f3": {
+          "label": "Mobo · Gigabyte B660 DS3H AX DDR4",
+          "type": "text",
+          "value": "Gigabyte B660 DS3H AX DDR4"
+        },
+        "f4": {
+          "label": "RAM · 32 GB DDR4",
+          "type": "text",
+          "value": "32 GB DDR4"
+        },
+        "f5": {
+          "label": "GPU · RTX 3060 Ti (Gigabyte)",
+          "type": "text",
+          "value": "RTX 3060 Ti (Gigabyte)"
+        },
+        "f6": {
+          "label": "Storage · 4 TB Lexar NVMe",
+          "type": "text",
+          "value": "4 TB Lexar NVMe"
+        },
+        "f7": {
+          "label": "PSU · MSI MAG A750GL 750W Gold",
+          "type": "text",
+          "value": "MSI MAG A750GL 750W Gold"
+        },
+        "f8": {
+          "label": "OS · Windows 11 Home",
+          "type": "text",
+          "value": "Windows 11 Home"
+        },
+        "f9": {
+          "label": "Upgrade plan · 1",
+          "type": "text",
+          "value": "1"
+        },
+        "f10": {
+          "label": "Upgrade plan · 9 498,-",
+          "type": "text",
+          "value": "9 498,-"
+        },
+        "f11": {
+          "label": "Upgrade plan · Jumping from the RTX 3060 Ti to the 9070 XT, a big generational l",
+          "type": "text",
+          "value": "Jumping from the RTX 3060 Ti to the 9070 XT, a big generational leap in performance."
+        },
+        "f12": {
+          "label": "Upgrade plan · komplett.no →",
+          "type": "text",
+          "value": "komplett.no →"
+        },
+        "f13": {
+          "label": "Upgrade plan · 2",
+          "type": "text",
+          "value": "2"
+        },
+        "f14": {
+          "label": "Upgrade plan · 11 860,-",
+          "type": "text",
+          "value": "11 860,-"
+        },
+        "f15": {
+          "label": "Upgrade plan · Full platform switch to AM5. All done together since they're inte",
+          "type": "text",
+          "value": "Full platform switch to AM5. All done together since they're interdependent."
+        },
+        "f16": {
+          "label": "Upgrade plan · CPU →",
+          "type": "text",
+          "value": "CPU →"
+        },
+        "f17": {
+          "label": "Upgrade plan · Mobo →",
+          "type": "text",
+          "value": "Mobo →"
+        },
+        "f18": {
+          "label": "Upgrade plan · RAM →",
+          "type": "text",
+          "value": "RAM →"
+        },
+        "f19": {
+          "label": "Upgrade plan · Cooler →",
+          "type": "text",
+          "value": "Cooler →"
+        },
+        "f20": {
+          "label": "Upgrade plan · 3",
+          "type": "text",
+          "value": "3"
+        },
+        "f21": {
+          "label": "Upgrade plan · 1 628,-",
+          "type": "text",
+          "value": "1 628,-"
+        },
+        "f22": {
+          "label": "Upgrade plan · Finally replacing the generic case. The Fractal North is clean, w",
+          "type": "text",
+          "value": "Finally replacing the generic case. The Fractal North is clean, well-ventilated, and looks great on a desk."
+        },
+        "f23": {
+          "label": "Upgrade plan · komplett.no →",
+          "type": "text",
+          "value": "komplett.no →"
+        },
+        "f24": {
+          "label": "Page · ©",
+          "type": "text",
+          "value": "©"
+        },
+        "f25": {
+          "label": "Page · Robin Finnestad",
+          "type": "text",
+          "value": "Robin Finnestad"
+        },
+        "f26": {
+          "label": "PC Setup · Link",
+          "type": "url",
+          "value": "/"
+        },
+        "f27": {
+          "label": "Upgrade plan · Link",
+          "type": "url",
+          "value": "https://www.komplett.no/product/1318738/datautstyr/pc-komponenter/skjermkort/asus-prime-amd-radeon-rx-9070-xt-oc"
+        },
+        "f28": {
+          "label": "Upgrade plan · Link",
+          "type": "url",
+          "value": "https://www.proshop.no/ProsessorCPU/AMD-Ryzen-7-9700X-ProsessorCPU-8-kjerner-38-GHz-AMD-AM5-AMD-Boks-uten-kjoeler/3273289"
+        },
+        "f29": {
+          "label": "Upgrade plan · Link",
+          "type": "url",
+          "value": "https://www.proshop.no/Hovedkort/ASRock-B650-STEEL-LEGEND-WIFI-Hovedkort-AMD-B650-AMD-AM5-socket-DDR5-RAM-ATX/3262140"
+        },
+        "f30": {
+          "label": "Upgrade plan · Link",
+          "type": "url",
+          "value": "https://www.komplett.no/product/1219329/datautstyr/pc-komponenter/minnebrikker/kingston-fury-beast-ddr5-5600mhz-32gb?queryid=2b6bf493f56fcaa4d8a7b8c81e0849d6&sort=PriceAsc"
+        },
+        "f31": {
+          "label": "Upgrade plan · Link",
+          "type": "url",
+          "value": "https://www.proshop.no/Prosessor-kjoeler/be-quiet-PURE-ROCK-PRO-3-Black-CPU-Luftkjoeler-Max-35-dBA/3348114"
+        },
+        "f32": {
+          "label": "Upgrade plan · Link",
+          "type": "url",
+          "value": "https://www.komplett.no/product/1223032/datautstyr/pc-komponenter/kabinetterbarebone/midi-tower/fractal-north-chalk-white-mesh-mid-tower"
+        },
+        "f33": {
+          "label": "PC Setup · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f34": {
+          "label": "Current specs · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f35": {
+          "label": "Upgrade plan · Show card",
+          "type": "boolean",
+          "value": true
+        }
+      },
+      "translations": {
+        "en": {
+          "back-btn": "← Back",
+          "page-title": "PC Setup",
+          "page-subtitle": "Current specs and what I'm upgrading next.",
+          "current-title": "Current specs",
+          "spec-cpu": "CPU",
+          "spec-mobo": "Mobo",
+          "spec-ram": "RAM",
+          "spec-gpu": "GPU",
+          "spec-storage": "Storage",
+          "spec-psu": "PSU",
+          "spec-os": "OS",
+          "spec-case": "Case",
+          "spec-case-val": "Generic",
+          "upgrade-title": "Upgrade plan",
+          "upgrade-note": "All prices in NOK, VAT included.",
+          "step2-name": "GPU",
+          "step3-name": "CPU + Mobo + RAM + Cooler",
+          "step4-name": "Storage",
+          "step5-name": "Case",
+          "total-label": "Total",
+          "emergency-label": "Emergency",
+          "emergency-title": "Server HDD is actively dying",
+          "emergency-desc": "The 4 TB HDD in my home server is failing — needs to be replaced and cloned ASAP. This is priority #1 with my money right now, before any other upgrades.",
+          "emergency-looking": "Buying one of these:"
+        },
+        "no": {
+          "back-btn": "← Tilbake",
+          "page-title": "PC-oppsett",
+          "page-subtitle": "Navaerende spesifikasjoner og hva jeg oppgraderer.",
+          "current-title": "Navaerende spesifikasjoner",
+          "spec-cpu": "Prosessor",
+          "spec-mobo": "Hovedkort",
+          "spec-ram": "RAM",
+          "spec-gpu": "Skjermkort",
+          "spec-storage": "Lagring",
+          "spec-psu": "Stromforsyning",
+          "spec-os": "OS",
+          "spec-case": "Kabinett",
+          "spec-case-val": "Generisk",
+          "upgrade-title": "Oppgraderingsplan",
+          "upgrade-note": "Alle priser i NOK, inkl. mva.",
+          "step2-name": "Skjermkort",
+          "step3-name": "Prosessor + Hovedkort + RAM + Kjøler",
+          "step4-name": "Lagring",
+          "step5-name": "Kabinett",
+          "total-label": "Totalt",
+          "emergency-label": "Hastetilfelle",
+          "emergency-title": "Server-HDD-en er i ferd med å dø",
+          "emergency-desc": "4 TB HDD-en i hjemmeserveren min er i ferd med å gi opp — må byttes og klones ASAP. Dette er prioritet #1 med pengene mine akkurat nå, før alle andre oppgraderinger.",
+          "emergency-looking": "Kjøper en av disse:"
+        },
+        "sv": {
+          "back-btn": "← Tillbaka",
+          "page-title": "PC-setup",
+          "page-subtitle": "Nuvarande specifikationer och vad jag uppgraderar.",
+          "current-title": "Nuvarande specifikationer",
+          "spec-cpu": "Processor",
+          "spec-mobo": "Moderkort",
+          "spec-ram": "RAM",
+          "spec-gpu": "Grafikkort",
+          "spec-storage": "Lagring",
+          "spec-psu": "Natagggregat",
+          "spec-os": "OS",
+          "spec-case": "Chassi",
+          "spec-case-val": "Generiskt",
+          "upgrade-title": "Uppgraderingsplan",
+          "upgrade-note": "Alla priser i NOK, inkl. moms.",
+          "step2-name": "Grafikkort",
+          "step3-name": "Processor + Moderkort + RAM + Kylare",
+          "step4-name": "Lagring",
+          "step5-name": "Chassi",
+          "total-label": "Totalt",
+          "emergency-label": "Nödläge",
+          "emergency-title": "Server-HDD håller på att ge upp",
+          "emergency-desc": "4 TB HDD:n i min hemserver är på väg att dö — måste bytas ut och klonas ASAP. Det här är prioritet #1 med mina pengar just nu, före alla andra uppgraderingar.",
+          "emergency-looking": "Köper en av dessa:"
+        }
+      },
+      "positions": null,
+      "tiers": null,
+      "cards": []
+    },
+    "Hosting": {
+      "title": "Hosting",
+      "fields": {
+        "f1": {
+          "label": "Server Hosting · 🖥️",
+          "type": "text",
+          "value": "🖥️"
+        },
+        "f2": {
+          "label": "💰 Pricing · 1 GB",
+          "type": "text",
+          "value": "1 GB"
+        },
+        "f3": {
+          "label": "💰 Pricing · 2 GB",
+          "type": "text",
+          "value": "2 GB"
+        },
+        "f4": {
+          "label": "💰 Pricing · 4 GB",
+          "type": "text",
+          "value": "4 GB"
+        },
+        "f5": {
+          "label": "💰 Pricing · 5 GB",
+          "type": "text",
+          "value": "5 GB"
+        },
+        "f6": {
+          "label": "💰 Pricing · 6 GB",
+          "type": "text",
+          "value": "6 GB"
+        },
+        "f7": {
+          "label": "💰 Pricing · 10 GB",
+          "type": "text",
+          "value": "10 GB"
+        },
+        "f8": {
+          "label": "💰 Pricing · 12 GB",
+          "type": "text",
+          "value": "12 GB"
+        },
+        "f9": {
+          "label": "💰 Pricing · 24.99",
+          "type": "text",
+          "value": "24.99"
+        },
+        "f10": {
+          "label": "💰 Pricing · 1 GB RAM",
+          "type": "text",
+          "value": "1 GB RAM"
+        },
+        "f11": {
+          "label": "💰 Pricing · ·",
+          "type": "text",
+          "value": "·"
+        },
+        "f12": {
+          "label": "💰 Pricing · 2–3 players",
+          "type": "text",
+          "value": "2–3 players"
+        },
+        "f13": {
+          "label": "🎮 Available Games · ⛏️",
+          "type": "text",
+          "value": "⛏️"
+        },
+        "f14": {
+          "label": "🎮 Available Games · Minecraft",
+          "type": "text",
+          "value": "Minecraft"
+        },
+        "f15": {
+          "label": "🎮 Available Games · 🎲",
+          "type": "text",
+          "value": "🎲"
+        },
+        "f16": {
+          "label": "✅ What's included · 🎛️",
+          "type": "text",
+          "value": "🎛️"
+        },
+        "f17": {
+          "label": "✅ What's included · 🌍",
+          "type": "text",
+          "value": "🌍"
+        },
+        "f18": {
+          "label": "✅ What's included · ⚡",
+          "type": "text",
+          "value": "⚡"
+        },
+        "f19": {
+          "label": "✅ What's included · 💬",
+          "type": "text",
+          "value": "💬"
+        },
+        "f20": {
+          "label": "✅ What's included · 🔄",
+          "type": "text",
+          "value": "🔄"
+        },
+        "f21": {
+          "label": "📬 Get in touch · ✉️",
+          "type": "text",
+          "value": "✉️"
+        },
+        "f22": {
+          "label": "📬 Get in touch · kontakt@robfin.no",
+          "type": "text",
+          "value": "kontakt@robfin.no"
+        },
+        "f23": {
+          "label": "📬 Get in touch · 💬",
+          "type": "text",
+          "value": "💬"
+        },
+        "f24": {
+          "label": "📬 Get in touch · robfin",
+          "type": "text",
+          "value": "robfin"
+        },
+        "f25": {
+          "label": "📬 Get in touch · 🧡 Vipps",
+          "type": "text",
+          "value": "🧡 Vipps"
+        },
+        "f26": {
+          "label": "📬 Get in touch · (Norway only)",
+          "type": "text",
+          "value": "(Norway only)"
+        },
+        "f27": {
+          "label": "📬 Get in touch · 🅿️ PayPal",
+          "type": "text",
+          "value": "🅿️ PayPal"
+        },
+        "f28": {
+          "label": "📬 Get in touch · 🏦 Bank Transfer",
+          "type": "text",
+          "value": "🏦 Bank Transfer"
+        },
+        "f29": {
+          "label": "📬 Get in touch · (Norway only)",
+          "type": "text",
+          "value": "(Norway only)"
+        },
+        "f30": {
+          "label": "Page · ©",
+          "type": "text",
+          "value": "©"
+        },
+        "f31": {
+          "label": "Page · Robin Finnestad —",
+          "type": "text",
+          "value": "Robin Finnestad —"
+        },
+        "f32": {
+          "label": "Server Hosting · Link",
+          "type": "url",
+          "value": "/"
+        },
+        "f33": {
+          "label": "📬 Get in touch · Link",
+          "type": "url",
+          "value": "mailto:kontakt@robfin.no"
+        },
+        "f34": {
+          "label": "Server Hosting · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f35": {
+          "label": "💰 Pricing · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f36": {
+          "label": "🎮 Available Games · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f37": {
+          "label": "✅ What's included · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f38": {
+          "label": "📬 Get in touch · Show card",
+          "type": "boolean",
+          "value": true
+        }
+      },
+      "translations": {
+        "en": {
+          "back-btn": "← Back",
+          "page-title": "Server Hosting",
+          "page-subtitle": "Affordable game servers hosted on private infrastructure in Norway. You get full panel access, managed by you, powered by me.",
+          "pricing-title": "💰 Pricing",
+          "pricing-subtitle": "24.99 kr per GB / month. Drag to explore.",
+          "pricing-label": "Estimated monthly price",
+          "pricing-unit": "kr / month",
+          "pricing-note": "Need a different size, or price? I'm open to discussing other options, just reach out.",
+          "games-title": "🎮 Available Games",
+          "games-subtitle": "More titles being added regularly.",
+          "minecraft-desc": "Java & Bedrock · Vanilla, Spigot, Paper, Forge, Fabric",
+          "status-available": "Available",
+          "more-games-title": "More games",
+          "more-games-desc": "Additional titles coming soon",
+          "status-soon": "Soon",
+          "games-note": "Don't see your game? Reach out, if I can host it, we'll figure it out.",
+          "included-title": "✅ What's included",
+          "panel-title": "Full PufferPanel access",
+          "panel-desc": "Start, stop, restart your server. View console logs, upload files, manage configs — all from your own login at panel.robfin.no",
+          "norway-inc-title": "Hosted in Norway",
+          "norway-inc-desc": "Low latency for Scandinavian players. 99.998% uptime.",
+          "setup-title": "Fast setup",
+          "setup-desc": "Your server is typically ready within 1 hour of payment.",
+          "support-title": "Direct support",
+          "support-desc": "You deal with me directly: no ticket queue, no chatbots.",
+          "billing-title": "Flexible billing",
+          "billing-desc": "Monthly. Cancel or change plan anytime, just let me know.",
+          "contact-title": "📬 Get in touch",
+          "contact-subtitle": "To purchase or ask questions, contact me via email or Discord. I'll get back to you quickly.",
+          "email-label": "Email",
+          "discord-label": "Discord",
+          "payment-methods": "Payment methods",
+          "payment-note": "Payment details shared after we agree on a plan.",
+          "footer-server": "Self-hosted on private infrastructure."
+        },
+        "no": {
+          "back-btn": "← Tilbake",
+          "page-title": "Serverhosting",
+          "page-subtitle": "Rimelige spillservere på privat infrastruktur i Norge. Du får full tilgang til kontrollpanelet, styrt av deg, drevet av meg.",
+          "pricing-title": "💰 Priser",
+          "pricing-subtitle": "24,99 kr per GB / måned. Dra for å utforske.",
+          "pricing-label": "Estimert månedspris",
+          "pricing-unit": "kr / måned",
+          "pricing-note": "Trenger du en annen størrelse eller pris? Jeg er åpen for å diskutere andre alternativer, ta kontakt.",
+          "games-title": "🎮 Tilgjengelige spill",
+          "games-subtitle": "Flere titler legges til jevnlig.",
+          "minecraft-desc": "Java og Bedrock · Vanilla, Spigot, Paper, Forge, Fabric",
+          "status-available": "Tilgjengelig",
+          "more-games-title": "Flere spill",
+          "more-games-desc": "Flere titler kommer snart",
+          "status-soon": "Snart",
+          "games-note": "Ser du ikke spillet ditt? Ta kontakt, kan jeg hoste det, finner vi en løsning.",
+          "included-title": "✅ Hva er inkludert",
+          "panel-title": "Full PufferPanel-tilgang",
+          "panel-desc": "Start, stopp, omstart av serveren. Vis konsolllogger, last opp filer, administrer konfigurasjoner — alt fra din egen innlogging på panel.robfin.no",
+          "norway-inc-title": "Hostet i Norge",
+          "norway-inc-desc": "Lav latens for skandinaviske spillere. 99,998% oppetid.",
+          "setup-title": "Rask oppsett",
+          "setup-desc": "Serveren din er vanligvis klar innen 1 time etter betaling.",
+          "support-title": "Direkte støtte",
+          "support-desc": "Du handler direkte med meg: ingen ticket-kø, ingen chatboter.",
+          "billing-title": "Fleksibel fakturering",
+          "billing-desc": "Månedlig. Avbryt eller endre plan når som helst, bare gi meg beskjed.",
+          "contact-title": "📬 Ta kontakt",
+          "contact-subtitle": "For kjøp eller spørsmål, kontakt meg via e-post eller Discord. Jeg svarer raskt.",
+          "email-label": "E-post",
+          "discord-label": "Discord",
+          "payment-methods": "Betalingsmåter",
+          "payment-note": "Betalingsdetaljer deles etter at vi har avtalt en plan.",
+          "footer-server": "Egendriftet på privat infrastruktur."
+        },
+        "sv": {
+          "back-btn": "← Tillbaka",
+          "page-title": "Serverhosting",
+          "page-subtitle": "Prisvärda spelservrar på privat infrastruktur i Norge. Du får full åtkomst till kontrollpanelen, hanterad av dig, driven av mig.",
+          "pricing-title": "💰 Prissättning",
+          "pricing-subtitle": "24,99 kr per GB / månad. Dra för att utforska.",
+          "pricing-label": "Uppskattad månadskostnad",
+          "pricing-unit": "kr / månad",
+          "pricing-note": "Behöver du en annan storlek eller pris? Jag är öppen för att diskutera andra alternativ, hör av dig.",
+          "games-title": "🎮 Tillgängliga spel",
+          "games-subtitle": "Fler titlar läggs till regelbundet.",
+          "minecraft-desc": "Java och Bedrock · Vanilla, Spigot, Paper, Forge, Fabric",
+          "status-available": "Tillgänglig",
+          "more-games-title": "Fler spel",
+          "more-games-desc": "Fler titlar kommer snart",
+          "status-soon": "Snart",
+          "games-note": "Ser du inte ditt spel? Hör av dig, om jag kan hosta det löser vi det.",
+          "included-title": "✅ Vad ingår",
+          "panel-title": "Full PufferPanel-åtkomst",
+          "panel-desc": "Starta, stoppa, omstarta din server. Visa konsollloggar, ladda upp filer, hantera konfigurationer — allt från din egen inloggning på panel.robfin.no",
+          "norway-inc-title": "Hostad i Norge",
+          "norway-inc-desc": "Låg latens för skandinaviska spelare. 99,998% drifttid.",
+          "setup-title": "Snabb installation",
+          "setup-desc": "Din server är vanligtvis redo inom 1 timme efter betalning.",
+          "support-title": "Direkt support",
+          "support-desc": "Du hanterar direkt med mig: ingen ticket-kö, inga chatbotar.",
+          "billing-title": "Flexibel fakturering",
+          "billing-desc": "Månadsvis. Avbryt eller byt plan när som helst, meddela mig bara.",
+          "contact-title": "📬 Kom i kontakt",
+          "contact-subtitle": "För köp eller frågor, kontakta mig via e-post eller Discord. Jag svarar snabbt.",
+          "email-label": "E-post",
+          "discord-label": "Discord",
+          "payment-methods": "Betalningsmetoder",
+          "payment-note": "Betalningsinformation delas efter att vi kommit överens om en plan.",
+          "footer-server": "Självhostad på privat infrastruktur."
+        }
+      },
+      "positions": null,
+      "tiers": {
+        "en": [
+          {
+            "ram": "1 GB",
+            "price": "24.99",
+            "players": "2–3 players"
+          },
+          {
+            "ram": "2 GB",
+            "price": "49.99",
+            "players": "5–7 players"
+          },
+          {
+            "ram": "4 GB",
+            "price": "99.99",
+            "players": "10–15 players"
+          },
+          {
+            "ram": "5 GB",
+            "price": "124.99",
+            "players": "15–20 players"
+          },
+          {
+            "ram": "6 GB",
+            "price": "149.99",
+            "players": "20–25 players"
+          },
+          {
+            "ram": "10 GB",
+            "price": "249.99",
+            "players": "40–50 players"
+          },
+          {
+            "ram": "12 GB",
+            "price": "299.99",
+            "players": "50–60 players"
+          }
+        ],
+        "no": [
+          {
+            "ram": "1 GB",
+            "price": "24,99",
+            "players": "2–3 spillere"
+          },
+          {
+            "ram": "2 GB",
+            "price": "49,99",
+            "players": "5–7 spillere"
+          },
+          {
+            "ram": "4 GB",
+            "price": "99,99",
+            "players": "10–15 spillere"
+          },
+          {
+            "ram": "5 GB",
+            "price": "124,99",
+            "players": "15–20 spillere"
+          },
+          {
+            "ram": "6 GB",
+            "price": "149,99",
+            "players": "20–25 spillere"
+          },
+          {
+            "ram": "10 GB",
+            "price": "249,99",
+            "players": "40–50 spillere"
+          },
+          {
+            "ram": "12 GB",
+            "price": "299,99",
+            "players": "50–60 spillere"
+          }
+        ],
+        "sv": [
+          {
+            "ram": "1 GB",
+            "price": "24,99",
+            "players": "2–3 spelare"
+          },
+          {
+            "ram": "2 GB",
+            "price": "49,99",
+            "players": "5–7 spelare"
+          },
+          {
+            "ram": "4 GB",
+            "price": "99,99",
+            "players": "10–15 spelare"
+          },
+          {
+            "ram": "5 GB",
+            "price": "124,99",
+            "players": "15–20 spelare"
+          },
+          {
+            "ram": "6 GB",
+            "price": "149,99",
+            "players": "20–25 spelare"
+          },
+          {
+            "ram": "10 GB",
+            "price": "249,99",
+            "players": "40–50 spelare"
+          },
+          {
+            "ram": "12 GB",
+            "price": "299,99",
+            "players": "50–60 spelare"
+          }
+        ]
+      },
+      "cards": []
+    },
+    "3dprint": {
+      "title": "3D printing",
+      "fields": {
+        "f1": {
+          "label": "3D Printing · 🖨️",
+          "type": "text",
+          "value": "🖨️"
+        },
+        "f2": {
+          "label": "⚙️ How it works · 1",
+          "type": "text",
+          "value": "1"
+        },
+        "f3": {
+          "label": "⚙️ How it works · 2",
+          "type": "text",
+          "value": "2"
+        },
+        "f4": {
+          "label": "⚙️ How it works · 3",
+          "type": "text",
+          "value": "3"
+        },
+        "f5": {
+          "label": "⚙️ How it works · 4",
+          "type": "text",
+          "value": "4"
+        },
+        "f6": {
+          "label": "🔒 Safe payment · 🔗",
+          "type": "text",
+          "value": "🔗"
+        },
+        "f7": {
+          "label": "🔒 Safe payment · ⭐",
+          "type": "text",
+          "value": "⭐"
+        },
+        "f8": {
+          "label": "🔒 Safe payment · 10 / 10",
+          "type": "text",
+          "value": "10 / 10"
+        },
+        "f9": {
+          "label": "🎨 What I can print · 🎮",
+          "type": "text",
+          "value": "🎮"
+        },
+        "f10": {
+          "label": "🎨 What I can print · 🏠",
+          "type": "text",
+          "value": "🏠"
+        },
+        "f11": {
+          "label": "🎨 What I can print · 🎁",
+          "type": "text",
+          "value": "🎁"
+        },
+        "f12": {
+          "label": "🎨 What I can print · ⚙️",
+          "type": "text",
+          "value": "⚙️"
+        },
+        "f13": {
+          "label": "🎨 What I can print · 💡",
+          "type": "text",
+          "value": "💡"
+        },
+        "f14": {
+          "label": "📬 Get in touch · ✉️",
+          "type": "text",
+          "value": "✉️"
+        },
+        "f15": {
+          "label": "📬 Get in touch · kontakt@robfin.no",
+          "type": "text",
+          "value": "kontakt@robfin.no"
+        },
+        "f16": {
+          "label": "📬 Get in touch · 💬",
+          "type": "text",
+          "value": "💬"
+        },
+        "f17": {
+          "label": "📬 Get in touch · robfin",
+          "type": "text",
+          "value": "robfin"
+        },
+        "f18": {
+          "label": "📬 Get in touch · 📍",
+          "type": "text",
+          "value": "📍"
+        },
+        "f19": {
+          "label": "Page · ©",
+          "type": "text",
+          "value": "©"
+        },
+        "f20": {
+          "label": "Page · Robin Finnestad.",
+          "type": "text",
+          "value": "Robin Finnestad."
+        },
+        "f21": {
+          "label": "3D Printing · Link",
+          "type": "url",
+          "value": "/"
+        },
+        "f22": {
+          "label": "🔒 Safe payment · Link",
+          "type": "url",
+          "value": "https://www.finn.no/profile/ads?userId=899115574"
+        },
+        "f23": {
+          "label": "📬 Get in touch · Link",
+          "type": "url",
+          "value": "mailto:kontakt@robfin.no"
+        },
+        "f24": {
+          "label": "3D Printing · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f25": {
+          "label": "⚙️ How it works · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f26": {
+          "label": "🔒 Safe payment · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f27": {
+          "label": "🎨 What I can print · Show card",
+          "type": "boolean",
+          "value": true
+        },
+        "f28": {
+          "label": "📬 Get in touch · Show card",
+          "type": "boolean",
+          "value": true
+        }
+      },
+      "translations": {
+        "en": {
+          "back-btn": "← Back",
+          "page-title": "3D Printing",
+          "page-subtitle": "Send me any model, get a price estimate, and I'll print it for you. Simple, personal, and fully secured through Finn.no.",
+          "norway-only": "This service is available in Norway only",
+          "how-title": "⚙️ How it works",
+          "how-subtitle": "Four simple steps from idea to finished print.",
+          "step1-title": "Send me your model",
+          "step1-desc": "Share a file (STL, OBJ, 3MF) or a link to any model site. No model? Describe what you want and I'll find one.",
+          "step2-title": "Get a price estimate",
+          "step2-desc": "I'll calculate material, print time, and complexity and send you a clear quote with no hidden fees.",
+          "step3-title": "Pay securely via Finn.no",
+          "step3-desc": "All payments go through Fiks Ferdig on Finn.no. Buyer and seller protection for both of us. No cash, no risk.",
+          "step4-title": "Receive your print",
+          "step4-desc": "I print your model and ship it to you. You'll be notified when it's on its way.",
+          "payment-title": "🔒 Safe payment",
+          "payment-subtitle": "All transactions are handled through Finn.no's Fiks Ferdig service. Norway's trusted buyer & seller protection.",
+          "finn-profile-btn": "View my Finn.no profile",
+          "rating-label": "rating",
+          "what-title": "🎨 What I can print",
+          "what-subtitle": "Got a model in mind? I can most likely print it.",
+          "cat-gaming": "Gaming & collectibles",
+          "cat-gaming-desc": "Figurines, props, display stands, controller mounts.",
+          "cat-home": "Home & practical parts",
+          "cat-home-desc": "Hooks, brackets, cable management, replacement parts.",
+          "cat-gifts": "Custom gifts",
+          "cat-gifts-desc": "Personalised items, nameplates, keychains, decorations.",
+          "cat-mech": "Mechanical & functional",
+          "cat-mech-desc": "Gears, enclosures, jigs, tools, and prototypes.",
+          "cat-idea": "Your own idea",
+          "cat-idea-desc": "No model yet? Tell me what you want and I'll find or suggest something.",
+          "contact-title": "📬 Get in touch",
+          "contact-subtitle": "Send me your model file or a link, tell me what you want, and I'll come back with a quote.",
+          "email-label": "Email",
+          "discord-label": "Discord",
+          "norway-only-title": "Norway only",
+          "norway-only-desc": "Shipping and payment through Finn.no Fiks Ferdig are only available within Norway.",
+          "footer-print": "3D Printing in Norway."
+        },
+        "no": {
+          "back-btn": "← Tilbake",
+          "page-title": "3D-printing",
+          "page-subtitle": "Send meg en modell, få et prisestimat, og jeg printer den for deg. Enkelt, personlig og fullt sikret gjennom Finn.no.",
+          "norway-only": "Denne tjenesten er kun tilgjengelig i Norge",
+          "how-title": "⚙️ Slik fungerer det",
+          "how-subtitle": "Fire enkle steg fra idé til ferdig print.",
+          "step1-title": "Send meg modellen din",
+          "step1-desc": "Del en fil (STL, OBJ, 3MF) eller en lenke til en modellside. Ingen modell? Beskriv hva du vil ha, så finner jeg en.",
+          "step2-title": "Få et prisestimat",
+          "step2-desc": "Jeg beregner materiale, printtid og kompleksitet og sender deg et klart tilbud uten skjulte gebyrer.",
+          "step3-title": "Betal trygt via Finn.no",
+          "step3-desc": "Alle betalinger går gjennom Fiks Ferdig på Finn.no. Kjøper- og selgerbeskyttelse for begge parter. Ingen kontanter, ingen risiko.",
+          "step4-title": "Motta printen din",
+          "step4-desc": "Jeg printer modellen og sender den til deg. Du blir varslet når den er på vei.",
+          "payment-title": "🔒 Trygg betaling",
+          "payment-subtitle": "Alle transaksjoner håndteres gjennom Finn.nos Fiks Ferdig-tjeneste. Norges betrodde kjøper- og selgerbeskyttelse.",
+          "finn-profile-btn": "Se min Finn.no-profil",
+          "rating-label": "vurdering",
+          "what-title": "🎨 Hva jeg kan printe",
+          "what-subtitle": "Har du en modell i tankene? Jeg kan mest sannsynlig printe den.",
+          "cat-gaming": "Gaming & samleobjekter",
+          "cat-gaming-desc": "Figurer, rekvisitter, utstillingsstativ, kontrollerfester.",
+          "cat-home": "Hjem & praktiske deler",
+          "cat-home-desc": "Kroker, braketter, kabelhåndtering, reservedeler.",
+          "cat-gifts": "Egendefinerte gaver",
+          "cat-gifts-desc": "Personlige gjenstander, navneskilt, nøkkelringer, dekorasjoner.",
+          "cat-mech": "Mekanisk & funksjonelt",
+          "cat-mech-desc": "Tannhjul, kabinetter, jigs, verktøy og prototyper.",
+          "cat-idea": "Din egen idé",
+          "cat-idea-desc": "Ingen modell ennå? Fortell meg hva du vil ha, så finner eller foreslår jeg noe.",
+          "contact-title": "📬 Ta kontakt",
+          "contact-subtitle": "Send meg modellfilen eller en lenke, fortell meg hva du vil ha, og jeg kommer tilbake med et tilbud.",
+          "email-label": "E-post",
+          "discord-label": "Discord",
+          "norway-only-title": "Kun Norge",
+          "norway-only-desc": "Frakt og betaling via Finn.no Fiks Ferdig er kun tilgjengelig i Norge.",
+          "footer-print": "3D-printing i Norge."
+        },
+        "sv": {
+          "back-btn": "← Tillbaka",
+          "page-title": "3D-printing",
+          "page-subtitle": "Skicka mig en modell, få en prisuppskattning och jag skriver ut den åt dig. Enkelt, personligt och helt säkrat via Finn.no.",
+          "norway-only": "Denna tjänst är endast tillgänglig i Norge",
+          "how-title": "⚙️ Hur det fungerar",
+          "how-subtitle": "Fyra enkla steg från idé till färdig utskrift.",
+          "step1-title": "Skicka mig din modell",
+          "step1-desc": "Dela en fil (STL, OBJ, 3MF) eller en länk till en modellsida. Ingen modell? Beskriv vad du vill ha så hittar jag en.",
+          "step2-title": "Få en prisuppskattning",
+          "step2-desc": "Jag beräknar material, utskriftstid och komplexitet och skickar dig en tydlig offert utan dolda avgifter.",
+          "step3-title": "Betala säkert via Finn.no",
+          "step3-desc": "Alla betalningar går via Fiks Ferdig på Finn.no. Köpar- och säljarskydd för oss båda. Inga kontanter, ingen risk.",
+          "step4-title": "Ta emot din utskrift",
+          "step4-desc": "Jag skriver ut din modell och skickar den till dig. Du meddelas när den är på väg.",
+          "payment-title": "🔒 Säker betalning",
+          "payment-subtitle": "Alla transaktioner hanteras via Finn.nos Fiks Ferdig-tjänst. Norges betrodda köpar- och säljarskydd.",
+          "finn-profile-btn": "Se min Finn.no-profil",
+          "rating-label": "betyg",
+          "what-title": "🎨 Vad jag kan skriva ut",
+          "what-subtitle": "Har du en modell i åtanke? Jag kan troligtvis skriva ut den.",
+          "cat-gaming": "Gaming & samlarföremål",
+          "cat-gaming-desc": "Figurer, rekvisita, displayställ, kontrollerfästen.",
+          "cat-home": "Hem & praktiska delar",
+          "cat-home-desc": "Krokar, fästen, kabelhantering, reservdelar.",
+          "cat-gifts": "Anpassade presenter",
+          "cat-gifts-desc": "Personliga föremål, namnplattor, nyckelringar, dekorationer.",
+          "cat-mech": "Mekanisk & funktionell",
+          "cat-mech-desc": "Kugghjul, höljen, jiggar, verktyg och prototyper.",
+          "cat-idea": "Din egen idé",
+          "cat-idea-desc": "Ingen modell ännu? Berätta vad du vill ha så hittar eller föreslår jag något.",
+          "contact-title": "📬 Kom i kontakt",
+          "contact-subtitle": "Skicka mig din modellfil eller en länk, berätta vad du vill ha, och jag återkommer med en offert.",
+          "email-label": "E-post",
+          "discord-label": "Discord",
+          "norway-only-title": "Endast Norge",
+          "norway-only-desc": "Frakt och betalning via Finn.no Fiks Ferdig är endast tillgängliga i Norge.",
+          "footer-print": "3D-printing i Norge."
+        }
+      },
+      "positions": null,
+      "tiers": null,
+      "cards": []
+    }
+  }
+}

@@ -9,7 +9,7 @@ const BOT_TOKEN = process.env.DISCORD_TOKEN;
 const USER_ID = process.env.DISCORD_USER_ID;
 
 
-const PORT = 3000;
+const PORT = Number(process.env.PORT || 3000);
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -151,10 +151,15 @@ client.on('userUpdate', (oldUser, newUser) => {
   }
 });
 
-client.login(BOT_TOKEN);
+if (BOT_TOKEN) {
+  client.login(BOT_TOKEN).catch(err => console.error('Discord login failed:', err.message));
+} else {
+  console.warn('DISCORD_TOKEN is not configured; the website remains available without live status.');
+}
 
 // 8) Serve `public/` as static files
-app.use(express.static('public'));
+require('./cms/public-middleware')(app, express);
+app.use(express.static(require('node:path').join(__dirname, 'public')));
 
 io.on('connection', (socket) => {
   // Send the latest “snapshot” immediately when a browser connects

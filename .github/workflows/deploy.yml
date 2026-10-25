@@ -1,50 +1,44 @@
 name: Deploy to www.robfin.no
-
 on:
   push:
-    branches:
-      - main
-
+    branches: [main]
+  workflow_dispatch:
+concurrency:
+  group: robfin-production
+  cancel-in-progress: false
+permissions:
+  contents: read
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
+      - name: Validate content editor
+        run: |
+          python3 discord-live-status/cms/test_backend.py
+          node --check discord-live-status/server.js
+          node --check discord-live-status/index.js
+          node --check discord-live-status/cms/admin/app.js
+          node --check discord-live-status/cms/public-middleware.js
       - name: Setup SSH agent
         uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
-
-      - name: Deploy discord-live-status
+      - name: Stage website code
         run: |
-          SERVER_USER="robfin"
-          SERVER_HOST="www.robfin.no"
-          TARGET_DIR="/home/robfin/Homepage/discord-live-status/public"
-          SRC_DIR="discord-live-status/public"
-
-          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" \
-            "$SRC_DIR/" \
-            "$SERVER_USER@$SERVER_HOST:$TARGET_DIR/"
-
+          rsync -az --delete -e "ssh -o StrictHostKeyChecking=no" \
+            --exclude='node_modules/' --exclude='.env' --exclude='*.sqlite3*' --exclude='__pycache__/' \
+            discord-live-status/ robfin@www.robfin.no:/home/robfin/.local/share/robfin-deploy/
+      - name: Deploy website and editor without replacing content
+        run: |
+          ssh -o StrictHostKeyChecking=no robfin@www.robfin.no 'bash -s' <<'REMOTE'
+          bash /home/robfin/.local/share/robfin-deploy/cms/install.sh
+          REMOTE
       - name: Deploy CaseBoard
         run: |
-          SERVER_USER="robfin"
-          SERVER_HOST="www.robfin.no"
-          TARGET_DIR="/home/robfin/Homepage/caseboard"
-
-          # Sync CaseBoard code while protecting node_modules and caseboard.db
           rsync -avz -e "ssh -o StrictHostKeyChecking=no" \
-            --exclude='node_modules' \
-            --exclude='caseboard.db' \
-            caseboard/ \
-            "$SERVER_USER@$SERVER_HOST:$TARGET_DIR/"
+            --exclude='node_modules' --exclude='caseboard.db' \
+            caseboard/ robfin@www.robfin.no:/home/robfin/Homepage/caseboard/
+          ssh -o StrictHostKeyChecking=no robfin@www.robfin.no \
+            'cd /home/robfin/Homepage/caseboard && npm install --omit=dev && pm2 restart caseboard'
 
-          # Install any new dependencies and restart PM2
-          ssh -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_HOST" "
-            cd $TARGET_DIR && \
-            npm install --omit=dev && \
-            pm2 restart caseboard
-          "

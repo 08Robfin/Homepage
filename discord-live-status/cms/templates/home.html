@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Robin Finnestad | Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta name="trustpilot-one-time-domain-verification-id" content="933b3c12-41eb-4877-a55c-e43a75e99fc6">
+
+  <style>
+    /*
+     * overflow-x: clip — clips without creating a scroll container.
+     * overflow-x: hidden creates a scroll container on html, which breaks body
+     * background propagation and position:fixed behaviour in Safari.
+     * background-color fills the scrollbar gutter on desktop (where overlay
+     * scrollbars aren't used) so there is no black strip on the side.
+     */
+    html {
+      overflow-x: clip;
+      background-color: #000;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 1rem;
+      padding-top: max(1rem, env(safe-area-inset-top));
+      padding-bottom: max(1rem, env(safe-area-inset-bottom));
+      padding-left: max(1rem, env(safe-area-inset-left));
+      padding-right: max(1rem, env(safe-area-inset-right));
+      -webkit-overflow-scrolling: touch;
+      color: #fff;
+      /*
+       * NO position/z-index on body — critical for correct layer ordering.
+       * Adding position+z-index creates a stacking context; body::before/after
+       * with z-index:-1 would then be scoped to that context and paint BEHIND
+       * body's own background, making them invisible.
+       * Without a body stacking context, ::before/::after live in html's stacking
+       * context: painted after html's background but below all positive z-index content.
+       */
+      background: transparent;
+    }
+
+    /*
+     * Background photo.
+     * Negative safe-area-inset offsets extend the layer behind the Dynamic Island
+     * and URL bar on iOS Safari (viewport-fit=cover makes top:0 the visual viewport
+     * top, i.e. below the URL bar; subtracting the inset reaches behind it).
+     * On desktop the insets are 0 so behaviour is unchanged.
+     * z-index:-1 inside html's stacking context = above html background (#000),
+     * below all body content.
+     */
+    body::before {
+      content: "";
+      position: fixed;
+      top:    calc(-1 * env(safe-area-inset-top,    0px));
+      left:   calc(-1 * env(safe-area-inset-left,   0px));
+      right:  calc(-1 * env(safe-area-inset-right,  0px));
+      bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+      background: url('background.jpg') no-repeat center center / cover;
+      z-index: -1; pointer-events: none;
+    }
+
+    /* Light scrim — same coverage as the background layer */
+    body::after {
+      content: "";
+      position: fixed;
+      top:    calc(-1 * env(safe-area-inset-top,    0px));
+      left:   calc(-1 * env(safe-area-inset-left,   0px));
+      right:  calc(-1 * env(safe-area-inset-right,  0px));
+      bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+      background: rgba(0,0,0,0.18);
+      z-index: -1; pointer-events: none;
+    }
+
+    /* ---- Entrance animation ---- */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    #profile-section { animation: fadeInUp 0.45s ease both; }
+    .masonry-item:nth-child(1) { animation: fadeInUp 0.45s ease both; animation-delay: 0.08s; }
+    .masonry-item:nth-child(2) { animation: fadeInUp 0.45s ease both; animation-delay: 0.14s; }
+    .masonry-item:nth-child(3) { animation: fadeInUp 0.45s ease both; animation-delay: 0.20s; }
+    .masonry-item:nth-child(4) { animation: fadeInUp 0.45s ease both; animation-delay: 0.26s; }
+    .masonry-item:nth-child(5) { animation: fadeInUp 0.45s ease both; animation-delay: 0.32s; }
+    .masonry-item:nth-child(6) { animation: fadeInUp 0.45s ease both; animation-delay: 0.38s; }
+    .masonry-item:nth-child(7) { animation: fadeInUp 0.45s ease both; animation-delay: 0.44s; }
+
+    /* ==== LIQUID GLASS ==================================================== */
+    .glass-card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(14px) saturate(150%);
+      -webkit-backdrop-filter: blur(14px) saturate(150%);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-top: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative; z-index: 1;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    @media (hover: hover) {
+      .glass-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 28px rgba(0,0,0,0.24), inset 0 1px 0 rgba(255,255,255,0.3);
+      }
+    }
+    .glass-card * { color: #f0f0f0 !important; text-shadow: 0 1px 2px rgba(0,0,0,0.15); }
+
+    /* ---- Avatar ---- */
+    .avatar-bubble-container {
+      position: relative;
+      display: inline-block;
+    }
+    .avatar-ring {
+      padding: 0; border-radius: 50%; display: inline-block;
+      position: relative;
+    }
+    .avatar-ring img {
+      display: block; border-radius: 50%;
+      border: none;
+      width: 112px; height: 112px; object-fit: cover;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    /* ---- Discord thinking bubble ---- */
+    .discord-thinking-bubble {
+      display: none; /* hidden until JS shows it */
+      position: absolute;
+      top: -8px; left: 122px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+      backdrop-filter: blur(14px) saturate(150%);
+      -webkit-backdrop-filter: blur(14px) saturate(150%);
+      border-top: 1px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 0.45rem 0.85rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.35);
+      font-size: 0.92rem;
+      font-weight: 500;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 0.35rem;
+      width: max-content;
+      max-width: 240px;
+      z-index: 10;
+      /* White text + shadow so it reads over the light glass */
+      color: #fff !important;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.55) !important;
+      text-align: left;
+    }
+    .discord-thinking-bubble * {
+      color: #fff !important;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.55) !important;
+    }
+    /* Thought-bubble dot tail — fixed to avatar ring, not bubble height */
+    .bubble-dot {
+      display: none;
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    .bubble-dot-1 { width: 12px; height: 12px; top: 22px; left: 104px; }
+    .bubble-dot-2 { width: 8px;  height: 8px;  top: 28px; left: 91px; }
+    #discord-emoji-part { flex-shrink: 0; line-height: 1; display: inline-flex; align-items: center; }
+    #discord-emoji-part img {
+      width: 1.7em; height: 1.7em;
+      vertical-align: middle;
+      object-fit: contain;
+      /* Strip any inherited shadow/border that could draw a halo or circle around the emoji */
+      text-shadow: none !important;
+      box-shadow: none !important;
+      filter: none !important;
+      border: none !important;
+      background: transparent !important;
+      border-radius: 0 !important;
+    }
+    #discord-text-part { white-space: normal; word-break: break-word; min-width: 0; }
+
+    /* ---- Status label (mobile only) ---- */
+    .bubble-label {
+      display: none;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.45;
+      margin: 0;
+    }
+
+    /* ---- Bubble drops below avatar on narrow screens ---- */
+    @media (max-width: 900px) {
+      .avatar-bubble-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      .bubble-label {
+        display: block;
+      }
+      .discord-thinking-bubble {
+        position: static;
+        transform: none;
+        width: max-content;
+        max-width: calc(100vw - 6rem);
+        justify-content: center;
+        text-align: center;
+        padding: 0.35rem 1rem;
+      }
+      .discord-thinking-bubble::before { display: none; }
+      .bubble-dot { display: none !important; }
+    }
+
+    /* ---- Status dot ---- */
+    @keyframes onlinePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.65; transform: scale(1.15); }
+    }
+    .status-indicator {
+      position: absolute; bottom: 6px; right: 6px;
+      width: 20px; height: 20px; border-radius: 50%;
+      /* box-shadow ring mimics the card's glass background as a separator — avoids hard white border */
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.85), 0 2px 6px rgba(0,0,0,0.35);
+      background-color: #747f8d;
+    }
+    .status-online  { background-color: #3ba55d; animation: onlinePulse 2.2s ease-in-out infinite; }
+    .status-idle    { background-color: #faa61a; }
+    .status-dnd     { background-color: #ed4245; }
+    .status-offline { background-color: #747f8d; }
+
+    /* ---- Skills bars ---- */
+    .skills-list .skill-item {
+      background: none; border: none; box-shadow: none;
+      padding: 0.6rem 0.25rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .skill-name { flex-grow: 1; margin-right: 1rem; font-size: 0.95em; }
+    .progress-bar-wrapper {
+      flex: 0 0 150px; width: 150px; min-width: 50px;
+      height: 7px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 999px; overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.5));
+      border-radius: 999px; width: 0%;
+      transition: width 0.9s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+    @media (max-width: 640px) {
+      .skills-list .skill-item { flex-direction: column; align-items: flex-start; }
+      .progress-bar-wrapper { width: 100%; min-width: 0; flex: 0 0 auto; margin-top: 0.5rem; }
+    }
+
+    /* ---- Badges ---- */
+    .badge-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+      backdrop-filter: blur(10px) saturate(140%);
+      -webkit-backdrop-filter: blur(10px) saturate(140%);
+      border-top: 1px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.83rem; font-weight: 500;
+      cursor: default;
+      white-space: nowrap; position: relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3);
+      transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+    }
+    @media (hover: hover) {
+      .badge:hover {
+        background: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.15) 100%);
+        transform: scale(1.06);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4);
+      }
+    }
+
+    /* ---- Tooltip ---- */
+    .badge .tooltip {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%; transform: translateX(-50%);
+      background: rgba(20, 20, 28, 0.82);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-top: 1px solid rgba(255,255,255,0.28);
+      border-radius: 16px;
+      padding: 0.65rem 0.95rem;
+      font-size: 0.78rem; font-weight: 400; line-height: 1.5;
+      color: #f5f5f7 !important;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3) !important;
+      width: 210px; white-space: normal; text-align: center;
+      z-index: 100; pointer-events: none;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+    @media (hover: hover) { .badge:hover .tooltip { display: block; } }
+
+    /* ---- Link / duration buttons ---- */
+    .link-btn {
+      display: inline-block;
+      font-size: 0.8rem; font-weight: 600;
+      padding: 0.35rem 1rem; border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      color: #fff !important;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3);
+      transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+    }
+    @media (hover: hover) {
+      .link-btn:hover {
+        background: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.15) 100%);
+        transform: scale(1.04);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4);
+      }
+    }
+
+    /* ---- Referral links card — not a clickable surface ---- */
+    #referrals-section { cursor: default; }
+    @media (hover: hover) {
+      #referrals-section:hover {
+        transform: none !important;
+        box-shadow:
+          0 4px 16px rgba(0,0,0,0.15),
+          0 1px 3px  rgba(0,0,0,0.08),
+          inset 0 1px 0 rgba(255,255,255,0.3) !important;
+      }
+    }
+
+    /* ---- Scrollbar ---- */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+
+    /* ---- Wrapper width ---- */
+    .content-wrapper { width: 100%; max-width: 600px; position: relative; z-index: 1; }
+    @media (min-width: 768px)  { .content-wrapper { max-width: 860px; } }
+    @media (min-width: 1024px) { .content-wrapper { max-width: 1300px; } }
+
+    /* ---- Section grids ---- */
+    .section-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      opacity: 0.45; margin: 0.25rem 0 0.75rem 0.25rem;
+    }
+    .two-grid {
+      display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-bottom: 1.5rem; align-items: start;
+    }
+    @media (min-width: 640px) { .two-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .three-grid {
+      display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-bottom: 1.5rem; align-items: start;
+    }
+    @media (min-width: 640px)  { .three-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .three-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .about-grid {
+      column-count: 1; column-gap: 1.25rem; margin-bottom: 1.5rem;
+    }
+    @media (min-width: 768px)  { .about-grid { column-count: 2; } }
+    @media (min-width: 1024px) { .about-grid { column-count: 3; } }
+    .about-grid > .glass-card {
+      break-inside: avoid; -webkit-column-break-inside: avoid;
+      page-break-inside: avoid; display: inline-block;
+      width: 100%; margin-bottom: 1.25rem;
+    }
+
+    /* ---- Language switcher ---- */
+    /* Mobile: sits inside the profile card, top-right corner */
+    #lang-switcher {
+      position: absolute;
+      top: 0.85rem;
+      right: 0.85rem;
+      z-index: 10;
+    }
+    @media (min-width: 768px) {
+      /* Desktop: fixed top-right of the viewport */
+      #lang-switcher {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 200;
+      }
+    }
+    #lang-switcher-inner {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.15rem;
+      padding: 0.3rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+      backdrop-filter: blur(14px) saturate(150%);
+      -webkit-backdrop-filter: blur(14px) saturate(150%);
+      border-top: 1px solid rgba(255,255,255,0.5);
+      border-left: 1px solid rgba(255,255,255,0.3);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.35);
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      color: rgba(255,255,255,0.5);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.2s, background 0.2s;
+      line-height: 1;
+    }
+    .lang-btn:hover { color: rgba(255,255,255,0.9); }
+    .lang-btn.active-lang {
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.12) 100%);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.4);
+      color: #ffffff;
+    }
+    @media (max-width: 480px) {
+      #lang-switcher { top: 0.6rem; right: 0.6rem; }
+      .lang-btn { font-size: 0.62rem; padding: 0.25rem 0.55rem; }
+    }
+  </style>
+<style>[data-cms-show="false"]{display:none!important}</style></head>
+<body>
+
+  <div class="content-wrapper p-4 md:p-6">
+
+    <!-- Profile -->
+    <div id="profile-section" class="glass-card p-6 md:p-8 text-center mb-5" data-cms-show="@@FIELD_f33@@">
+
+      <!-- Language switcher — inside card on mobile, fixed top-right on desktop -->
+      <div id="lang-switcher">
+        <div id="lang-switcher-inner">
+          <button onclick="setLang('no')" id="btn-no" class="lang-btn" title="Norsk">NO</button>
+          <button onclick="setLang('en')" id="btn-en" class="lang-btn active-lang" title="English">EN</button>
+          <button onclick="setLang('sv')" id="btn-sv" class="lang-btn" title="Svenska">SV</button>
+        </div>
+      </div>
+      <div class="w-full flex justify-center mb-4">
+        <div class="avatar-bubble-container">
+          <div class="avatar-ring">
+            <img src="@@FIELD_f13@@" alt="Robfin">
+            <span id="discord-status-indicator" class="status-indicator status-offline"></span>
+          </div>
+          <span class="bubble-dot bubble-dot-1"></span>
+          <span class="bubble-dot bubble-dot-2"></span>
+          <p id="bubble-label" class="bubble-label">@@FIELD_f1@@</p>
+          <div class="discord-thinking-bubble">
+            <span id="discord-emoji-part"></span>
+            <span id="discord-text-part"></span>
+          </div>
+        </div>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold mb-1">@@FIELD_f2@@</h1>
+      <p class="text-base opacity-80 mb-3" data-i18n="subtitle">IT Apprentice &amp; Political Activist</p>
+    </div>
+
+    <!-- SERVICES -->
+    <p class="section-label" data-i18n="section-services">Services</p>
+    <div class="two-grid">
+
+      <div class="glass-card p-6 md:p-8" data-cms-show="@@FIELD_f34@@">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center" data-i18n="srv-title">🖥️ Server Hosting</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="srv-subtitle">Affordable game server hosting, self-managed on private infrastructure.</p>
+        <ul class="space-y-3 mb-5">
+          <li class="flex items-center gap-2 text-sm opacity-80"><span>@@FIELD_f3@@</span><span data-i18n="srv-li1">Low-latency servers hosted in Norway</span></li>
+          <li class="flex items-center gap-2 text-sm opacity-80"><span>@@FIELD_f4@@</span><span data-i18n="srv-li2">Minecraft &amp; more — from 24.99 kr/month</span></li>
+          <li class="flex items-center gap-2 text-sm opacity-80"><span>@@FIELD_f5@@</span><span data-i18n="srv-li3">Full panel access via PufferPanel</span></li>
+        </ul>
+        <div class="flex justify-center">
+          <a href="@@FIELD_f14@@" class="link-btn text-sm" data-i18n="srv-btn">View hosting →</a>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 md:p-8" data-cms-show="@@FIELD_f35@@">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center" data-i18n="print-title">🖨️ 3D Printing</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="print-subtitle">Custom 3D printed models, printed and shipped to your door. Available in Norway only.</p>
+        <ul class="space-y-3 mb-5">
+          <li class="flex items-center gap-2 text-sm opacity-80"><span>@@FIELD_f6@@</span><span data-i18n="print-li1">Send me any model and get a price estimate</span></li>
+          <li class="flex items-center gap-2 text-sm opacity-80"><span>@@FIELD_f7@@</span><span data-i18n="print-li2">Secure payment through Finn.no Fiks Ferdig</span></li>
+          <li class="flex items-center gap-2 text-sm opacity-80"><span>@@FIELD_f8@@</span><span data-i18n="print-li3">10/10 rating on Finn.no</span></li>
+        </ul>
+        <div class="flex justify-center">
+          <a href="@@FIELD_f15@@" class="link-btn text-sm" data-i18n="print-btn">View service →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ABOUT ME -->
+    <p class="section-label" data-i18n="section-about">About me</p>
+    <div class="about-grid">
+
+      <div id="certifications-section" class="glass-card p-6 md:p-8" data-cms-show="@@FIELD_f36@@">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="certs-title">Certifications</h2>
+        <ul class="space-y-4" id="certs-list">
+          <li class="flex items-start gap-4 pb-1">
+            <div class="flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);box-shadow:inset 0 1px 0 rgba(255,255,255,0.25);">
+              <img src="@@FIELD_f16@@" alt="Google" width="30" height="30" style="object-fit:contain;">
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-base leading-snug">@@FIELD_f9@@</p>
+              <p class="text-sm opacity-60 mt-0.5">@@FIELD_f10@@</p>
+              <div class="flex items-center gap-2 mt-2 flex-wrap">
+                <span class="text-xs opacity-55" style="display:inline-flex;align-items:center;gap:0.3rem;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.7;flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <span data-i18n="cert-google-date">Nov 24, 2025</span>
+                </span>
+                <a href="@@FIELD_f17@@" target="_blank" rel="noopener noreferrer" class="link-btn" style="font-size:0.75rem;padding:0.25rem 0.75rem;" data-i18n="cert-verify-btn">Verify →</a>
+              </div>
+            </div>
+          </li>
+        @@EXTRA_CERTIFICATES@@</ul>
+      </div>
+
+      <div id="positions-section" class="glass-card p-6 md:p-8" data-cms-show="@@FIELD_f37@@">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="experience-title">Experience</h2>
+        <ul id="positions-list" class="space-y-4"></ul>
+      </div>
+
+      <div id="skills-section" class="glass-card p-6 md:p-8" data-cms-show="@@FIELD_f38@@">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="skills-title">Core Skills</h2>
+        <ul id="current-skills-list" class="skills-list space-y-1">
+          <li class="skill-item" data-progress="@@FIELD_f23@@">
+            <span class="skill-name" data-i18n="skill-leadership">📣 Leadership &amp; Advocacy</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="@@FIELD_f24@@">
+            <span class="skill-name" data-i18n="skill-polsci">🌍 Political Organizing</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="@@FIELD_f25@@">
+            <span class="skill-name" data-i18n="skill-sysadmin">🖥️ Homelab &amp; Infrastructure</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="@@FIELD_f26@@">
+            <span class="skill-name" data-i18n="skill-networking">🌐 System Admin &amp; Networking</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="@@FIELD_f27@@">
+            <span class="skill-name" data-i18n="skill-cicd">⚙️ CI/CD &amp; Automation</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="@@FIELD_f28@@">
+            <span class="skill-name" data-i18n="skill-webdev">💻 Web Development</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="@@FIELD_f29@@">
+            <span class="skill-name" data-i18n="skill-python">🐍 Python &amp; API Integration</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+        </ul>
+      </div>
+
+      <div id="ideology-section" class="glass-card p-6 md:p-8" data-cms-show="@@FIELD_f39@@">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-1 text-center" data-i18n="values-title">Values</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="values-subtitle">Core political alignment</p>
+        <div class="badge-grid">
+          <span class="badge"><span data-i18n="val-dem-socialism">✊ Democratic Socialism</span><span class="tooltip" data-i18n="val-dem-socialism-tt">People's needs over profit. I believe the economy must serve everyone, not just the wealthy few.</span></span>
+          <span class="badge"><span data-i18n="val-climate">🌍 Climate Justice</span><span class="tooltip" data-i18n="val-climate-tt">The climate crisis hits the poorest hardest. I push for a fast, fair green transition that doesn't leave workers behind.</span></span>
+          <span class="badge"><span data-i18n="val-feminism">♀️ Feminism</span><span class="tooltip" data-i18n="val-feminism-tt">Equal pay, free abortion, safety from violence. I fight for full gender equality in law and in practice.</span></span>
+          <span class="badge"><span data-i18n="val-social-dem">🌹 Social Democracy</span><span class="tooltip" data-i18n="val-social-dem-tt">Strong welfare, free education and healthcare for all. I support broad social-democratic reforms as a step toward deeper change.</span></span>
+        </div>
+      </div>
+
+      <div id="beliefs-section" class="glass-card p-6 md:p-8" data-cms-show="@@FIELD_f40@@">
+        <h2 class="text-2xl md:text-3xl font-semibold text-center" data-i18n="issues-title">Key Issues</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="issues-subtitle">Policy priorities</p>
+        <div class="badge-grid">
+          <span class="badge"><span data-i18n="issue-health">🧑‍⚕️ Universal Healthcare</span><span class="tooltip" data-i18n="issue-health-tt">I want all healthcare fully public and free at point of use — no private queue-jumping.</span></span>
+          <span class="badge"><span data-i18n="issue-repro">👩‍⚖️ Reproductive Rights</span><span class="tooltip" data-i18n="issue-repro-tt">I defend and want to expand the right to abortion, free from shame and barriers.</span></span>
+          <span class="badge"><span data-i18n="issue-edu">📚 Public Education</span><span class="tooltip" data-i18n="issue-edu-tt">Free schools and universities for everyone. I oppose private schools that increase inequality.</span></span>
+          <span class="badge"><span data-i18n="issue-lgbtq">🏳️‍🌈 LGBTQ+ Rights</span><span class="tooltip" data-i18n="issue-lgbtq-tt">Full legal and social equality for all, regardless of gender identity or sexual orientation.</span></span>
+          <span class="badge"><span data-i18n="issue-public-sector">🏦 Public Sector Strengthening</span><span class="tooltip" data-i18n="issue-public-sector-tt">I fight privatisation of welfare — care, schools and transport should serve people, not profit.</span></span>
+          <span class="badge"><span data-i18n="issue-green">🌱 Green Transition</span><span class="tooltip" data-i18n="issue-green-tt">Rapid shift away from fossil fuels with a just transition that protects jobs and communities.</span></span>
+          <span class="badge"><span data-i18n="issue-econ">⚖️ Economic Justice</span><span class="tooltip" data-i18n="issue-econ-tt">Tax the wealthy, raise minimum wages, reduce the gap between rich and poor.</span></span>
+          <span class="badge"><span data-i18n="issue-digital">🔒 Digital Rights &amp; Privacy</span><span class="tooltip" data-i18n="issue-digital-tt">I oppose mass surveillance and fight for strong data privacy and open digital infrastructure.</span></span>
+        </div>
+      </div>
+
+      <div id="languages-section" class="glass-card p-6 md:p-8" data-cms-show="@@FIELD_f41@@">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-center" data-i18n="languages-title">Languages</h2>
+        <ul class="skills-list space-y-1">
+          <li class="skill-item" data-progress="@@FIELD_f30@@">
+            <span class="skill-name" data-i18n="lang-no">🇳🇴 Norwegian (Native)</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="@@FIELD_f31@@">
+            <span class="skill-name" data-i18n="lang-en">🇬🇧 English (Fluent)</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+          <li class="skill-item" data-progress="@@FIELD_f32@@">
+            <span class="skill-name" data-i18n="lang-sv">🇸🇪 Swedish (Proficient)</span>
+            <div class="progress-bar-wrapper"><div class="progress-bar-fill"></div></div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- LINKS -->
+    <p class="section-label" data-i18n="section-links">Links</p>
+    <div class="three-grid">
+
+      <div class="glass-card p-6 md:p-8" data-cms-show="@@FIELD_f42@@">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center" data-i18n="setup-title">🖥️ PC Setup</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="setup-desc">My current specs and upgrade plans.</p>
+        <div class="flex justify-center">
+          <a href="@@FIELD_f18@@" class="link-btn text-sm" data-i18n="view-btn">View →</a>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 md:p-8" data-cms-show="@@FIELD_f43@@">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center" data-i18n="twitch-title">🎮 Twitch</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="twitch-desc">Live streaming.</p>
+        <div class="flex justify-center">
+          <a href="@@FIELD_f19@@" target="_blank" rel="noopener noreferrer" class="link-btn text-sm" data-i18n="watch-btn">Watch →</a>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 md:p-8" data-cms-show="@@FIELD_f44@@">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center" data-i18n="github-title">🔗 GitHub</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="github-desc">Code repositories &amp; projects.</p>
+        <div class="flex justify-center">
+          <a href="@@FIELD_f20@@" target="_blank" rel="noopener noreferrer" class="link-btn text-sm" data-i18n="view-btn">View →</a>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 md:p-8" data-cms-show="@@FIELD_f45@@">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center" data-i18n="discord-title">💬 Discord</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="discord-desc">Join the server.</p>
+        <div class="flex justify-center">
+          <a href="@@FIELD_f21@@" target="_blank" rel="noopener noreferrer" class="link-btn text-sm" data-i18n="join-btn">Join →</a>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 md:p-8" data-cms-show="@@FIELD_f46@@">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2 text-center" data-i18n="honeygain-title">🐝 Honeygain</h2>
+        <p class="text-sm opacity-65 text-center mb-5" data-i18n="honeygain-desc">Passive income by sharing bandwidth. Includes $3 welcome gift.</p>
+        <div class="flex justify-center">
+          <a href="@@FIELD_f22@@" target="_blank" rel="noopener noreferrer" class="link-btn text-sm" data-i18n="join-btn">Join →</a>
+        </div>
+        <p class="text-xs opacity-40 text-center mt-3" data-i18n="referral-disclaimer">* Referral link</p>
+      </div>
+
+    </div>
+
+    <div id="cms-extra-cards" class="three-grid">@@EXTRA_CARDS@@</div><footer class="text-center mt-10 opacity-60 text-xs">
+      <p>@@FIELD_f11@@ <span id="currentYear"></span> @@FIELD_f12@@ <span data-i18n="footer-hosted">Self-hosted on private infrastructure.</span></p>
+    </footer>
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- Translations                                                         -->
+  <!-- ================================================================== -->
+  <script>
+    const translations = @@CMS_translations@@;
+
+    let currentLang = "en";
+
+    function setLang(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+
+      document.documentElement.lang = lang === "no" ? "nb" : lang;
+
+      ["no", "en", "sv"].forEach(l => {
+        document.getElementById("btn-" + l).classList.toggle("active-lang", l === lang);
+      });
+
+      // Re-render positions with new language
+      document.getElementById("positions-list").innerHTML = "";
+      renderPositions();
+
+      try { localStorage.setItem("lang", lang); } catch(e) {}
+    }
+
+    // Auto-detect language on first visit
+    (function detectLang() {
+      try {
+        const saved = localStorage.getItem("lang");
+        if (saved && translations[saved]) { currentLang = saved; return; }
+      } catch(e) {}
+      const browser = (navigator.language || "en").toLowerCase().slice(0, 2);
+      if (browser === "no" || browser === "nb" || browser === "nn") currentLang = "no";
+      else if (browser === "sv") currentLang = "sv";
+      else currentLang = "en";
+    })();
+  </script>
+
+  <script>
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+    function updateProgressBars() {
+      document.querySelectorAll(".skills-list .skill-item").forEach((item) => {
+        const pct = item.dataset.progress || "0";
+        const fill = item.querySelector(".progress-bar-fill");
+        if (fill) { setTimeout(() => { fill.style.width = pct + "%"; }, 150); }
+      });
+    }
+  </script>
+
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+    const socket = io();
+    socket.on("update", (data) => {
+      const statusDot = document.getElementById("discord-status-indicator");
+      statusDot.classList.remove("status-online", "status-idle", "status-dnd", "status-offline");
+      switch (data.status) {
+        case "online": statusDot.classList.add("status-online"); break;
+        case "idle":   statusDot.classList.add("status-idle");   break;
+        case "dnd":    statusDot.classList.add("status-dnd");    break;
+        default:       statusDot.classList.add("status-offline"); break;
+      }
+
+      const emojiPart = document.getElementById("discord-emoji-part");
+      const textPart  = document.getElementById("discord-text-part");
+      const bubble    = document.querySelector(".discord-thinking-bubble");
+      const dots      = document.querySelectorAll(".bubble-dot");
+      const label     = document.getElementById("bubble-label");
+
+      const hasEmoji = data.customEmojiUrl || data.customEmojiText;
+      const hasText  = data.customStatusText && data.customStatusText.trim();
+
+      if (data.customEmojiUrl) {
+        emojiPart.innerHTML = `<img src="${data.customEmojiUrl}" />`;
+      } else {
+        emojiPart.textContent = data.customEmojiText || "";
+      }
+      textPart.textContent = data.customStatusText || "";
+
+      const show = !!(hasEmoji || hasText);
+      bubble.style.display = show ? "flex" : "none";
+      dots.forEach(d => d.style.display = show ? "block" : "none");
+      if (label) label.style.display = show ? "" : "none";
+    });
+  </script>
+
+  <script>
+    const positions = @@CMS_positions@@;
+
+    function calculateDuration(startDate, endDate) {
+      const t = translations[currentLang];
+      const start = new Date(startDate);
+      const end = endDate ? new Date(endDate) : new Date();
+      const diffMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+      const years = Math.floor(diffMonths / 12);
+      const months = diffMonths % 12;
+      if (years === 0 && months === 0) return t["just-started"];
+      if (years === 0) return `${months} mo`;
+      if (months === 0) return `${years} yr${years > 1 ? "s" : ""}`;
+      return `${years} yr${years > 1 ? "s" : ""} ${months} mo`;
+    }
+
+    function renderPositions() {
+      const t = translations[currentLang];
+      const locale = currentLang === "no" ? "nb-NO" : currentLang === "sv" ? "sv-SE" : "en-US";
+      const container = document.getElementById("positions-list");
+      positions.forEach(pos => {
+        const duration = calculateDuration(pos.start, pos.end);
+        const startStr = new Date(pos.start).toLocaleString(locale, { month: 'short', year: 'numeric' });
+        const endStr = pos.end
+          ? new Date(pos.end).toLocaleString(locale, { month: 'short', year: 'numeric' })
+          : t["present"];
+
+        const li = document.createElement("li");
+        li.className = "flex flex-col md:flex-row justify-between items-start md:items-center pb-2";
+        li.innerHTML = `
+          <div class="max-w-full md:max-w-[70%]">
+            <p class="font-semibold text-base leading-snug">${pos.title}</p>
+            <p class="text-sm opacity-65 mt-0.5">${startStr} – ${endStr}</p>
+          </div>
+          <span class="link-btn mt-2 md:mt-0 text-xs cursor-default">${duration}</span>
+        `;
+        container.appendChild(li);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      setLang(currentLang);
+      updateProgressBars();
+    });
+  </script>
+
+
+
+<script src="/cms-client.js"></script></body></html>
