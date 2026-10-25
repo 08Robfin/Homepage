@@ -102,4 +102,52 @@ class ContentTests(unittest.TestCase):
         handler.client_address=('10.0.0.109',12345)
         handler.check_access()
 
+    def test_07_structured_plans_links_and_games(self):
+        content=cms.validate(cms.SEED)
+        plans=content['pages']['setup']['upgrades']
+        self.assertEqual(len(plans),3)
+        self.assertEqual(len(plans[1]['links']),4)
+        plans.reverse()
+        plans[0]['title']['en']='First priority'
+        plans[0]['links']=[{'label':'Product '+str(i),'url':'https://example.com/'+str(i)} for i in range(6)]
+        output=cms.render(cms.validate(content),'setup')
+        self.assertEqual(output.count('class="step-row"'),3)
+        self.assertIn('https://example.com/5',output)
+        self.assertIn('>1</div>',output)
+        plans.pop()
+        self.assertEqual(cms.render(cms.validate(content),'setup').count('class="step-row"'),2)
+        content['pages']['Hosting']['games'].append({'name':{'en':'Valheim'},'description':{'en':'Co-op server'},'icon':'🎮','status':'available'})
+        output=cms.render(cms.validate(content),'Hosting')
+        self.assertIn('Valheim',output)
+        self.assertEqual(output.count('data-game-status='),3)
+        plans[0]['links'][0]['url']='javascript:alert(1)'
+        with self.assertRaises(ValueError):cms.validate(content)
+
+    def test_08_all_tiers_and_no_dead_editor_fields(self):
+        content=cms.validate(cms.SEED)
+        for lang in cms.LANGS:
+            for index,tier in enumerate(content['pages']['Hosting']['tiers'][lang]):
+                tier['price']=str(100+index)
+                tier['players']=str(20+index)+' players'
+        output=cms.render(cms.validate(content),'Hosting')
+        self.assertIn('"price": "106"',output)
+        self.assertIn('"players": "26 players"',output)
+        schema=cms.editor_schema(cms.ROOT,cms.SEED)
+        self.assertNotIn('f9',schema['Hosting']['fields'])
+        self.assertNotIn('f12',schema['Hosting']['fields'])
+        self.assertNotIn('emergency-desc',schema['setup']['translations'])
+
+    def test_09_migration_preserves_existing_edits(self):
+        content=copy.deepcopy(cms.SEED)
+        content['pages']['setup']['fields']['f11']['value']='My edited upgrade description'
+        content['pages']['setup']['fields']['f27']['value']='https://example.com/my-product'
+        content['pages']['setup']['translations']['en']['step2-name']='My edited upgrade'
+        migrated=cms.validate(content)
+        plan=migrated['pages']['setup']['upgrades'][0]
+        self.assertEqual(plan['description']['en'],'My edited upgrade description')
+        self.assertEqual(plan['title']['en'],'My edited upgrade')
+        self.assertEqual(plan['links'][0]['url'],'https://example.com/my-product')
+        migrated['pages']['setup']['upgrades']=[]
+        self.assertEqual(cms.validate(migrated)['pages']['setup']['upgrades'],[])
+
 if __name__=='__main__': unittest.main(verbosity=2)

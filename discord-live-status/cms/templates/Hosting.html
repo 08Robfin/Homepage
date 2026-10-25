@@ -254,20 +254,18 @@
         <p class="text-sm opacity-60 text-center mb-6" data-i18n="pricing-subtitle">24.99 kr per GB / month. Drag to explore.</p>
 
         <div class="mb-4">
-          <div class="flex justify-between text-xs opacity-55 mb-2 px-0.5">
-            <span>@@FIELD_f2@@</span><span>@@FIELD_f3@@</span><span>@@FIELD_f4@@</span><span>@@FIELD_f5@@</span><span>@@FIELD_f6@@</span><span>@@FIELD_f7@@</span><span>@@FIELD_f8@@</span>
-          </div>
+          <div class="flex justify-between text-xs opacity-55 mb-2 px-0.5">@@HOSTING_LABELS@@</div>
           <input type="range" class="ram-slider" id="ramSlider" min="0" max="6" step="1" value="0">
         </div>
 
         <div class="price-display mt-5">
           <div class="text-xs opacity-55 mb-1 uppercase tracking-widest" data-i18n="pricing-label">Estimated monthly price</div>
-          <div class="text-5xl font-bold mb-1" id="priceDisplay">@@FIELD_f9@@</div>
+          <div class="text-5xl font-bold mb-1" id="priceDisplay">@@HOSTING_PRICE@@</div>
           <div class="text-lg opacity-70 mb-3" data-i18n="pricing-unit">kr / month</div>
           <div class="flex justify-center gap-4 flex-wrap text-xs opacity-65">
-            <span id="ramDisplay">@@FIELD_f10@@</span>
+            <span id="ramDisplay">@@HOSTING_RAM@@</span>
             <span>@@FIELD_f11@@</span>
-            <span id="playersDisplay">@@FIELD_f12@@</span>
+            <span id="playersDisplay">@@HOSTING_PLAYERS@@</span>
           </div>
         </div>
 
@@ -279,25 +277,7 @@
         <h2 class="text-2xl font-semibold mb-1 text-center" data-i18n="games-title">🎮 Available Games</h2>
         <p class="text-sm opacity-60 text-center mb-6" data-i18n="games-subtitle">More titles being added regularly.</p>
 
-        <div class="space-y-3">
-          <div class="game-card">
-            <div class="text-3xl flex-shrink-0">@@FIELD_f13@@</div>
-            <div class="flex-1 min-w-0">
-              <p class="font-semibold text-base leading-snug">@@FIELD_f14@@</p>
-              <p class="text-xs opacity-60 mt-0.5" data-i18n="minecraft-desc">Java &amp; Bedrock · Vanilla, Spigot, Paper, Forge, Fabric</p>
-            </div>
-            <span class="text-xs font-semibold px-2 py-1 rounded-full flex-shrink-0" style="background:rgba(100,220,130,0.18);border:1px solid rgba(100,220,130,0.35);color:#7defa0 !important;" data-i18n="status-available">Available</span>
-          </div>
-
-          <div class="game-card" style="opacity:0.5;">
-            <div class="text-3xl flex-shrink-0">@@FIELD_f15@@</div>
-            <div class="flex-1 min-w-0">
-              <p class="font-semibold text-base leading-snug" data-i18n="more-games-title">More games</p>
-              <p class="text-xs opacity-60 mt-0.5" data-i18n="more-games-desc">Additional titles coming soon</p>
-            </div>
-            <span class="text-xs font-semibold px-2 py-1 rounded-full flex-shrink-0" style="background:rgba(255,200,80,0.15);border:1px solid rgba(255,200,80,0.3);color:#ffd97d !important;" data-i18n="status-soon">Soon</span>
-          </div>
-        </div>
+        <div class="space-y-3">@@HOSTING_GAMES@@</div>
 
         <div class="mt-5 pt-4" style="border-top:1px solid rgba(255,255,255,0.1);">
           <p class="text-xs opacity-50 text-center" data-i18n="games-note">Don't see your game? Reach out, if I can host it, we'll figure it out.</p>
@@ -444,4 +424,5 @@
   </script>
 
 
-<script src="/cms-client.js"></script></body></html>
+<script src="/cms-client.js"></script>
+</body></html>

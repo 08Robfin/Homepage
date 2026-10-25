@@ -19,6 +19,7 @@ jobs:
           node --check discord-live-status/server.js
           node --check discord-live-status/index.js
           node --check discord-live-status/cms/admin/app.js
+          node --check discord-live-status/cms/admin/sections-ui.js
           node --check discord-live-status/cms/public-middleware.js
       - name: Setup SSH agent
         uses: webfactory/ssh-agent@v0.7.0
@@ -41,4 +42,3 @@ jobs:
             caseboard/ robfin@www.robfin.no:/home/robfin/Homepage/caseboard/
           ssh -o StrictHostKeyChecking=no robfin@www.robfin.no \
             'cd /home/robfin/Homepage/caseboard && npm install --omit=dev && pm2 restart caseboard'
-

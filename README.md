@@ -10,14 +10,16 @@ Personal website with live Discord presence and a private, database-backed conte
 Open the editor from the home network or its Tailscale subnet route. There is no website password or account database: access is restricted to connections from **10.0.0.0/24**. Every permitted device on that subnet can edit. Use Tailscale ACLs and the LAN firewall to control who can reach the VM. Do not forward port 8765 to the internet or proxy it through the public website.
 
 1. Select Homepage, PC setup, Hosting, or 3D printing.
-2. **Page content** changes existing text, URLs, image URLs/uploads, progress levels, and card visibility. **Translations** edits English, Norsk, and Svenska side by side. Search finds matching fields.
+2. **Page content** puts headings, descriptions, and service text first, with optional translations alongside each entry. Contact details, certificate details, images, and links have descriptive labels. Icons and section visibility are under **Appearance & section visibility**. **All translations** shows translations actually used by the page. Search finds matching fields.
 3. **Experience** adds/removes/reorders roles and edits start/end dates and translated titles. Leave the end date empty for a current role.
-4. **Hosting plans** adds/removes/reorders pricing tiers, RAM, and player estimates in all three languages. This edits displayed offers, not actual subscriptions or provider billing.
+4. **Hosting tiers** is the default Hosting view. Every tier has its own RAM, monthly price, and player estimate. Prices/RAM update all languages together; numeric player counts get localized labels, with optional translated estimates. Add/remove/reorder tiers; the public slider and RAM labels follow the list. **Available games** adds/removes/reorders games, descriptions, icons, and availability. These edit displayed offers, not provider billing.
 5. **New cards** adds link cards, text cards, or homepage certificates. Upload PNG, JPEG, or WebP images up to 5 MB; set translated text and visibility, reorder, or remove entries. Certificates appear in Certifications; other new cards appear above the footer. Existing cards remain editable under Page content/Translations.
 6. **Save draft** stores edits privately. **Preview draft** saves unsaved edits and opens an isolated preview. **Publish changes** makes all four pages live together without a Git push, restart, or deployment.
 7. **Version history** restores a published version into the draft for review. Discard draft changes restores the current published content.
 
 Drafts are never served by the public website. Uploaded images are public assets once uploaded: do not upload confidential files. Preview uses live external assets and suppresses the live Discord connection. New card and experience translations fall back to English; existing translations are independent.
+
+**PC specs & page text** edits current components with clear field names. **Upgrade plans** is a priority-ordered list with any number of plans. Each has a title, description, optional estimated cost, and its own add/remove/reorder list of product links. Public step numbering follows the saved order. Existing upgrade/game entries migrate from their saved fields and translations, preserving current edits and URLs.
 
 The editor does not accept arbitrary HTML, JavaScript, CSS, SQL, commands, or server configuration. New layout types require code changes.
 
@@ -52,6 +54,7 @@ discord-live-status/
   public/                         # Public assets and fallback HTML
   cms/
     server.py                     # Private HTTP API, SQLite, validation, rendering
+    sections.py                   # Upgrade/game collections, migration, and editor schema
     admin/                        # Admin HTML/CSS/JS
     templates/                    # Authoritative layouts for managed pages
     seed/content.json             # Initial public content and editable-field schema
@@ -143,7 +146,7 @@ Enable the intents used by `index.js` in Discord's developer portal and keep the
 
 ## Validation
 
-`python3 cms/test_backend.py` covers complete rendering, draft isolation, publishing/restoring, restart persistence, stale revision conflicts, unsafe URLs, script escaping, invalid dates/uploads, missing request tokens, cross-origin writes, and invalid Host headers. The editor was exercised at desktop and phone sizes. After production changes, check all four public pages, language controls, hosting slider, Discord updates, private access, and the GitHub Actions run.
+`python3 cms/test_backend.py` covers rendering, draft isolation, publishing/restoring, restart persistence, stale revision conflicts, unsafe URLs, script escaping, invalid dates/uploads, request tokens/origins/Host/peer checks, upgrade/link/game collections, all-tier rendering, and migration of existing edits. Browser tests exercised adding/reordering upgrades with multiple links, every price/player field, new games, desktop/mobile layouts, and all 21 combinations of seven hosting tiers and three languages. After production changes, check all four public pages, language controls, hosting slider, Discord updates, private access, and GitHub Actions.
 
 ## License
 

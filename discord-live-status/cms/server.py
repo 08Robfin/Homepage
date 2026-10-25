@@ -15,6 +15,7 @@ import sqlite3
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlsplit
+from sections import migrate, validate_sections, render_sections, editor_schema
 
 ROOT = Path(__file__).resolve().parent
 DATA = Path(os.environ.get('CMS_DATA_DIR', str(Path.home() / '.local/share/robfin-cms'))).resolve()
@@ -59,10 +60,12 @@ def url(value):
 def validate(doc):
     if not isinstance(doc, dict) or set(doc.get('pages', {})) != set(SEED['pages']):
         raise ValueError('Invalid website content.')
+    doc = migrate(doc, SEED)
     clean = copy.deepcopy(SEED)
     for page_id, base in SEED['pages'].items():
         source = doc['pages'][page_id]
         target = clean['pages'][page_id]
+        validate_sections(source, target, text, url)
         for field_id, spec in base['fields'].items():
             value = source['fields'][field_id]['value']
             if spec['type'] == 'boolean':
@@ -108,7 +111,7 @@ def validate(doc):
     return clean
 
 def render(doc, page_id):
-    page = copy.deepcopy(doc['pages'][page_id])
+    page = migrate(doc, SEED)['pages'][page_id]
     template = (ROOT / 'templates' / (page_id + '.html')).read_text(encoding='utf-8')
     translations = page['translations']
     cards, certs = [], []
@@ -125,6 +128,7 @@ def render(doc, page_id):
         if card['type'] == 'certificate' and page_id == 'home': certs.append('<li class="pb-4">' + image + title + description + button + '</li>')
         else: cards.append('<div class="glass-card p-6 md:p-8 text-center">' + image + title + description + button + '</div>')
     values = { 'EXTRA_CARDS': ''.join(cards), 'EXTRA_CERTIFICATES': ''.join(certs) }
+    values.update(render_sections(page))
     for key, field in page['fields'].items():
         value = field['value']
         values['FIELD_' + key] = html.escape(str(value).lower() if type(value) is bool else str(value), quote=True)
@@ -223,7 +227,7 @@ class Handler(BaseHTTPRequestHandler):
                 with connect() as db:
                     draft, published, revision, updated = db.execute('SELECT draft,published,revision,updated FROM state WHERE id=1').fetchone()
                     history = [{'id': i, 'created': t} for i,t in db.execute('SELECT id,created FROM history ORDER BY id DESC LIMIT 30')]
-                return self.send(200, {'content': json.loads(draft), 'revision': revision, 'updated': updated, 'hasDraft': draft != published, 'token': TOKEN, 'history': history})
+                return self.send(200, {'content': json.loads(draft), 'editor':editor_schema(ROOT,SEED), 'revision': revision, 'updated': updated, 'hasDraft': draft != published, 'token': TOKEN, 'history': history})
             if route == '/api/export':
                 with connect() as db: data = db.execute('SELECT draft FROM state WHERE id=1').fetchone()[0]
                 return self.send(200, data, 'application/octet-stream', {'Content-Disposition': 'attachment; filename="robfin-content.json"'})
@@ -247,7 +251,7 @@ class Handler(BaseHTTPRequestHandler):
                 result = result.replace('<head>', '<head><base href="https://www.robfin.no/">', 1)
                 return self.send(200, result, 'text/html; charset=utf-8')
             if route == '/preview-socket.js': return self.send(200, 'function io(){return {on:function(){}}}', 'text/javascript')
-            files = {'/': ('index.html', 'text/html'), '/app.js': ('app.js','text/javascript'), '/style.css': ('style.css','text/css')}
+            files = {'/': ('index.html', 'text/html'), '/app.js': ('app.js','text/javascript'), '/sections-ui.js': ('sections-ui.js','text/javascript'), '/style.css': ('style.css','text/css')}
             if route in files:
                 name, kind = files[route]
                 return self.send(200, (ROOT / 'admin' / name).read_bytes(), kind + '; charset=utf-8')
